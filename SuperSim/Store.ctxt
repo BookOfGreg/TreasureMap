@@ -7,4 +7,6 @@ comment1.target=void\ main(java.lang.String[])
 comment1.text=\ \n\ Set\ the\ timing\ for\ the\ program\n
 comment2.params=
 comment2.target=void\ menuSystem()
-numComments=3
+comment3.params=
+comment3.target=void\ createCuatomer()
+numComments=4

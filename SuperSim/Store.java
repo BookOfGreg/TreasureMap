@@ -11,7 +11,7 @@ public class Store
     private int startTime;
     private int runTime;
     private ArrayList<Checkout> checkoutList;
-    private ArrayList<Customer> customerBrowsing;
+    private static ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     
     private int checkoutLimit;
@@ -34,13 +34,23 @@ public class Store
         ItemHandler.createItems();
         System.out.println("One");
         //Pause for 4 seconds
-        Thread.sleep(1000); //One second
+        Thread.currentThread().sleep(500); //One second
         //Print a message
         System.out.println("Pause for 1 second");
+        
     }
     public static void menuSystem()
     {
-        //
+        //How fast you wish to run
+        //Time period per tick  ticks per second
+        //how long do you want ro run it for
+        //option to watch simulation or go straight to stats
+    }
+    
+    public static void createCuatomer()
+    {
+        Customer myCustomer = new Customer();
+        customerBrowsing.add(myCustomer); 
     }
     
 }
