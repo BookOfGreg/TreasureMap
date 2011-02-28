@@ -11,7 +11,7 @@ public class Store
     private int startTime;
     private int runTime;
     private ArrayList<Checkout> checkoutList;
-    private static ArrayList<Customer> customerBrowsing;
+    private  ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     
     private int checkoutLimit;
@@ -28,7 +28,7 @@ public class Store
     /** 
      * Set the timing for the program
      */
-    public static void main(String [ ] args)throws InterruptedException
+    public  void main(String [ ] args)throws InterruptedException
     {
         menuSystem();
         ItemHandler.createItems();
@@ -39,7 +39,7 @@ public class Store
         System.out.println("Pause for 1 second");
         
     }
-    public static void menuSystem()
+    public  void menuSystem()
     {
         //How fast you wish to run
         //Time period per tick  ticks per second
@@ -47,7 +47,7 @@ public class Store
         //option to watch simulation or go straight to stats
     }
     
-    public static void createCuatomer()
+    public  void createCuatomer()
     {
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
