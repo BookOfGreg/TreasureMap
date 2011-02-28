@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 /**
  * Write a description of class Checkout here.
  * 
@@ -7,16 +7,18 @@
  */
 public class Checkout
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
+    private ArrayList<Customer> queue;
+    private final int SCANNING_SPEED = 2;
+    private ArrayList<String> itemReceipt;
+    private ArrayList<String> valueReceipt;
     /**
      * Constructor for objects of class Checkout
      */
     public Checkout()
     {
         // initialise instance variables
-        x = 0;
+      
+      
     }
 
     /**
@@ -25,9 +27,6 @@ public class Checkout
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    
+   
 }
