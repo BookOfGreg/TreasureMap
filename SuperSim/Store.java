@@ -1,20 +1,20 @@
 import java.util.ArrayList;
+
 /**
  * Write a description of class Store here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author AngryPirates 
+ * @version 0.1
  */
 public class Store
 {
-    // instance variables - replace the example below with your own
     private int startTime;
     private int runTime;
-    private ArrayList<Checkout> checkoutList;
-    private  ArrayList<Customer> customerBrowsing;
-    private ArrayList<Item> itemList;
-    
     private int checkoutLimit;
+    private ArrayList<Checkout> checkoutList;
+    private ArrayList<Customer> customerBrowsing;
+    private ArrayList<Item> itemList;
+
     /**
      * Constructor for objects of class Store
      */
@@ -24,22 +24,33 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
     }
-
+    
     /** 
      * Set the timing for the program
      */
-    public  void main(String [ ] args)throws InterruptedException
+    public void main(String [ ] args)throws InterruptedException
     {
+        //Initialization methods
         menuSystem();
         ItemHandler.createItems();
-        System.out.println("One");
-        //Pause for 4 seconds
-        Thread.currentThread().sleep(500); //One second
-        //Print a message
-        System.out.println("Pause for 1 second");
-        
+        //Main methods
+        /* PSEUDOCODE
+         *  for each tick
+         *      create customer (calculate likelyhood of each customer type)
+         *      for each customer out of time
+         *          pass to checkout
+         *      for each checkout
+         *          for each customer
+         *              scan items till no more items
+         *              if no more items, the customer leaves
+         *  draw all graphics
+         *  sleep till next tick
+         *  gather statistics
+         */
+        Thread.currentThread().sleep(500); //method to pause processing.
     }
-    public  void menuSystem()
+    
+    public void menuSystem()
     {
         //How fast you wish to run
         //Time period per tick  ticks per second
@@ -47,7 +58,7 @@ public class Store
         //option to watch simulation or go straight to stats
     }
     
-    public  void createCuatomer()
+    public void createCustomer()
     {
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 

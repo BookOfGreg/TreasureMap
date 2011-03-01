@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Store()
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Store\n
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Store\r\n
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
-comment1.text=\ \n\ Set\ the\ timing\ for\ the\ program\n
+comment1.text=\ \r\n\ Set\ the\ timing\ for\ the\ program\r\n
 comment2.params=
 comment2.target=void\ menuSystem()
 comment3.params=
-comment3.target=void\ createCuatomer()
+comment3.target=void\ createCustomer()
 numComments=4
