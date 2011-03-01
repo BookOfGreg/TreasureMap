@@ -37,15 +37,27 @@ public class Store
         /* PSEUDOCODE
          *  for each tick
          *      create customer (calculate likelyhood of each customer type)
-         *      for each customer out of time
-         *          pass to checkout
+         *      for each customer
+         *          if out of time
+         *              if less than 10 items
+         *                  join queue with lest items
+         *              else
+         *                  join queue with lest items exclude express
+         *          else 
+         *              reduce time, add items
          *      for each checkout
-         *          for each customer
-         *              scan items till no more items
-         *              if no more items, the customer leaves
-         *  draw all graphics
-         *  sleep till next tick
-         *  gather statistics
+         *          if has items
+         *              scan items
+         *          else
+         *              make receipt
+         *              save stats
+         *              the customer leaves
+         *              add customer from queue
+         *      if checkout time > limits
+         *          open new checkout
+         *      draw all graphics
+         *      sleep till next tick
+         *  report statistics
          */
         Thread.currentThread().sleep(500); //method to pause processing.
     }
