@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Write a description of class Store here.
  * 
  * @author AngryPirates 
- * @version 0.1_3
+ * @version 0.1_4
  */
 public class Store
 {
@@ -24,7 +24,7 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
     }
-    
+
     /** 
      * Set the timing for the program
      */
@@ -33,21 +33,37 @@ public class Store
         //Initialization methods
         menuSystem();
         ItemHandler myItemHandler = new ItemHandler(); //myItemHandler.createItems is an instance method. When called from static context it needs to be an instance as a class is too vague.
-
         myItemHandler.createItems();
         //Main methods
         /* PSEUDOCODE
          *  for each tick
+         *      if (tick % 3600)//if tick is in new hour
+         *      {
+         *          reevaluate customer balance
+         *      }
          *      if it's time for a new customer
+         *      {
          *          create customer (calculate likelyhood of each customer type)
-         *      for each customer
-         *          if finished shopping
-         *              if less than 10 items
-         *                  join queue with lest items
+         *      }
+         *      for(Customer currentCustomer:customerBrowsing) //for each customer
+         *      {
+         *          if (currentCustomer.getShoppingTime() == 0)
+         *          {
+         *              if (currentCustomer.getTrolleyCount <= 10) //ask alex for trolleycount
+         *              {
+         *                  addToSmallestQueue(customerBrowsing.remove(currentCustomer),true)//join queue with lest items //ask kieran for itemCount
+         *              }
          *              else
-         *                  join queue with lest items exclude express
-         *          else 
-         *              reduce time, add items
+         *              {
+         *                  addToSmallestQueue(customerBrowsing.remove(currentCustomer),false)//join queue with lest items exclude express
+         *              }
+         *          }
+         *          else
+         *          {
+         *              currentCustomer.setShoppingTime(currentCustomer.getShoppingTime()-1);
+         *              add items
+         *          }
+         *      }
          *      for each checkout
          *          if has items
          *              scan items
@@ -55,8 +71,8 @@ public class Store
          *          else
          *              make receipt
          *              save stats
-         *              the customer leaves (delete 0)
-         *              //add customer from queue
+         *              the customer leaves (delete from checkout)
+         *              add customer from queue
          *      if checkout length > average length
          *          open new checkout
          *      draw all graphics
@@ -65,14 +81,52 @@ public class Store
          */
         Thread.currentThread().sleep(500); //method to pause processing.
     }
-    
+
+    public void addToSmallestQueue(Customer myCustomer, boolean express)
+    {
+        checkout minCheckout = new checkout();
+        int min = Integer.MAX_INTEGER;
+        if (express)
+        {
+            for (checkout currentCheckout:checkoutList)
+            {
+                if (currentCheckout.itemCount > min)
+                {
+                    minCheckout = currentCheckout;
+                    min = currentCheckout.itemCount;
+                }
+            }
+        }
+        else
+        {
+            for (checkout currentCheckout:checkoutList)
+            {
+                if (!currentCheckout.express())
+                    if (currentCheckout.itemCount > min)
+                    {
+                        minCheckout = currentCheckout;
+                        min = currentCheckout.itemCount;
+                }
+            }
+        }
+        minCheckout.add(myCustomer);
+
+        for(checkout currentCheckout : checkoutList){
+            if(currentCheckout.getItemCount() > min){
+                if (express || !currentCheckout.express() ){// Will only consider if we're allowing express checkouts if the current checkout is normal
+                    // assigment etc.
+                }
+            }
+        }
+    }
+
     public void menuSystem()
     {
         //How fast you wish to run
         //Time period per tick  ticks per second
         //how long do you want ro run it for
         //option to watch simulation or go straight to stats
-        
+
         /* PSEUDOCODE
          *  if stats only
          *      sleep = 0, draw graphics = 0
@@ -82,10 +136,10 @@ public class Store
          *      ticks (aka runtime) = (how many hours)*3600 //number of seconds in hour.
          */
     }
-    
+
     public void createCustomer()
     {
-        
+
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
@@ -97,5 +151,5 @@ public class Store
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
     }
-    
+
 }
