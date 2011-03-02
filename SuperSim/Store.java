@@ -32,7 +32,9 @@ public class Store
     {
         //Initialization methods
         menuSystem();
-        ItemHandler.createItems();
+        ItemHandler myItemHandler = new ItemHandler(); //myItemHandler.createItems is an instance method. When called from static context it needs to be an instance as a class is too vague.
+
+        myItemHandler.createItems();
         //Main methods
         /* PSEUDOCODE
          *  for each tick
