@@ -38,7 +38,8 @@ public class Store
         //Main methods
         /* PSEUDOCODE
          *  for each tick
-         *      create customer (calculate likelyhood of each customer type)
+         *      if it's time for a new customer
+         *          create customer (calculate likelyhood of each customer type)
          *      for each customer
          *          if finished shopping
          *              if less than 10 items
@@ -56,7 +57,7 @@ public class Store
          *              save stats
          *              the customer leaves (delete 0)
          *              //add customer from queue
-         *      if checkout average time > average time limits
+         *      if checkout length > average length
          *          open new checkout
          *      draw all graphics
          *      sleep till next tick
@@ -84,8 +85,7 @@ public class Store
     
     public void createCustomer()
     {
-        Customer myCustomer = new Customer();
-        customerBrowsing.add(myCustomer); 
+        
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
@@ -94,6 +94,8 @@ public class Store
          *      random the in-store time (will decide how many items they get)
          *      create the person
          */
+        Customer myCustomer = new Customer();
+        customerBrowsing.add(myCustomer); 
     }
     
 }

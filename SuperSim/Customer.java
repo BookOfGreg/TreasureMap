@@ -22,6 +22,15 @@ public class Customer //This class might want to be abstract if we want to use s
     {
         // initialise instance variables
         trolley = new ArrayList<Item>();
+        /*
+         * switch(rand.nextInt(5)){
+         *     case0: //Business
+         *     case1: //Old
+         *     case2: //Family
+         *     case3: //Children
+         *     case4: //generic
+         *     }
+         */
     }
     //addItem
     

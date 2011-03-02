@@ -11,6 +11,7 @@ public class Checkout
     private final int SCANNING_SPEED = 2;
     private ArrayList<String> itemReceipt;
     private ArrayList<String> valueReceipt;
+    //private boolean isExpress = false;
     /**
      * Constructor for objects of class Checkout
      */
