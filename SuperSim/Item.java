@@ -2,15 +2,14 @@
 /**
  * Write a description of class Item here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author AngryPirates
+ * @version 0.1
  */
 public class Item
 {
     // instance variables - replace the example below with your own
-    private String name;
-    private double price;
-    
+    private final String NAME;
+    private final double PRICE; 
 
     /**
      * Constructor for objects of class Item
@@ -18,8 +17,16 @@ public class Item
     public Item(String itemName, double itemPrice)
     {
         // initialise instance variables
-        name = itemName;
-        price = itemPrice;
+        NAME = itemName;
+        PRICE = itemPrice;
+    }
+    public String getName()
+    {
+        return NAME;
+    }
+    public double getPrice()
+    {
+        return PRICE;
     }
     
 }
