@@ -15,3 +15,7 @@ greg + sam - Store
 Kieran - checkout
 Chris - file handling
 Alex - customer
+
+From Alex: Having had a quick peek into the package.bluej file, it's standard text encoding, so just pop it open with your favourite text editing program. To save merging changes, you can run 
+	git rm SuperSim/package.bluej
+That way, it won't be included in commits and therefore we shouldn't have any conflicts. I've also branched the repo so I can make some tweaks and push them so I have another copy somewhere.
