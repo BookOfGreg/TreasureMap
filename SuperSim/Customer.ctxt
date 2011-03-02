@@ -2,4 +2,6 @@
 comment0.params=
 comment0.target=Customer()
 comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Customer\n
-numComments=1
+comment1.params=
+comment1.target=void\ addItem()
+numComments=2
