@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Write a description of class Store here.
  * 
  * @author AngryPirates 
- * @version 0.1_2
+ * @version 0.1_3
  */
 public class Store
 {
@@ -86,6 +86,14 @@ public class Store
     {
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
+        /*PSEUDOCODE
+         *  Random the chance a person will appear depending on the time of day (somehow)
+         *  if someone appears
+         *      random which kind of person they are
+         *      get general attributes of that person
+         *      random the in-store time (will decide how many items they get)
+         *      create the person
+         */
     }
     
 }

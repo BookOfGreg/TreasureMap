@@ -2,8 +2,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class ItemHandler here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author AngryPirates, based on TestReader by Steve Townsend and Jim Hunter, and TextFileHandler by Jim Hunter.
+ * @version 0.1
  */
 public class ItemHandler
 {
@@ -31,4 +31,6 @@ public class ItemHandler
          */
         return itemList;
     }
+    //public readLine
+    //public getFile
 }

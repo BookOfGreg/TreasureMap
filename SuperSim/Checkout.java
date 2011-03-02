@@ -2,8 +2,8 @@ import java.util.ArrayList;
 /**
  * Write a description of class Checkout here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author AngryPirates 
+ * @version 0.1
  */
 public class Checkout
 {
@@ -20,13 +20,9 @@ public class Checkout
       
       
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    
-   
+    //scan item
+    //write to loyalty log
+    //pushCustomer
+    //popCustomer
+    //getQueueLength||getItemsInQueue
 }
