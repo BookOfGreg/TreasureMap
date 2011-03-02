@@ -8,8 +8,9 @@ import java.util.ArrayList;
  */
 public class Store
 {
-    private int startTime;
-    private int runTime;
+    private int startTime; //starting hour
+    private int runTime; //total running time
+    private int currentTick; //current running time
     private int checkoutLimit;
     private ArrayList<Checkout> checkoutList;
     private ArrayList<Customer> customerBrowsing;
@@ -64,7 +65,8 @@ public class Store
          *              add items
          *          }
          *      }
-         *      for each checkout
+         *      for (Checkout currentCheckout:Checkoutlist)
+         *      {
          *          if has items
          *              scan items
          *              random (barcode related) delays
@@ -84,13 +86,13 @@ public class Store
     
     public void addToSmallestQueue(Customer myCustomer, boolean express)
     {
-        checkout minCheckout = new checkout();
-        int min = Integer.MAX_INTEGER;
+        Checkout minCheckout = new Checkout();
+        int min = Integer.MAX_VALUE;
         if (express)
         {
-            for (checkout currentCheckout:checkoutList)
+            for (Checkout currentCheckout:checkoutList)
             {
-                if (currentCheckout.itemCount > min)
+                if (currentCheckout.itemCount() > min)
                 {
                     minCheckout = currentCheckout;
                     min = currentCheckout.itemCount;
