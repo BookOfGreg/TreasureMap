@@ -177,13 +177,14 @@ public class Store
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
-         *      random which kind of person they are
+         *      random which kind of person they are //Part of the Customer class already
          *      get general attributes of that person
-         *      random the in-store time (will decide how many items they get)
+         *      random the in-store time (will decide how many items they get) //Part of Customer class already
          *      create the person
          */
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
+        //customerBrowsing.add(new Customer()); //A possible refactoring.
     }
 
 }

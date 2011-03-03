@@ -21,7 +21,7 @@ public class ItemHandler
     public ItemHandler() 
     {
         itemList = new ArrayList<Item>();
-       
+
         File file = getFile();
         if (file != null)
             openReader(file);
@@ -103,7 +103,7 @@ public class ItemHandler
             return null;
         }       
     }
-    
+
     public ArrayList<Item> getItemList()
     {
         return itemList;

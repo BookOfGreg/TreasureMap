@@ -20,11 +20,8 @@ public class Item
         NAME = itemName;
         PRICE = itemPrice;
     }
-    public Item(int var)
-    {
-        NAME = null;
-        PRICE = var;
-    }
+    
+    
     public String getName()
     {
         return NAME;
