@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Write a description of class Store here.
  * 
  * @author AngryPirates 
- * @version 0.1_4
+ * @version 0.2
  */
 public class Store
 {
@@ -25,65 +25,78 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
     }
-
+    
     /** 
      * Set the timing for the program
      */
     public void main(String [ ] args)throws InterruptedException
     {
         //Initialization methods
-        menuSystem();
+        int[] myArray = new int[2];
+        myArray = menuSystem(); //0 = ticks, 1 = sleepTime
+        int ticks = myArray[0];
+        int sleepTime = myArray[1];
         ItemHandler myItemHandler = new ItemHandler(); //myItemHandler.createItems is an instance method. When called from static context it needs to be an instance as a class is too vague.
-        myItemHandler.createItems();
+        itemList = myItemHandler.getItemList();
+        
         //Main methods
-        /* PSEUDOCODE
-         *  for each tick
-         *      if (tick % 3600)//if tick is in new hour
-         *      {
-         *          reevaluate customer balance
-         *      }
-         *      if it's time for a new customer
-         *      {
-         *          create customer (calculate likelyhood of each customer type)
-         *      }
-         *      for(Customer currentCustomer:customerBrowsing) //for each customer
-         *      {
-         *          if (currentCustomer.getShoppingTime() == 0)
-         *          {
-         *              if (currentCustomer.getTrolleyCount <= 10) //ask alex for trolleycount
-         *              {
-         *                  addToSmallestQueue(customerBrowsing.remove(currentCustomer),true)//join queue with lest items //ask kieran for itemCount
-         *              }
-         *              else
-         *              {
-         *                  addToSmallestQueue(customerBrowsing.remove(currentCustomer),false)//join queue with lest items exclude express
-         *              }
-         *          }
-         *          else
-         *          {
-         *              currentCustomer.setShoppingTime(currentCustomer.getShoppingTime()-1);
-         *              add items
-         *          }
-         *      }
-         *      for (Checkout currentCheckout:Checkoutlist)
-         *      {
-         *          if has items
-         *              scan items
-         *              random (barcode related) delays
-         *          else
-         *              make receipt
-         *              save stats
-         *              the customer leaves (delete from checkout)
-         *              add customer from queue
-         *      if checkout length > average length
-         *          open new checkout
-         *      draw all graphics
-         *      sleep till next tick
-         *  report statistics
-         */
-        Thread.currentThread().sleep(500); //method to pause processing.
+        for (int currentTick = 1; currentTick <= ticks; currentTick++)
+        {
+            if ((ticks % 3600) == 0) //if tick is in new hour
+            {
+                rebalanceCustomers(); //Each hour set the customer arrival rates
+            }
+            createCustomer(); //(calculate likelyhood of each customer type)
+            for(Customer currentCustomer:customerBrowsing) //for each customer
+            {
+                int shoppingTime = currentCustomer.getShoppingTime();
+                if (shoppingTime > 0)
+                {
+                    currentCustomer.setShoppingTime(shoppingTime-1);
+                    currentCustomer.addItems();
+                }
+                else
+                {
+                    if (currentCustomer.getTrolleyCount <= 10) //ask alex for trolleycount
+                    {
+                        addToSmallestQueue(customerBrowsing.remove(currentCustomer),true);//join queue with lest items //ask kieran for itemCount
+                    }
+                    else
+                    {
+                        addToSmallestQueue(customerBrowsing.remove(currentCustomer),false);//join queue with lest items exclude express
+                    }
+                }
+            }
+            for (Checkout currentCheckout:Checkoutlist)
+            {
+                /*if (hasItems) //This should be part of checkout, not store.
+                {
+                    scanItems
+                    randomDelays
+                }
+                else 
+                {
+                    makeReceipt
+                    saveStats
+                    customerLeaves
+                    addCustomerFromQueue
+                }
+                */
+               currentCheckout.runCheckout();
+            }
+            if (checkoutLength > desiredAverageLength)
+            {
+                openNewCheckout();
+            }
+            if (!sleeptime == 0)
+            {
+                drawGraphics();
+                Thread.currentThread().sleep(sleepTime); //method to pause processing.
+            }
+        }
+        reportStatistics(); 
     }
-
+    
     public void addToSmallestQueue(Customer myCustomer, boolean express)
     {
         Checkout minCheckout = new Checkout();
@@ -108,27 +121,37 @@ public class Store
                     {
                         minCheckout = currentCheckout;
                         min = currentCheckout.itemCount;
-                }
+                    }
             }
         }
         minCheckout.add(myCustomer);
-
-        for(checkout currentCheckout : checkoutList){
-            if(currentCheckout.getItemCount() > min){
-                if (express || !currentCheckout.express() ){// Will only consider if we're allowing express checkouts if the current checkout is normal
-                    // assigment etc.
-                }
-            }
-        }
     }
-
-    public void menuSystem()
+    
+    public int[] menuSystem()
     {
         //How fast you wish to run
         //Time period per tick  ticks per second
         //how long do you want ro run it for
         //option to watch simulation or go straight to stats
-
+        UserDialog myUD = new UserDialog();
+        int sleepTime = -1;
+        if(myUD.getBoolean("Do you want to run in Stats-Only mode?"))
+        {
+            sleepTime = 0;
+        }
+        else
+        {
+            int speed = myUD.getInt("What speed multiplier do you want to run at? For real time put 1, maximum is 1000x real time");
+            //max speed = 1000x real life, 1 second = 1 millisecond.
+            float f = (1/speed)*1000;
+            sleepTime = (int)(f + 0.5f);
+        }
+        int hours = myUD.getInt("How many hours do you want to run the program?");
+        int ticks = (hours)*3600; //number of seconds in hour.
+        myArray = new int[2];
+        myArray[0] = ticks;
+        myArray[1] = sleepTime;
+        return myArray;
         /* PSEUDOCODE
          *  if stats only
          *      sleep = 0, draw graphics = 0
@@ -138,10 +161,10 @@ public class Store
          *      ticks (aka runtime) = (how many hours)*3600 //number of seconds in hour.
          */
     }
-
+    
     public void createCustomer()
     {
-
+        
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
@@ -153,5 +176,5 @@ public class Store
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
     }
-
+    
 }
