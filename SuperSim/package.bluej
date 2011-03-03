@@ -20,30 +20,18 @@ dependency6.type=UsesDependency
 dependency7.from=ItemHandler
 dependency7.to=Item
 dependency7.type=UsesDependency
-<<<<<<< .merge_file_9cqmuH
 package.editor.height=472
 package.editor.width=1158
 package.editor.x=0
 package.editor.y=22
-=======
-package.editor.height=447
-package.editor.width=778
-package.editor.x=290
-package.editor.y=78
->>>>>>> .merge_file_d77Cqq
 package.numDependencies=7
 package.numTargets=5
 package.showExtends=true
 package.showUses=true
 target1.editor.height=956
 target1.editor.width=1280
-<<<<<<< .merge_file_9cqmuH
 target1.editor.x=7
-=======
 target1.editor.x=0
->>>>>>> .merge_file_d77Cqq
-target1.editor.y=22
-target1.height=50
 target1.name=Customer
 target1.naviview.expanded=false
 target1.showInterface=false
@@ -75,18 +63,10 @@ target3.type=ClassTarget
 target3.width=80
 target3.x=320
 target3.y=150
-<<<<<<< .merge_file_9cqmuH
-target4.editor.height=800
-target4.editor.width=1280
-target4.editor.x=14
-target4.editor.y=54
-=======
 target4.editor.height=1002
 target4.editor.width=1280
 target4.editor.x=0
 target4.editor.y=22
->>>>>>> .merge_file_d77Cqq
-target4.height=50
 target4.name=Store
 target4.naviview.expanded=false
 target4.showInterface=false
@@ -97,11 +77,6 @@ target4.y=230
 target5.editor.height=698
 target5.editor.width=900
 target5.editor.x=380
-<<<<<<< .merge_file_9cqmuH
-target5.editor.y=234
-=======
-target5.editor.y=156
->>>>>>> .merge_file_d77Cqq
 target5.height=50
 target5.name=ItemHandler
 target5.naviview.expanded=false
