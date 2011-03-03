@@ -25,7 +25,7 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
     }
-    
+
     /** 
      * Set the timing for the program
      */
@@ -48,7 +48,7 @@ public class Store
          *      }
          *      for(Customer currentCustomer:customerBrowsing) //for each customer
          *      {
-         *          if (currentCustomer.getShoppingTime())
+         *          if (currentCustomer.getShoppingTime() == 0)
          *          {
          *              if (currentCustomer.getTrolleyCount <= 10) //ask alex for trolleycount
          *              {
@@ -83,7 +83,7 @@ public class Store
          */
         Thread.currentThread().sleep(500); //method to pause processing.
     }
-    
+
     public void addToSmallestQueue(Customer myCustomer, boolean express)
     {
         Checkout minCheckout = new Checkout();
@@ -108,19 +108,27 @@ public class Store
                     {
                         minCheckout = currentCheckout;
                         min = currentCheckout.itemCount;
-                    }
+                }
             }
         }
         minCheckout.add(myCustomer);
+
+        for(checkout currentCheckout : checkoutList){
+            if(currentCheckout.getItemCount() > min){
+                if (express || !currentCheckout.express() ){// Will only consider if we're allowing express checkouts if the current checkout is normal
+                    // assigment etc.
+                }
+            }
+        }
     }
-    
+
     public void menuSystem()
     {
         //How fast you wish to run
         //Time period per tick  ticks per second
         //how long do you want ro run it for
         //option to watch simulation or go straight to stats
-        
+
         /* PSEUDOCODE
          *  if stats only
          *      sleep = 0, draw graphics = 0
@@ -130,10 +138,10 @@ public class Store
          *      ticks (aka runtime) = (how many hours)*3600 //number of seconds in hour.
          */
     }
-    
+
     public void createCustomer()
     {
-        
+
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
@@ -145,5 +153,5 @@ public class Store
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
     }
-    
+
 }
