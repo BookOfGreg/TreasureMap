@@ -25,7 +25,7 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
     }
-    
+
     /** 
      * Set the timing for the program
      */
@@ -38,7 +38,7 @@ public class Store
         int sleepTime = myArray[1];
         ItemHandler myItemHandler = new ItemHandler(); //myItemHandler.createItems is an instance method. When called from static context it needs to be an instance as a class is too vague.
         itemList = myItemHandler.getItemList();
-        
+
         //Main methods
         for (int currentTick = 1; currentTick <= ticks; currentTick++)
         {
@@ -71,18 +71,18 @@ public class Store
             {
                 /*if (hasItems) //This should be part of checkout, not store.
                 {
-                    scanItems
-                    randomDelays
+                scanItems
+                randomDelays
                 }
                 else 
                 {
-                    makeReceipt
-                    saveStats
-                    customerLeaves
-                    addCustomerFromQueue
+                makeReceipt
+                saveStats
+                customerLeaves
+                addCustomerFromQueue
                 }
-                */
-               currentCheckout.runCheckout();
+                 */
+                currentCheckout.runCheckout();
             }
             if (checkoutLength > desiredAverageLength)
             {
@@ -96,7 +96,7 @@ public class Store
         }
         reportStatistics(); 
     }
-    
+
     public void addToSmallestQueue(Customer myCustomer, boolean express)
     {
         Checkout minCheckout = new Checkout();
@@ -121,12 +121,21 @@ public class Store
                     {
                         minCheckout = currentCheckout;
                         min = currentCheckout.itemCount;
-                    }
+                }
             }
         }
+
+        /*for(checkout currentCheckout : checkoutList){
+            if(currentCheckout.getItemCount() > min){
+                if (express || !currentCheckout.express() ){// Will only consider if we're allowing express checkouts if the current checkout is normal
+                    // assigment etc.
+                }
+            }
+        }*/
+
         minCheckout.add(myCustomer);
     }
-    
+
     public int[] menuSystem()
     {
         //How fast you wish to run
@@ -161,10 +170,10 @@ public class Store
          *      ticks (aka runtime) = (how many hours)*3600 //number of seconds in hour.
          */
     }
-    
+
     public void createCustomer()
     {
-        
+
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
@@ -176,5 +185,5 @@ public class Store
         Customer myCustomer = new Customer();
         customerBrowsing.add(myCustomer); 
     }
-    
+
 }
