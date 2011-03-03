@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Write a description of class Store here.
@@ -12,6 +13,7 @@ public class Store
     private int runTime; //total running time
     private int currentTick; //current running time
     private int checkoutLimit;
+    private Random rand;
     private ArrayList<Checkout> checkoutList;
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
@@ -24,6 +26,7 @@ public class Store
         checkoutList = new ArrayList<Checkout>();
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
+		rand = new Random();
     }
 
     /** 
@@ -44,7 +47,9 @@ public class Store
         {
             if ((ticks % 3600) == 0) //if tick is in new hour
             {
+                /* Temporarily commented out for compiling sake - Sam
                 rebalanceCustomers(); //Each hour set the customer arrival rates
+                */
             }
             createCustomer(); //(calculate likelyhood of each customer type)
             for(Customer currentCustomer:customerBrowsing) //for each customer
@@ -173,8 +178,14 @@ public class Store
 
     public void createCustomer()
     {
-
-        /*PSEUDOCODE
+        //Assuming the the chances are going to vary to the nearest hour
+		int[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+		
+		if (rand.nextFloat() <= timeProbabilities[(currentTick % 3600)]) {
+			customerBrowsing.add(new Customer());
+		}
+		
+		/*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
          *      random which kind of person they are //Part of the Customer class already
@@ -182,9 +193,6 @@ public class Store
          *      random the in-store time (will decide how many items they get) //Part of Customer class already
          *      create the person
          */
-        Customer myCustomer = new Customer();
-        customerBrowsing.add(myCustomer); 
-        //customerBrowsing.add(new Customer()); //A possible refactoring.
     }
 
 }
