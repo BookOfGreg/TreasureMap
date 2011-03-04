@@ -3,4 +3,3 @@ Strawberries,1.87
 Mixed Berries,2.97
 Bag of Apples,1.00
 Apricots,1.47
-
