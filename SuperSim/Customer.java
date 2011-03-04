@@ -3,8 +3,8 @@ import java.util.Random;
 /**
  * Write a description of class Customer here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author AngryPirates First Mate Alex
+ * @version 0.1
  */
 public class Customer
 {
@@ -15,6 +15,7 @@ public class Customer
     private final int TIME_PER_ITEM = 5;
     private final int TOTAL_ITEMS_AVAIL;
     private int shoppingTime;
+    private int itemTime; //~Greg added this as time till next item. Used in addItem.
     private ArrayList<Item> trolley;
     private Random rand;
     private ItemHandler itemHandler;
@@ -31,6 +32,8 @@ public class Customer
     public Customer()
     {
         // initialise instance variables
+        itemTime = 30; //abitrary number, change this later.
+        
         shoppingTime = 0;
         trolley = new ArrayList<Item>();
         rand = new Random();
@@ -55,14 +58,20 @@ public class Customer
 
     public void addItem()
     {
-        if(trolley.size() < ITEMS_TO_PICK){
-            trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
-            setShoppingTime(trolley.size() * TIME_PER_ITEM);
+        if(itemTime == 0){
+            if(trolley.size() < ITEMS_TO_PICK){
+                trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
+                setShoppingTime(trolley.size() * TIME_PER_ITEM);
+            }
+            else{
+                //Customer has all required items
+                setShoppingTime(0);
+                //return getShoppingTime();
+            }
+            itemTime = 30; //Abritrary number atm. Replace with constant set at creation later.
         }
         else{
-            //Customer has all required items
-            setShoppingTime(0);
-            //return getShoppingTime();
+            itemTime--;
         }
     }
 

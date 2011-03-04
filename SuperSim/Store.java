@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Write a description of class Store here.
  * 
- * @author AngryPirates 
+ * @author AngryPirates, Cabin boy Greg and Seaman Sam
  * @version 0.2
  */
 public class Store
@@ -55,7 +55,7 @@ public class Store
             createCustomer(); //(calculate likelyhood of each customer type)
             for(Customer currentCustomer:customerBrowsing) //for each customer
             {
-                int shoppingTime = currentCustomer.getShoppingTime();
+                int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls.
                 if (shoppingTime > 0)
                 {
                     currentCustomer.setShoppingTime(shoppingTime-1);
@@ -89,7 +89,7 @@ public class Store
                 addCustomerFromQueue
                 }
                  */
-                //currentCheckout.runCheckout();
+                currentCheckout.runCheckout();
             }
             //if (checkoutLength > desiredAverageLength)
             {
