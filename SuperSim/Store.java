@@ -72,6 +72,7 @@ public class Store
                     {
                         addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),false);//join queue with lest items exclude express
                     }
+                    //addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <=10));
                 }
             }
             for (Checkout currentCheckout:checkoutList)
@@ -95,7 +96,7 @@ public class Store
             {
                 //openNewCheckout();
             }
-            if (/!sleeptime == 0)
+            if (!sleeptime == 0)
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime); //method to pause processing.
@@ -181,7 +182,7 @@ public class Store
     public void createCustomer()
     {
         if (rand.nextFloat() <= rebalanceCustomers) {
-            customerBrowsing.add(new Customer());
+            customerBrowsing.add(new Customer(itemList));
         }
         
         /*PSEUDOCODE

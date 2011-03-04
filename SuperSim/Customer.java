@@ -18,7 +18,7 @@ public class Customer
     private int itemTime; //~Greg added this as time till next item. Used in addItem.
     private ArrayList<Item> trolley;
     private Random rand;
-    private ItemHandler itemHandler;
+    //private ItemHandler itemHandler;
     private ArrayList<Item> productList;
     //private final String  LOYALTY_CARD_NUMBER = "Parrot";
     //private final int ITEM_COLLECTION_RATE = 1;
@@ -29,7 +29,7 @@ public class Customer
     /**
      * Constructor for objects of class Customer
      */
-    public Customer()
+    public Customer(ArrayList<Item> productList)
     {
         // initialise instance variables
         itemTime = 30; //abitrary number, change this later.
@@ -37,8 +37,8 @@ public class Customer
         shoppingTime = 0;
         trolley = new ArrayList<Item>();
         rand = new Random();
-        itemHandler = new ItemHandler();
-        productList = itemHandler.getItemList();
+        //itemHandler = new ItemHandler();
+        this.productList = productList;
         TOTAL_ITEMS_AVAIL = productList.size();
         //Code to bias random based on time
         /*
