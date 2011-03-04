@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Write a description of class Store here.
@@ -12,6 +13,7 @@ public class Store
     private int runTime; //total running time
     private int currentTick; //current running time
     private int checkoutLimit;
+    private Random rand;
     private ArrayList<Checkout> checkoutList;
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
@@ -24,6 +26,7 @@ public class Store
         checkoutList = new ArrayList<Checkout>();
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
+        rand = new Random();
     }
 
     /** 
@@ -42,10 +45,13 @@ public class Store
         //Main methods
         for (int currentTick = 1; currentTick <= ticks; currentTick++)
         {
-            if ((ticks % 3600) == 0) //if tick is in new hour
-            {
-                rebalanceCustomers(); //Each hour set the customer arrival rates
-            }
+            /* Not sure if this is necessary with the current definiton of rebalanceCustomers(), correct me if I'm wrong - Sam 
+            * if ((ticks % 3600) == 0) //if tick is in new hour
+            * {
+            *     rebalanceCustomers(); //Each hour set the customer arrival rates
+            * }
+            */
+           
             createCustomer(); //(calculate likelyhood of each customer type)
             for(Customer currentCustomer:customerBrowsing) //for each customer
             {
@@ -53,21 +59,22 @@ public class Store
                 if (shoppingTime > 0)
                 {
                     currentCustomer.setShoppingTime(shoppingTime-1);
-                    currentCustomer.addItems();
+                    currentCustomer.addItem();
                 }
                 else
                 {
-                    if (currentCustomer.getTrolleyCount <= 10) //ask alex for trolleycount
+                    int currentCustomerIndex = customerBrowsing.indexOf(currentCustomer); //remove() will only return the element if it's removed by index and not element
+                    if (currentCustomer.getTrolleyCount() <= 10) //ask alex for trolleycount
                     {
-                        addToSmallestQueue(customerBrowsing.remove(currentCustomer),true);//join queue with lest items //ask kieran for itemCount
+                        addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),true);//join queue with lest items //ask kieran for itemCount
                     }
                     else
                     {
-                        addToSmallestQueue(customerBrowsing.remove(currentCustomer),false);//join queue with lest items exclude express
+                        addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),false);//join queue with lest items exclude express
                     }
                 }
             }
-            for (Checkout currentCheckout:Checkoutlist)
+            for (Checkout currentCheckout:checkoutList)
             {
                 /*if (hasItems) //This should be part of checkout, not store.
                 {
@@ -82,9 +89,9 @@ public class Store
                 addCustomerFromQueue
                 }
                  */
-                currentCheckout.runCheckout();
+                //currentCheckout.runCheckout();
             }
-            if (checkoutLength > desiredAverageLength)
+            //if (checkoutLength > desiredAverageLength)
             {
                 openNewCheckout();
             }
@@ -173,17 +180,26 @@ public class Store
 
     public void createCustomer()
     {
-
+        if (rand.nextFloat() <= rebalanceCustomers) {
+            customerBrowsing.add(new Customer());
+        }
+        
         /*PSEUDOCODE
          *  Random the chance a person will appear depending on the time of day (somehow)
          *  if someone appears
-         *      random which kind of person they are
+         *      random which kind of person they are //Part of the Customer class already
          *      get general attributes of that person
-         *      random the in-store time (will decide how many items they get)
+         *      random the in-store time (will decide how many items they get) //Part of Customer class already
          *      create the person
          */
-        Customer myCustomer = new Customer();
-        customerBrowsing.add(myCustomer); 
     }
 
+    public int rebalanceCustomers() {
+        //Assuming the the chances are going to vary to the nearest hour
+        int[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+        int currentHour = currentTick / 3600;
+        int currentProbability = timeProbabilities[currentHour];
+        
+        return currentProbability;
+    }
 }

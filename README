@@ -25,3 +25,5 @@ Also, something I neglected to notice, is that running
 will not only update the list of files to be committed, but it will also remove deleted files from GIT's internal indexy thingy. Remember to run
 	git reset SuperSim/package.bluej
 after running any git command which adds all files in the directory.
+
+Alex: The file handler is throwing nasties at me when I try and use the items.txt file.
