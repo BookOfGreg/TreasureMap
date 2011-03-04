@@ -38,10 +38,10 @@ public class Store
         //Main methods
         for(Customer currentCustomer:customerBrowsing)
         {
-            int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls.
+            int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls. ~Alex: getShoppingTime() only gets called once!
             if (shoppingTime > 0)
             {
-                currentCustomer.setShoppingTime(shoppingTime-1);
+                //currentCustomer.setShoppingTime(shoppingTime-1); //~Alex: This is now handled within Customer.
                 currentCustomer.addItem();
             }
             else

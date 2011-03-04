@@ -14,7 +14,7 @@ public class Customer
     private final int ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
     private int TIME_PER_ITEM = 5; //Change Thar Laterrrrrr
     private final int TOTAL_ITEMS_AVAIL;
-    private int shoppingTime;
+    private int shoppingTime; //The time the customer spends picking items
     private ArrayList<Item> trolley;
     private Random rand;
     //private ItemHandler itemHandler;
@@ -26,7 +26,7 @@ public class Customer
     //private final int  ARRIVAL_TIME = 1; //the tick the customer is initialized on
 
     private int timeInStore;
-    private int timeInQueue;
+    private int timeInQueue; //Not sure that's customer domain
     private int iD;
 
     /**
@@ -35,15 +35,12 @@ public class Customer
     public Customer(ArrayList<Item> productList,int myId)
     {
         iD = myId;
-
-        shoppingTime = 0;
+        timeInStore = 0;
         trolley = new ArrayList<Item>();
         rand = new Random();
-        //itemHandler = new ItemHandler();
         this.productList = productList;
         TOTAL_ITEMS_AVAIL = productList.size();
-        //Code to bias random based on time
-        /*
+        /*Code to bias random based on time
          * Might have to change from switch to if and ifelse or have if and else if calculate the int for
          * switch based omc probabilities and distributions and then have a rand.nextInt() as last else.
          */
@@ -66,21 +63,18 @@ public class Customer
 
     public void addItem()
     {
-        if(TIME_PER_ITEM == 0){ //If timeinstore % timeperitem == 0
+        if(shoppingTime % timeInStore == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
             if(trolley.size() < ITEMS_TO_PICK){
                 trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
-
+                shoppingTime--;
             }
             else{
                 //Customer has all required items
                 setShoppingTime(0);
-                //return getShoppingTime();
+                return;
             }
-            TIME_PER_ITEM = 5; //Abritrary number atm. Replace with constant set at creation later.
         }
-        else{
-            TIME_PER_ITEM--;
-        }
+        timeInStore++;
     }
 
     /**
