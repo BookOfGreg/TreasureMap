@@ -93,9 +93,9 @@ public class Store
             }
             //if (checkoutLength > desiredAverageLength)
             {
-                openNewCheckout();
+                //openNewCheckout();
             }
-            if (!sleeptime == 0)
+            if (/!sleeptime == 0)
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime); //method to pause processing.

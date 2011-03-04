@@ -38,6 +38,10 @@ public class Customer
         productList = itemHandler.getItemList();
         TOTAL_ITEMS_AVAIL = productList.size();
         //Code to bias random based on time
+        /*
+         * Might have to change from switch to if and ifelse or have if and else if calculate the int for
+         * switch based omc probabilities and distributions and then have a rand.nextInt() as last else.
+         */
         switch(rand.nextInt(5)){
             case 0: MAX_ITEMS = 5; CUSTOMER_TYPE = "Business"; break;
             case 1: MAX_ITEMS = 15; CUSTOMER_TYPE = "Old"; break;
