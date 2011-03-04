@@ -21,6 +21,41 @@ public class Checkout
       
       
     }
+    
+    public void run()
+    {
+        /*if (hasItems) //This should be part of checkout, not store.
+        * {
+        *     scanItems
+        *     randomDelays
+        *  }
+        *  else 
+        *  {
+        *      makeReceipt
+        *      saveStats
+        *      customerLeaves
+        *      addCustomerFromQueue
+        *  }
+        */
+    }
+    
+    public int itemCount()
+    {
+        //getQueueLength||getItemsInQueue
+        return 5; //arbitrary
+    }
+    
+    public boolean isExpress()
+    {
+        //
+        return true; //arbitrary
+    }
+    
+    public void add(Customer newCustomer)
+    {
+        //
+    }
+    //SOME SUGGESTED METHODS.
     //scan item
     //write to loyalty log
     //pushCustomer

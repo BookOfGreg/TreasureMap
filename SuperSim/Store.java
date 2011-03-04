@@ -9,15 +9,13 @@ import java.util.Random;
  */
 public class Store
 {
-    private int startTime; //starting hour
-    private int runTime; //total running time
-    private int currentTick; //current running time
     private int checkoutLimit;
     private Random rand;
     private ArrayList<Checkout> checkoutList;
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     private int customerCounter;
+    private int currentProbability;
 
     /**
      * Constructor for objects of class Store
@@ -28,61 +26,93 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
         rand = new Random();
+        ItemHandler myItemHandler = new ItemHandler();
+        itemList = myItemHandler.getItemList();
     }
 
     /** 
      * Set the timing for the program
      */
-    public void run()
+    public void Run()
     {
-        
         //Main methods
-        
-            for(Customer currentCustomer:customerBrowsing) //for each customer
+        for(Customer currentCustomer:customerBrowsing)
+        {
+            int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls.
+            if (shoppingTime > 0)
             {
-                int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls.
-                if (shoppingTime > 0)
+                currentCustomer.setShoppingTime(shoppingTime-1);
+                currentCustomer.addItem();
+            }
+            else
+            {
+                int currentCustomerIndex = customerBrowsing.indexOf(currentCustomer); //remove() will only return the element if it's removed by index and not element
+                if (currentCustomer.getTrolleyCount() <= 10)
                 {
-                    currentCustomer.setShoppingTime(shoppingTime-1);
-                    currentCustomer.addItem();
+                    addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),true);//join queue with lest items
                 }
                 else
                 {
-                    int currentCustomerIndex = customerBrowsing.indexOf(currentCustomer); //remove() will only return the element if it's removed by index and not element
-                    if (currentCustomer.getTrolleyCount() <= 10) //ask alex for trolleycount
-                    {
-                        addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),true);//join queue with lest items //ask kieran for itemCount
-                    }
-                    else
-                    {
-                        addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),false);//join queue with lest items exclude express
-                    }
-                    //addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <=10));
+                    addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),false);//join queue with lest items exclude express
                 }
+                //addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <=10));
             }
-            for (Checkout currentCheckout:checkoutList)
-            {
-                /*if (hasItems) //This should be part of checkout, not store.
-                {
-                scanItems
-                randomDelays
-                }
-                else 
-                {
-                makeReceipt
-                saveStats
-                customerLeaves
-                addCustomerFromQueue
-                }
-                 */
-                currentCheckout.runCheckout();
-            }
-            //if (checkoutLength > desiredAverageLength)
-            {
-                //openNewCheckout();
-            }
+        }
+        for (Checkout currentCheckout:checkoutList)
+        {
+            currentCheckout.run();
+        }
+        /*if (checkoutLength > desiredAverageLength)
+        {
+            //openNewCheckout();
+        }
+        */
+    }
+    
+    public int getCustomerCounter()
+    {
+        return customerCounter;
+    }
+    
+    public double getAverageStore()
+    {
+        //
+        return 1.0; //arbitrary
+    }
+    
+    public double getAverageQueue()
+    {
+        //
+        return 2.0; //arbitrary
+    }
+    
+    public void createCustomer()
+    {
+        if (rand.nextFloat() <= getCurrentProbability()) {
+            //id number needs calculating.
+            customerBrowsing.add(new Customer(itemList,5));
+            customerCounter++;
+        }
+        
+        /*PSEUDOCODE
+         *  Random the chance a person will appear depending on the time of day (somehow)
+         *  if someone appears
+         *      random which kind of person they are //Part of the Customer class already
+         *      get general attributes of that person
+         *      random the in-store time (will decide how many items they get) //Part of Customer class already
+         *      create the person
+         */
+    }
 
-
+    public int getCurrentProbability() {
+        return currentProbability;
+    }
+    
+    public void calcCurrentProbability(int currentHour)
+    {
+        //Assuming the the chances are going to vary to the nearest hour
+        double[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+        currentProbability = (int)timeProbabilities[currentHour];
     }
 
     public void addToSmallestQueue(Customer myCustomer, boolean express)
@@ -96,19 +126,19 @@ public class Store
                 if (currentCheckout.itemCount() > min)
                 {
                     minCheckout = currentCheckout;
-                    min = currentCheckout.itemCount;
+                    min = currentCheckout.itemCount();
                 }
             }
         }
         else
         {
-            for (checkout currentCheckout:checkoutList)
+            for (Checkout currentCheckout:checkoutList)
             {
-                if (!currentCheckout.express())
-                    if (currentCheckout.itemCount > min)
+                if (!currentCheckout.isExpress())
+                    if (currentCheckout.itemCount() > min)
                     {
                         minCheckout = currentCheckout;
-                        min = currentCheckout.itemCount;
+                        min = currentCheckout.itemCount();
                 }
             }
         }
@@ -120,7 +150,6 @@ public class Store
                 }
             }
         }*/
-
         minCheckout.add(myCustomer);
     }
 
