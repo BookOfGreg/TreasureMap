@@ -72,7 +72,9 @@ public class Store
                     {
                         addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),false);//join queue with lest items exclude express
                     }
+                    addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <= 10));
                 }
+               
             }
             for (Checkout currentCheckout:checkoutList)
             {
@@ -89,19 +91,19 @@ public class Store
                 addCustomerFromQueue
                 }
                  */
-                currentCheckout.runCheckout();
+               // currentCheckout.runCheckout();
             }
             //if (checkoutLength > desiredAverageLength)
             {
-                openNewCheckout();
+               // openNewCheckout();
             }
-            if (!sleeptime == 0)
+            if (!(sleepTime == 0))
             {
-                drawGraphics();
+               // drawGraphics();
                 Thread.currentThread().sleep(sleepTime); //method to pause processing.
             }
         }
-        reportStatistics(); 
+        //reportStatistics(); 
     }
 
     public void addToSmallestQueue(Customer myCustomer, boolean express)
@@ -112,22 +114,22 @@ public class Store
         {
             for (Checkout currentCheckout:checkoutList)
             {
-                if (currentCheckout.itemCount() > min)
+                //if (currentCheckout.itemCount() > min)
                 {
                     minCheckout = currentCheckout;
-                    min = currentCheckout.itemCount;
+                  //  min = currentCheckout.itemCount;
                 }
             }
         }
         else
         {
-            for (checkout currentCheckout:checkoutList)
+           // for (checkout currentCheckout:checkoutList)
             {
-                if (!currentCheckout.express())
-                    if (currentCheckout.itemCount > min)
+               // if (!currentCheckout.express())
+                  //  if (currentCheckout.itemCount > min)
                     {
-                        minCheckout = currentCheckout;
-                        min = currentCheckout.itemCount;
+                      //  minCheckout = currentCheckout;
+                     //   min = currentCheckout.itemCount;
                 }
             }
         }
@@ -140,7 +142,7 @@ public class Store
             }
         }*/
 
-        minCheckout.add(myCustomer);
+       // minCheckout.add(myCustomer);
     }
 
     public int[] menuSystem()
@@ -164,7 +166,7 @@ public class Store
         }
         int hours = myUD.getInt("How many hours do you want to run the program?");
         int ticks = (hours)*3600; //number of seconds in hour.
-        myArray = new int[2];
+        int[] myArray = new int[2];
         myArray[0] = ticks;
         myArray[1] = sleepTime;
         return myArray;
@@ -180,7 +182,7 @@ public class Store
 
     public void createCustomer()
     {
-        if (rand.nextFloat() <= rebalanceCustomers) {
+        if (rand.nextFloat() <= rebalanceCustomers()) {
             customerBrowsing.add(new Customer());
         }
         
@@ -196,9 +198,9 @@ public class Store
 
     public int rebalanceCustomers() {
         //Assuming the the chances are going to vary to the nearest hour
-        int[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+        double[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
         int currentHour = currentTick / 3600;
-        int currentProbability = timeProbabilities[currentHour];
+        int currentProbability = (int)timeProbabilities[currentHour];
         
         return currentProbability;
     }
