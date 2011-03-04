@@ -12,10 +12,9 @@ public class Customer
     private final int  MIN_ITEMS = 1; 
     private final int MAX_ITEMS;
     private final int ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
-    private final int TIME_PER_ITEM = 5;
+    private int TIME_PER_ITEM = 5; //Change Thar Laterrrrrr
     private final int TOTAL_ITEMS_AVAIL;
     private int shoppingTime;
-    private int itemTime; //~Greg added this as time till next item. Used in addItem.
     private ArrayList<Item> trolley;
     private Random rand;
     //private ItemHandler itemHandler;
@@ -26,14 +25,17 @@ public class Customer
     //private final int  RANGE = 1;
     //private final int  ARRIVAL_TIME = 1; //the tick the customer is initialized on
 
+    private int timeInStore;
+    private int timeInQueue;
+    private int iD;
+
     /**
      * Constructor for objects of class Customer
      */
-    public Customer(ArrayList<Item> productList)
+    public Customer(ArrayList<Item> productList,int myId)
     {
-        // initialise instance variables
-        itemTime = 30; //abitrary number, change this later.
-        
+        iD = myId;
+
         shoppingTime = 0;
         trolley = new ArrayList<Item>();
         rand = new Random();
@@ -58,24 +60,26 @@ public class Customer
             itemPickLimit = MIN_ITEMS + rand.nextInt(MAX_ITEMS - MIN_ITEMS); //Finds range to pick items.
         }
         ITEMS_TO_PICK = itemPickLimit;
+        setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
+        timeInStore = shoppingTime;
     }    
 
     public void addItem()
     {
-        if(itemTime == 0){
+        if(TIME_PER_ITEM == 0){ //If timeinstore % timeperitem == 0
             if(trolley.size() < ITEMS_TO_PICK){
                 trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
-                setShoppingTime(trolley.size() * TIME_PER_ITEM);
+
             }
             else{
                 //Customer has all required items
                 setShoppingTime(0);
                 //return getShoppingTime();
             }
-            itemTime = 30; //Abritrary number atm. Replace with constant set at creation later.
+            TIME_PER_ITEM = 5; //Abritrary number atm. Replace with constant set at creation later.
         }
         else{
-            itemTime--;
+            TIME_PER_ITEM--;
         }
     }
 
@@ -105,7 +109,7 @@ public class Customer
     {
         shoppingTime = newTime;
     }
-    
+
     /**
      * An accessor method to make use of the 'trolley' in the Checkout and Store classes
      * @return trolley An ArrayList of Item containing what the customer has 'chosen'
@@ -113,5 +117,10 @@ public class Customer
     public ArrayList<Item> getTrolley()
     {
         return trolley;
+    }
+
+    public int getTimeInStore()
+    {
+        return timeInStore;
     }
 }

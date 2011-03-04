@@ -1,0 +1,134 @@
+To be awarded up to CAS 11:
+You should simulate the queues which build up at the checkout. You can assume that the
+probability of a customer arriving at the checkouts during any given minute is constant. The
+supermarket opens a new checkout when the average of the queue lengths gets above a
+given threshold. 
+The time taken to process a given customer is uniformly distributed between
+two limits; customers chose the queue with the fewest number of people in it.
+
+You should collect and output statistics for: 
+*the total number of customers served during your simulation period* 
+the average queue size 
+the average waiting time per customer.
+
+
+To be awarded up to CAS 14
+*Rather than customers arriving directly at the checkouts, you are to simulate their arrival at
+the store and the time they spend selecting items.*
+
+*The probability of arrival at the store during any given minute is constant and has the same value as that 
+used above.*
+ 
+*Once in the store, a customer spends time selecting items to put in his/her trolley, so the total time spent in the
+shelves is given by the number of items selected multiplied by a constant time per item.*
+
+The number of items they select is distributed normally. 
+
+The supermarket now operates an 'express' checkout for customers with fewer than 10 items; customers in this category will go
+to this checkout, otherwise they chose the shortest queue as above. On all checkouts, the
+time taken to process a customer is a constant times the number of items they have selected.
+
+In addition to the above statistics for all tills you should collect and output statistics for the
+express checkout.
+
+[Hint: You will need to create customers as they enter the store and keep them in a special
+collection until the time comes for them to arrive at the checkouts. This time depends on the
+number of items they select which will clearly be discrete. Strictly speaking you can only
+generate continuous random variables from a normal distribution, but there is nothing to stop
+you rounding to the nearest integer to get a discrete random variable. You should provide
+your own values for the mean and standard deviation of this normal distribution and for the
+two constant times per item – to select and to process at the checkout.]
+
+To be awarded up to CAS 17
+
+*Rather than the items being anonymous, they should be selected from a known list of items.
+The names of items stocked and their prices should be made available in a text file.*
+
+The store operates a loyalty card system which enables it to keep track of what items are purchased by
+individual customers and the total amount they spend. It does this by capturing this
+information as the customer goes through the checkout and writing it to a file. To simulate
+this, just allocate a unique number to each customer as they enter the store.
+The output will consist of the text file of customer purchases.
+
+[Hint: There are similarities with the StockControl system. We will look at text file reading and
+writing in week 6. You will need to create a suitable text file of supermarket items.]
+
+To be awarded up to CAS 20
+Surprise me! Make the simulation more realistic.
+• Allow the simulation to run for an extended period of time and vary the customer
+arrival rate depending on the time of day.
+
+• Allow checkouts to be closed when the average queue size falls below a threshold
+(but remember that customers in the queue have to be served before it closes).
+
+• When choosing which queue to join, allow customers to take into account the number
+of items in other people’s trolleys so that they chose the queue with the fewest
+number of items in the queue.
+
+• Allow that every so often a customer has an item which is missing a bar code, so that
+the checkout assistant has to call for help – this introduces a significant delay.
+You might also generate some graphics to show the sizes of the queues etc. as the
+simulation proceeds.
+
+
+------------------------------------------------------------------------------------------------------------
+Deliverables
+You must submit your bid before noon on Friday 25th March 2010 using the BlueJ
+submission system. Bids submitted late will attract the following penalties:
+• Bids submitted up to one day late attract a penalty of 10%
+• Bids submitted up to one week late attract a penalty of 25%
+• Bids handed in more than one week late will be marked and returned but will receive
+CAS 0
+The bid is a group bid and is submitted by the group as a whole. All of the following files
+should be stored in the project directory:
+
+• A report of no more that 2000 words as a Word document which should contain the
+following sections:
+
+1. Front cover: This should contain the name of the project, the name of the group, and
+the names of the individual members of the group. It should contain the following
+declaration: "We acknowledge that this exercise is part of the formal assessment of
+the course, and declare that the work done is our own. Any contribution made by
+anyone outside the group is acknowledged as indicated in the section on Cheating &
+Plagiarism in the student handbook."
+
+2. User manual: How do I run your program and what output should I expect?
+
+3. Maintenance manual: What are the classes and main methods for each class?
+
+4. Simulation: What assumptions have been made? What values have been chosen for
+the simulation constants? How were these values arrived at? If you have carried out
+any analysis of the outputs, your conclusions should be reported here.
+
+5. Group activities: Describe how the group operated. Were individuals assigned
+specific roles? Set out the work undertaken by each individual member of the group.
+
+• The code for the simulation as a set of BlueJ files.
+• JavaDoc for the program.
+• Any input and output text files.
+
+In addition, each individual member of the group must email me
+(w.w.vasconcelos@abdn.ac.uk) with a paragraph stating, in more detail than in the main
+report, your own individual contribution to the project. If you fail to do this, you will receive
+CAS 0. The subject of the email should be 'SuperSim'; you should make sure that the email
+contains your name. If you feel that any member of the group has not contributed to the work
+of the group, you should tell me here. This information is given in confidence.
+Notes on how the group should operate
+1. Problem analysis, coding, program testing and analysis of output, observation of actual
+supermarkets to establish simulation constants, report writing etc. are all meaningful
+activities in preparing the bid and should be taken into account in ensuring that all
+members of the group contribute equally to this.
+2. It is expected that all group members will contribute significantly to the preparation of the
+bid. All members must undertake some programming, but it is up to the group how the
+programming tasks are allocated between members of the group.
+- 4 -
+3. Normally all members of the group will receive the same mark. However if it is established
+that any member or members of the group have not contributed significantly then their
+mark(s) will be reduced accordingly (possibly down to 0).
+4. The practical sessions during weeks 6, 7 and 8 should be devoted to this activity;
+attendance at practicals is compulsory and any non-attendance will be taken as evidence
+of a lack of contribution to the bid.
+5. In the same way, I consider the contribution of your mentors to be so important to this
+activity that attendance at mentoring sessions is compulsory for weeks 6 to 8.
+6. If any group becomes non-viable because not enough members are participating, the
+other members should contact me immediately.

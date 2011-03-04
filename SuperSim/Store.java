@@ -17,6 +17,7 @@ public class Store
     private ArrayList<Checkout> checkoutList;
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
+    private int customerCounter;
 
     /**
      * Constructor for objects of class Store
@@ -102,7 +103,7 @@ public class Store
                 Thread.currentThread().sleep(sleepTime); //method to pause processing.
             }
         }
-        reportStatistics(); 
+        reportStatistics(customerCounter, averageTimeInStore()); 
     }
 
     public void addToSmallestQueue(Customer myCustomer, boolean express)
@@ -183,6 +184,7 @@ public class Store
     {
         if (rand.nextFloat() <= rebalanceCustomers) {
             customerBrowsing.add(new Customer(itemList));
+            customerCounter++;
         }
         
         /*PSEUDOCODE
