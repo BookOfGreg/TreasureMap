@@ -33,7 +33,7 @@ public class Store
     /** 
      * Set the timing for the program
      */
-    public void Run()
+    public void Run(int currentTick)
     {
         //Main methods
         for(Customer currentCustomer:customerBrowsing)
@@ -42,7 +42,7 @@ public class Store
             if (shoppingTime > 0)
             {
                 //currentCustomer.setShoppingTime(shoppingTime-1); //~Alex: This is now handled within Customer.
-                currentCustomer.addItem();
+                currentCustomer.addItem(currentTick);
             }
             else
             {

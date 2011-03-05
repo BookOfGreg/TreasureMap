@@ -61,9 +61,9 @@ public class Customer
         timeInStore = shoppingTime;
     }    
 
-    public void addItem()
+    public void addItem(int ticks)
     {
-        if(shoppingTime % timeInStore == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
+        if(shoppingTime % ticks == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
             if(trolley.size() < ITEMS_TO_PICK){
                 trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
                 shoppingTime--;

@@ -19,7 +19,7 @@ public class Controller
     {
         myStore = new Store();
     }
-    
+
     public void main(String [ ] args)throws InterruptedException
     {
         //Initialization methods
@@ -27,7 +27,7 @@ public class Controller
         myArray = menuSystem(); //0 = ticks, 1 = sleepTime
         int ticks = myArray[0];
         int sleepTime = myArray[1];
-        
+
         //mainMethods
         for (int currentTick = 1; currentTick <= ticks; currentTick++)
         {
@@ -35,7 +35,8 @@ public class Controller
             {
                 myStore.calcCurrentProbability(currentTick / 3600);
             }
-            myStore.Run();
+            myStore.Run(currentTick);/* This is so that the Customer class can be bassed the tick to prevent
+                                       synchronised shopping*/
             if (!(sleepTime == 0))
             {
                 drawGraphics();
@@ -44,17 +45,17 @@ public class Controller
         }
         reportStatistics(myStore.getCustomerCounter(), myStore.getAverageStore(), myStore.getAverageQueue()); 
     }
-    
+
     public void drawGraphics()
     {
         //
     }
-    
+
     public void reportStatistics(int customerCounter, double averageStore, double averageQueue)
     {
         //
     }
-    
+
     public int[] menuSystem()
     {
         UserDialog myUD = new UserDialog();
