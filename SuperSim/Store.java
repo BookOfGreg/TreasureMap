@@ -33,7 +33,7 @@ public class Store
     /** 
      * Set the timing for the program
      */
-    public void Run(int currentTick)
+    public void Run()
     {
         //Main methods
         for(Customer currentCustomer:customerBrowsing)
@@ -42,7 +42,7 @@ public class Store
             if (shoppingTime > 0)
             {
                 //currentCustomer.setShoppingTime(shoppingTime-1); //~Alex: This is now handled within Customer.
-                currentCustomer.addItem(currentTick);
+                currentCustomer.addItem();
             }
             else
             {
@@ -86,11 +86,11 @@ public class Store
         return 2.0; //arbitrary
     }
     
-    public void createCustomer()
+    public void createCustomer(int currentTick)
     {
         if (rand.nextFloat() <= getCurrentProbability()) {
             //id number needs calculating.
-            customerBrowsing.add(new Customer(itemList,5));
+            customerBrowsing.add(new Customer(itemList, 5, currentTick));
             customerCounter++;
         }
         

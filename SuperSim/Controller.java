@@ -35,8 +35,7 @@ public class Controller
             {
                 myStore.calcCurrentProbability(currentTick / 3600);
             }
-            myStore.Run(currentTick);/* This is so that the Customer class can be bassed the tick to prevent
-                                       synchronised shopping*/
+            myStore.Run();
             if (!(sleepTime == 0))
             {
                 drawGraphics();

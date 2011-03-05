@@ -1,9 +1,9 @@
 #BlueJ class context
-comment0.params=productList\ myId
-comment0.target=Customer(java.util.ArrayList,\ int)
+comment0.params=productList\ myId\ currentTick
+comment0.target=Customer(java.util.ArrayList,\ int,\ int)
 comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Customer\n
-comment1.params=ticks
-comment1.target=void\ addItem(int)
+comment1.params=
+comment1.target=void\ addItem()
 comment2.params=
 comment2.target=int\ getTrolleyCount()
 comment2.text=\n\ An\ accessor\ method\ for\ use\ in\ the\ Store\ class\n\ @return\ trolley.size()\ The\ number\ of\ items\ in\ the\ Customer's\ 'trolley'\n
