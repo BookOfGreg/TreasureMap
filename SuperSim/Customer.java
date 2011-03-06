@@ -18,14 +18,8 @@ public class Customer
     private int shoppingTime; //The time the customer spends picking items
     private ArrayList<Item> trolley;
     private Random rand;
-    //private ItemHandler itemHandler;
     private ArrayList<Item> productList;
     //private final String  LOYALTY_CARD_NUMBER = "Parrot";
-    //private final int ITEM_COLLECTION_RATE = 1;
-
-    //private final int  RANGE = 1;
-    
-
     private int timeInStore;
     private int timeInQueue; //Not sure that's customer domain
 
@@ -58,7 +52,6 @@ public class Customer
         }
         ITEMS_TO_PICK = itemPickLimit;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
-        timeInStore = shoppingTime;
     }    
 
     public void addItem()
@@ -66,7 +59,7 @@ public class Customer
         if(shoppingTime % rand.nextInt(shoppingTime) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
             if(trolley.size() < ITEMS_TO_PICK){
                 trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
-                shoppingTime--;
+                shoppingTime-= (TIME_PER_ITEM);
             }
             else{
                 //Customer has all required items
