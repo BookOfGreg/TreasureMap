@@ -3,3 +3,16 @@ Strawberries,1.87
 Mixed Berries,2.97
 Bag of Apples,1.00
 Apricots,1.47
+Pirate Cutlass,8.52
+SuperSim Value Eye patch,0.54
+Sausages,1.40
+SuperSim Top quality Pizza,4.50
+Cadburys Milk Tray,4.25
+1 Pint of milk,0.64
+Peg leg,16.00
+Jolly Rodger,10.65
+Inception DVD,12.00
+Bread,0.86
+DIT Network,1.99
+WebCT,6000000.01
+ABDN Uni network,0.00
