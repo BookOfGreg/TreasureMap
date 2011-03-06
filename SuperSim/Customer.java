@@ -10,7 +10,8 @@ public class Customer
 {
     private final String CUSTOMER_TYPE; 
     private final int ID;
-    private final int  CREATION_TICK; //the tick the customer is initialized on
+    //private final int  CREATION_TICK; //the tick the customer is initialized on
+    private final int ANTI_SYNC;
     private final int  MIN_ITEMS = 1; 
     private final int MAX_ITEMS;
     private final int ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
@@ -37,7 +38,7 @@ public class Customer
     {
         this.productList = productList;
         ID = myId;
-        CREATION_TICK = currentTick;
+        //CREATION_TICK = currentTick;
         timeInStore = 0;
         trolley = new ArrayList<Item>();
         rand = new Random();
@@ -59,13 +60,14 @@ public class Customer
             itemPickLimit = MIN_ITEMS + rand.nextInt(MAX_ITEMS - MIN_ITEMS); //Finds range to pick items.
         }
         ITEMS_TO_PICK = itemPickLimit;
+        ANTI_SYNC = rand.nextInt(10) + 1;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
         timeInStore = shoppingTime;
     }    
 
     public void addItem()
     {
-        if(shoppingTime % CREATION_TICK == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
+        if(shoppingTime % ANTI_SYNC == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
             if(trolley.size() < ITEMS_TO_PICK){
                 trolley.add(productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL)));
                 shoppingTime--;
