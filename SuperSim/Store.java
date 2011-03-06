@@ -86,11 +86,11 @@ public class Store
         return 2.0; //arbitrary
     }
     
-    public void createCustomer(int currentTick)
+    public void createCustomer()
     {
         if (rand.nextFloat() <= getCurrentProbability()) {
             //id number needs calculating.
-            customerBrowsing.add(new Customer(itemList, 5, currentTick));
+            customerBrowsing.add(new Customer(itemList, 5));
             customerCounter++;
         }
         
