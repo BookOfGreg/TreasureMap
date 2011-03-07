@@ -8,52 +8,135 @@ import java.util.ArrayList;
 public class Checkout
 {
     private ArrayList<Customer> queue;
-    private final int SCANNING_SPEED = 2;
     private ArrayList<String> itemReceipt;
-    private ArrayList<String> valueReceipt;
-    //private boolean isExpress = false;
+    //private ArrayList<String> valueReceipt; //can fetch from itemlist.
+    private boolean express = false;
+    private Customer currentCustomer;
+    private final int ITEM_SCAN_SPEED;
+    private int scanInterval;
     /**
      * Constructor for objects of class Checkout
      */
-    public Checkout()
+    public Checkout(boolean isExpress)
     {
-        // initialise instance variables
-      
-      
+        express = isExpress;
+        ArrayList itemReceipt = new ArrayList<String>();
+        //ArrayList valueReceipt = new ArrayList<String>();
+        ArrayList queue = new ArrayList<String>();
+        ITEM_SCAN_SPEED = 3;
+        scanInterval = 3;
     }
     
     public void run()
     {
-        /*if (hasItems) //This should be part of checkout, not store.
-        * {
-        *     scanItems
-        *     randomDelays
-        *  }
-        *  else 
-        *  {
-        *      makeReceipt
-        *      saveStats
-        *      customerLeaves
-        *      addCustomerFromQueue
-        *  }
-        */
+        if (hasCustomer())
+        {
+            if (hasItems())
+            {
+                if (scanInterval >= ITEM_SCAN_SPEED)
+                {
+                    scanItems();
+                    scanInterval = 0;
+                }
+                else
+                {
+                    scanInterval -= randomDelay();
+                    scanInterval++;
+                }
+            }
+            else 
+            {
+                makeReceipt();
+                saveStats();
+                currentCustomer = null;
+            }
+        }
+        else if (queueHasCustomer())
+        {
+            currentCustomer = queue.remove(0);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    
+    private void makeReceipt()
+    {
+        //what does this entail?
+    }
+    
+    private void saveStats()
+    {
+        //stub
+    }
+    
+    private boolean queueHasCustomer()
+    {
+        if (queue.size() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private boolean hasCustomer()
+    {
+        if (!(currentCustomer == null))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private boolean hasItems()
+    {
+        if (currentCustomer.getTrolley().size() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private int randomDelay()
+    {
+        return 0; //arbitrary//do something with a really small chance of delay, and the delay can be between a small range.
+    }
+    
+    private void scanItems()
+    {
+        Item thisItem = currentCustomer.removeTrolleyItem();
+        itemReceipt.add(thisItem.getName());
+        //add price?
     }
     
     public int itemCount()
     {
-        //getQueueLength||getItemsInQueue
-        return 5; //arbitrary
+        int items=0;
+        for (Customer c:queue)
+        {
+            items += c.getTrolleyCount();
+        }
+        return items;
     }
     
     public boolean isExpress()
     {
-        //
-        return true; //arbitrary
+        return express;
     }
     
     public void add(Customer newCustomer)
     {
-        //
+        queue.add(newCustomer);
     }
     //SOME SUGGESTED METHODS.
     //scan item

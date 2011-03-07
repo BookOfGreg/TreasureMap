@@ -117,7 +117,7 @@ public class Store
 
     public void addToSmallestQueue(Customer myCustomer, boolean express)
     {
-        Checkout minCheckout = new Checkout();
+        Checkout minCheckout = null;// = new Checkout();
         int min = Integer.MAX_VALUE;
         if (express)
         {

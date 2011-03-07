@@ -105,6 +105,11 @@ public class Customer
     {
         return trolley;
     }
+    
+    public Item removeTrolleyItem()
+    {
+        return trolley.remove(0);
+    }
 
     public int getTimeInStore()
     {

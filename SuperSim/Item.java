@@ -21,11 +21,11 @@ public class Item
         PRICE = itemPrice;
     }
     
-    
     public String getName()
     {
         return NAME;
     }
+    
     public double getPrice()
     {
         return PRICE;
