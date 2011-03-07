@@ -50,7 +50,7 @@ public class Controller
                 Thread.currentThread().sleep(sleepTime);
             }
         }
-        reportStatistics(myStore.getCustomerCounter(), myStore.getAverageStore(), myStore.getAverageQueue()); 
+        reportStatistics(myStore.getCustomerCounter(), myStore.getAverageInStore(), myStore.getAverageQueue()); 
     }
 
     public void drawGraphics()
@@ -58,9 +58,9 @@ public class Controller
         //
     }
 
-    public void reportStatistics(int customerCounter, double averageStore, double averageQueue)
+    public void reportStatistics(int customerCounter, double averageInStore, double averageQueue)
     {
-        //
+        System.out.println(customerCounter+ "customer count" + averageInStore + "average store" + averageQueue + "average queue");
     }
 
     public int[] menuSystem()

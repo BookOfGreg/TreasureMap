@@ -34,26 +34,22 @@ public class Store
         Checkout newCheckout = new Checkout(false);
         checkoutList.add(newCheckout);
     }
-
+    
     /** 
      * Set the timing for the program
      */
     public void Run()
     {
-        //Main methods
         createCustomer();
         for(int i = (customerBrowsing.size()-1); i == 0; i--)
         {
             Customer currentCustomer = customerBrowsing.get(i);
-            int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls. ~Alex: getShoppingTime() only gets called once!
-            if (shoppingTime > 0)
+            if (currentCustomer.getShoppingTime() > 0)
             {
-                //currentCustomer.setShoppingTime(shoppingTime-1); //~Alex: This is now handled within Customer.
                 currentCustomer.addItem();
             }
             else
             {
-                //int currentCustomerIndex = customerBrowsing.indexOf(currentCustomer); //remove() will only return the element if it's removed by index and not element
                 if (currentCustomer.getTrolleyCount() <= 10)
                 {
                     addToSmallestQueue(customerBrowsing.remove(i),true);//join queue with lest items
@@ -73,7 +69,6 @@ public class Store
         {
             Checkout newCheckout = new Checkout(false);
             checkoutList.add(newCheckout);
-            //openNewCheckout();
         }
     }
     
@@ -92,7 +87,7 @@ public class Store
         return customerCounter;
     }
     
-    public double getAverageStore()
+    public double getAverageInStore()
     {
         //
         return 1.0; //arbitrary
@@ -111,15 +106,6 @@ public class Store
             customerBrowsing.add(new Customer(itemList, 5));//arbitrary
             customerCounter++;
         }
-        
-        /*PSEUDOCODE
-         *  Random the chance a person will appear depending on the time of day (somehow)
-         *  if someone appears
-         *      random which kind of person they are //Part of the Customer class already
-         *      get general attributes of that person
-         *      random the in-store time (will decide how many items they get) //Part of Customer class already
-         *      create the person
-         */
     }
     
     public void calcCurrentProbability(int currentHour)
@@ -156,17 +142,6 @@ public class Store
                 }
             }
         }
-
-        /*for(checkout currentCheckout : checkoutList){
-            if(currentCheckout.getItemCount() > min){
-                if (express || !currentCheckout.express() ){// Will only consider if we're allowing express checkouts if the current checkout is normal
-                    // assigment etc.
-                }
-            }
-        }*/
         minCheckout.add(myCustomer);
     }
-
-
-
 }

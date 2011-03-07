@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Controller()
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Controller\n
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Controller\r\n
 comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment2.params=
 comment2.target=void\ drawGraphics()
-comment3.params=customerCounter\ averageStore\ averageQueue
+comment3.params=customerCounter\ averageInStore\ averageQueue
 comment3.target=void\ reportStatistics(int,\ double,\ double)
 comment4.params=
 comment4.target=int[]\ menuSystem()

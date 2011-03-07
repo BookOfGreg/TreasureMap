@@ -143,10 +143,4 @@ public class Checkout
     {
         queue.add(newCustomer);
     }
-    //SOME SUGGESTED METHODS.
-    //scan item
-    //write to loyalty log
-    //pushCustomer
-    //popCustomer
-    //getQueueLength||getItemsInQueue
 }
