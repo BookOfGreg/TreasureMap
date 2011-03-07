@@ -23,16 +23,24 @@ public class Controller
     public void main(String [ ] args)throws InterruptedException
     {
         //Initialization methods
-        int[] myArray = new int[2];
+        int[] myArray = new int[3];
         myArray = menuSystem(); //0 = ticks, 1 = sleepTime
         int ticks = myArray[0];
         int sleepTime = myArray[1];
+        int startHour = myArray[2];
+        
+        //Calculate tick related things
+        int startingTick = startHour*3600;
+        ticks += startingTick;
+
 
         //mainMethods
-        for (int currentTick = 1; currentTick <= ticks; currentTick++)
+        myStore.calcCurrentProbability(currentTick / 3600);
+        for (int currentTick = startingTick; currentTick <= ticks; currentTick++)
         {
             if ((currentTick % 3600) == 0)
             {
+                System.out.println("CalculatingProbability");
                 myStore.calcCurrentProbability(currentTick / 3600);
             }
             myStore.Run();
@@ -71,9 +79,11 @@ public class Controller
         }
         int hours = myUD.getInt("How many hours do you want to run the program?");
         int ticks = (hours)*3600; //number of seconds in hour.
-        int[] myArray = new int[2];
+        int startHour = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+        int[] myArray = new int[3];
         myArray[0] = ticks;
         myArray[1] = sleepTime;
+        myArray[2] = startHour;
         return myArray;
     }
 }

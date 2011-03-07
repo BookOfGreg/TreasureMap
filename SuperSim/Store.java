@@ -15,7 +15,8 @@ public class Store
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     private int customerCounter;
-    private int currentProbability;
+    private double currentProbability;
+    private final int DESIRED_AVERAGE_LENGTH = 4;
 
     /**
      * Constructor for objects of class Store
@@ -28,6 +29,10 @@ public class Store
         rand = new Random();
         ItemHandler myItemHandler = new ItemHandler();
         itemList = myItemHandler.getItemList();
+        Checkout newCheckoutExpress = new Checkout(true);
+        checkoutList.add(newCheckoutExpress);
+        Checkout newCheckout = new Checkout(false);
+        checkoutList.add(newCheckout);
     }
 
     /** 
@@ -36,6 +41,7 @@ public class Store
     public void Run()
     {
         //Main methods
+        createCustomer();
         for(Customer currentCustomer:customerBrowsing)
         {
             int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls. ~Alex: getShoppingTime() only gets called once!
@@ -62,11 +68,22 @@ public class Store
         {
             currentCheckout.run();
         }
-        /*if (checkoutLength > desiredAverageLength)
+        if (currentAverageLength() > DESIRED_AVERAGE_LENGTH)
         {
+            Checkout newCheckout = new Checkout(false);
+            checkoutList.add(newCheckout);
             //openNewCheckout();
         }
-        */
+    }
+    
+    public double currentAverageLength()
+    {
+        int sum = 0;
+        for (Checkout c:checkoutList)
+        {
+            sum += c.getQueueLength();
+        }
+        return sum / checkoutList.size();
     }
     
     public int getCustomerCounter()
@@ -88,9 +105,9 @@ public class Store
     
     public void createCustomer()
     {
-        if (rand.nextFloat() <= getCurrentProbability()) {
+        if (rand.nextFloat() <= currentProbability) {
             //id number needs calculating.
-            customerBrowsing.add(new Customer(itemList, 5));
+            customerBrowsing.add(new Customer(itemList, 5));//arbitrary
             customerCounter++;
         }
         
@@ -103,16 +120,12 @@ public class Store
          *      create the person
          */
     }
-
-    public int getCurrentProbability() {
-        return currentProbability;
-    }
     
     public void calcCurrentProbability(int currentHour)
     {
         //Assuming the the chances are going to vary to the nearest hour
         double[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
-        currentProbability = (int)timeProbabilities[currentHour];
+        currentProbability = timeProbabilities[currentHour];
     }
 
     public void addToSmallestQueue(Customer myCustomer, boolean express)
@@ -123,7 +136,7 @@ public class Store
         {
             for (Checkout currentCheckout:checkoutList)
             {
-                if (currentCheckout.itemCount() > min)
+                if (currentCheckout.itemCount() < min)
                 {
                     minCheckout = currentCheckout;
                     min = currentCheckout.itemCount();
@@ -135,7 +148,7 @@ public class Store
             for (Checkout currentCheckout:checkoutList)
             {
                 if (!currentCheckout.isExpress())
-                    if (currentCheckout.itemCount() > min)
+                    if (currentCheckout.itemCount() < min)
                     {
                         minCheckout = currentCheckout;
                         min = currentCheckout.itemCount();

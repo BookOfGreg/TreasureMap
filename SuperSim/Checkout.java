@@ -22,7 +22,7 @@ public class Checkout
         express = isExpress;
         ArrayList itemReceipt = new ArrayList<String>();
         //ArrayList valueReceipt = new ArrayList<String>();
-        ArrayList queue = new ArrayList<String>();
+        ArrayList queue = new ArrayList<Customer>();
         ITEM_SCAN_SPEED = 3;
         scanInterval = 3;
     }
@@ -93,6 +93,11 @@ public class Checkout
         {
             return false;
         }
+    }
+    
+    public int getQueueLength()
+    {
+        return queue.size();
     }
     
     private boolean hasItems()
