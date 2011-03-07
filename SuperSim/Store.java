@@ -42,8 +42,9 @@ public class Store
     {
         //Main methods
         createCustomer();
-        for(Customer currentCustomer:customerBrowsing)
+        for(int i = (customerBrowsing.size()-1); i == 0; i--)
         {
+            Customer currentCustomer = customerBrowsing.get(i);
             int shoppingTime = currentCustomer.getShoppingTime(); //just so there are less method calls. ~Alex: getShoppingTime() only gets called once!
             if (shoppingTime > 0)
             {
@@ -52,14 +53,14 @@ public class Store
             }
             else
             {
-                int currentCustomerIndex = customerBrowsing.indexOf(currentCustomer); //remove() will only return the element if it's removed by index and not element
+                //int currentCustomerIndex = customerBrowsing.indexOf(currentCustomer); //remove() will only return the element if it's removed by index and not element
                 if (currentCustomer.getTrolleyCount() <= 10)
                 {
-                    addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),true);//join queue with lest items
+                    addToSmallestQueue(customerBrowsing.remove(i),true);//join queue with lest items
                 }
                 else
                 {
-                    addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex),false);//join queue with lest items exclude express
+                    addToSmallestQueue(customerBrowsing.remove(i),false);//join queue with lest items exclude express
                 }
                 //addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <=10));
             }

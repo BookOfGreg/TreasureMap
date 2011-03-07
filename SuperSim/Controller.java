@@ -41,7 +41,7 @@ public class Controller
             if ((currentTick % 3600) == 0)
             {
                 System.out.println("CalculatingProbability");
-                myStore.calcCurrentProbability(currentTick / 3600);
+                myStore.calcCurrentProbability((currentTick / 3600)%24);
             }
             myStore.Run();
             if (!(sleepTime == 0))
