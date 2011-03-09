@@ -8,7 +8,7 @@ import java.util.Scanner;
  * @author AngryPirates, based on TestReader by Steve Townsend and Jim Hunter, and TextFileHandler by Jim Hunter.
  * @version 0.1
  */
-public class ItemHandler
+public class FileHandler
 {
     private ArrayList<Item> itemList;
     private BufferedReader reader;
@@ -18,7 +18,7 @@ public class ItemHandler
     /**
      * Constructor for objects of class ItemHandler
      */
-    public ItemHandler() 
+    public FileHandler() 
     {
         itemList = new ArrayList<Item>();
 

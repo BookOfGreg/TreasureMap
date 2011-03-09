@@ -54,6 +54,7 @@ public class Checkout
             else 
             {
                 makeReceipt();
+                currentCustomer.getTimeInQueue();
                 saveStats();
                 currentCustomer = null;
             }

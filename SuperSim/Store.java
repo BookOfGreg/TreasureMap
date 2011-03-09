@@ -27,8 +27,8 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
         rand = new Random();
-        ItemHandler myItemHandler = new ItemHandler();
-        itemList = myItemHandler.getItemList();
+        FileHandler myFileHandler = new FileHandler();
+        itemList = myFileHandler.getItemList();
         Checkout newCheckoutExpress = new Checkout(true);
         checkoutList.add(newCheckoutExpress);
         Checkout newCheckout = new Checkout(false);

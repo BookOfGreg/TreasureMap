@@ -108,7 +108,7 @@ public class Customer
     {
         return trolley;
     }
-    
+
     public Item removeTrolleyItem()
     {
         return trolley.remove(0);
@@ -118,11 +118,16 @@ public class Customer
     {
         return timeInStore;
     }
-    
+
     /**/
-    
+
     public void incWait()
     {
         timeInQueue++;
+    }
+
+    public int getTimeInQueue()
+    {
+        return timeInQueue;
     }
 }
