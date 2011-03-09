@@ -28,3 +28,15 @@ after running any git command which adds all files in the directory.
 
 Alex: The file handler is throwing nasties at me when I try and use the items.txt file.
 @Alex, fixed problem. It was a bad git setting adding blank lines to the text file. ~Greg
+
+To DO ASAP!!!
+
+1. Total time in store incl queue.
+2. ticks start from 0 at midnight pass hour to customer from store
+3. Biased probability of customer type
+4. Text file writing
+5. JavaDoc the lot
+6. Research
+7. Report & other doc
+8. Shiny shit
+9. Chris to finish item list.
