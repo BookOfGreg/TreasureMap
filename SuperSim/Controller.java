@@ -43,7 +43,7 @@ public class Controller
                 System.out.println("CalculatingProbability");
                 myStore.calcCurrentProbability((currentTick / 3600)%24);
             }
-            myStore.Run();
+            myStore.Run((currentTick / 3600)%24);
             if (!(sleepTime == 0))
             {
                 drawGraphics();

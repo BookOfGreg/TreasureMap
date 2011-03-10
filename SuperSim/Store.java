@@ -39,9 +39,9 @@ public class Store
     /** 
      * Set the timing for the program
      */
-    public void Run()
+    public void Run(int hour)
     {
-        createCustomer();
+        createCustomer(hour);
         for(int i = (customerBrowsing.size()-1); i == 0; i--)
         {
             Customer currentCustomer = customerBrowsing.get(i);
@@ -110,11 +110,11 @@ public class Store
         return average; //arbitrary
     }
     
-    public void createCustomer()
+    public void createCustomer(int hour)
     {
         if (rand.nextFloat() <= currentProbability) {
             //id number needs calculating.
-            customerBrowsing.add(new Customer(itemList, 5));//arbitrary
+            customerBrowsing.add(new Customer(itemList, 5, hour));//arbitrary
             customerCounter++;
         }
     }

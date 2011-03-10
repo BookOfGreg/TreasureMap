@@ -28,7 +28,7 @@ public class Customer
     /**
      * Constructor for objects of class Customer
      */
-    public Customer(ArrayList<Item> productList,int myId)
+    public Customer(ArrayList<Item> productList,int myId, int hour)
     {
         this.productList = productList;
         ID = myId;
