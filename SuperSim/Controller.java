@@ -3,7 +3,7 @@
  * Write a description of class Controller here.
  * 
  * @author AngryPirates Cabin Boy Greg 
- * @version 0.1
+ * @version 2011,03,10
  */
 public class Controller
 {
@@ -20,6 +20,9 @@ public class Controller
         myStore = new Store();
     }
 
+    /**
+     * Main method. Runs initialization menu and controlls the ticks through the program.
+     */
     public void main(String [ ] args)throws InterruptedException
     {
         //Initialization methods
@@ -63,6 +66,9 @@ public class Controller
         System.out.println(customerCounter+ "customer count" + averageInStore + "average store" + averageQueue + "average queue");
     }
 
+    /**
+     * Menu system uses User Dialog to gather data on Stats Only mode, Speed multiplier for the program and virtual hours it wants to be run.
+     */
     public int[] menuSystem()
     {
         UserDialog myUD = new UserDialog();

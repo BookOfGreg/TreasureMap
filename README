@@ -31,7 +31,7 @@ Alex: The file handler is throwing nasties at me when I try and use the items.tx
 
 To DO ASAP!!!
 
-1. Total time in store incl queue.
+1. Total time in store incl queue. ** Why does this need doing again? Averages for store + queue can be simple addition at end. ~G
 2. ticks start from 0 at midnight pass hour to customer from store ** Hour now passed from controller to customers constructor. Will leave to Alex to finish ~Greg
 3. Biased probability of customer type
 4. Text file writing
