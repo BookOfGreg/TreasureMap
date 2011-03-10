@@ -26,6 +26,7 @@ public class Checkout
         queue = new ArrayList<Customer>();
         ITEM_SCAN_SPEED = 3;
         scanInterval = 3;
+        customerCounter = 0;
     }
 
     /**
@@ -60,6 +61,7 @@ public class Checkout
                 makeReceipt();
                 currentCustomer.getTimeInQueue();
                 currentCustomer = null;
+                System.out.println("customer leaving store");
             }
         }
         else if (queueHasCustomer())
