@@ -30,15 +30,10 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
         rand = new Random();
-<<<<<<< HEAD
         customerCounter = 0;
         shopProfit = 0;
-        ItemHandler myItemHandler = new ItemHandler();
-        itemList = myItemHandler.getItemList();
-=======
         FileHandler myFileHandler = new FileHandler();
         itemList = myFileHandler.getItemList();
->>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
         Checkout newCheckoutExpress = new Checkout(true);
         checkoutList.add(newCheckoutExpress);
         Checkout newCheckout = new Checkout(false);
@@ -97,23 +92,19 @@ public class Store
         return sum / checkoutList.size();
     }
     
-<<<<<<< HEAD
     public void updateCumulativeAverage() {
         cumulativeProbability += currentAverageLength();
     }
     
-=======
     /**
      * Passes statistic of the total number of customers to the controller.
      * @return customerCounter The sum of customers.
      */
->>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
     public int getCustomerCounter()
     {
         return customerCounter;
     }
     
-<<<<<<< HEAD
     public double getAverageInStore(int runTime)
     {
         return (double)customerCounter / (runTime / 3600);
@@ -126,7 +117,8 @@ public class Store
     
     public double getShopProfit() {
         return shopProfit;
-=======
+    }
+    
     /**
      * Totals up the time spent by all customers in store.
      */
@@ -158,7 +150,6 @@ public class Store
         }
         double average = avgTotal/checkoutList.size();
         return average;
->>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
     }
     
     /**

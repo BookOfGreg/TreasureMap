@@ -49,12 +49,9 @@ public class Controller
                 //System.out.println("CalculatingProbability");
                 myStore.calcCurrentProbability((currentTick / 3600)%24);
             }
-<<<<<<< HEAD
-            myStore.Run();
+            myStore.Run((currentTick % 3600));
             myStore.updateCumulativeAverage();
-=======
             myStore.Run((currentTick / 3600)%24);
->>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
             if (!(sleepTime == 0))
             {
                 drawGraphics();

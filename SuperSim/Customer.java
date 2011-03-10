@@ -59,21 +59,20 @@ public class Customer
 
     public double addItem()
     {
-<<<<<<< HEAD
         double itemPrice = 0;
         if(shoppingTime % (rand.nextInt(shoppingTime)+1) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
-=======
-        if(shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
->>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
-            if(trolley.size() < ITEMS_TO_PICK){
-                Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
-                trolley.add(itemSelect);
-                shoppingTime-= (TIME_PER_ITEM);
-                itemPrice += itemSelect.getPrice();
-            }
-            else{
-                //Customer has all required items
-                setShoppingTime(0);
+            if(shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
+                if(trolley.size() < ITEMS_TO_PICK){
+                    Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
+                    trolley.add(itemSelect);
+                    shoppingTime-= (TIME_PER_ITEM);
+                    itemPrice += itemSelect.getPrice();
+                }
+                else
+                {
+                    //Customer has all required items
+                    setShoppingTime(0);
+                }
             }
         }
         timeInStore++;
