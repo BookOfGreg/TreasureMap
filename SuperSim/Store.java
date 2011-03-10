@@ -47,7 +47,7 @@ public class Store
     public void Run(int hour)
     {
         createCustomer(hour);
-        for(int i = (customerBrowsing.size()-1); i == 0; i--)
+        for(int i = (customerBrowsing.size()-1); i >= 0; i--) //Was error in this loop, but my bad ~Alex
         {
             Customer currentCustomer = customerBrowsing.get(i);
             if (currentCustomer.getShoppingTime() > 0)

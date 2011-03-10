@@ -22,7 +22,7 @@ public class Checkout
     public Checkout(boolean isExpress)
     {
         express = isExpress;
-        ArrayList itemReceipt = new ArrayList<String>();
+        itemReceipt = new ArrayList<String>();
         queue = new ArrayList<Customer>();
         ITEM_SCAN_SPEED = 3;
         scanInterval = 3;
@@ -166,7 +166,7 @@ public class Checkout
     private void scanItems()
     {
         Item thisItem = currentCustomer.removeTrolleyItem();
-        itemReceipt.add(thisItem.getName()); //Seems to throw a NPE occassionally, no defined cause
+        itemReceipt.add(thisItem.getName()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
         //add price?
     }
 
