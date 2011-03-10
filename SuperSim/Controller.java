@@ -15,15 +15,18 @@ public class Controller
     /**
      * Constructor for objects of class Controller
      */
-    public Controller()
+    public Controller() 
     {
         myStore = new Store();
+        try {
+            runController();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    /**
-     * Main method. Runs initialization menu and controlls the ticks through the program.
-     */
-    public void main(String [ ] args)throws InterruptedException
+    
+    public void runController() throws InterruptedException
     {
         //Initialization methods
         int[] myArray = new int[3];
@@ -54,6 +57,14 @@ public class Controller
             }
         }
         reportStatistics(myStore.getCustomerCounter(), myStore.getAverageInStore(), myStore.getAverageQueue()); 
+    }
+
+    /**
+     * Main method. Runs initialization menu and controlls the ticks through the program.
+     */
+    public static void main(String [ ] args)
+    {
+        new Controller();
     }
 
     public void drawGraphics()
