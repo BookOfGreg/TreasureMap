@@ -42,3 +42,5 @@ To DO ASAP!!!
 9. Chris to finish item list.
 10. Loyalty card
 10a. Stats daisy chaining ** sort of done ~Greg
+
+Line 60, the addItem method in Customer needs debugging, they never return 0 shopping time and leave the store. I think they run into negative times when they pick up loads of items.
