@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=productList\ myId
-comment0.target=Customer(java.util.ArrayList,\ int)
+comment0.params=productList\ myId\ hour
+comment0.target=Customer(java.util.ArrayList,\ int,\ int)
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Customer\r\n
 comment1.params=
 comment1.target=double\ addItem()
@@ -20,4 +20,8 @@ comment6.params=
 comment6.target=Item\ removeTrolleyItem()
 comment7.params=
 comment7.target=int\ getTimeInStore()
-numComments=8
+comment8.params=
+comment8.target=void\ incWait()
+comment9.params=
+comment9.target=int\ getTimeInQueue()
+numComments=10

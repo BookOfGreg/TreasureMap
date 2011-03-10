@@ -3,7 +3,7 @@
  * Write a description of class Controller here.
  * 
  * @author AngryPirates Cabin Boy Greg 
- * @version 0.1
+ * @version 2011,03,10
  */
 public class Controller
 {
@@ -15,12 +15,18 @@ public class Controller
     /**
      * Constructor for objects of class Controller
      */
-    public Controller()
+    public Controller() 
     {
         myStore = new Store();
+        try {
+            runController();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    public void main(String [ ] args)throws InterruptedException
+    
+    public void runController() throws InterruptedException
     {
         //Initialization methods
         int[] myArray = new int[3];
@@ -43,8 +49,12 @@ public class Controller
                 //System.out.println("CalculatingProbability");
                 myStore.calcCurrentProbability((currentTick / 3600)%24);
             }
+<<<<<<< HEAD
             myStore.Run();
             myStore.updateCumulativeAverage();
+=======
+            myStore.Run((currentTick / 3600)%24);
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
             if (!(sleepTime == 0))
             {
                 drawGraphics();
@@ -52,6 +62,14 @@ public class Controller
             }
         }
         reportStatistics(myStore.getCustomerCounter(), myStore.getAverageInStore(ticks), myStore.getAverageQueue(ticks), myStore.getShopProfit()); 
+    }
+
+    /**
+     * Main method. Runs initialization menu and controlls the ticks through the program.
+     */
+    public static void main(String [ ] args)
+    {
+        new Controller();
     }
 
     public void drawGraphics()
@@ -68,6 +86,9 @@ public class Controller
         System.out.println("£" + (shopProfit/customerCounter) + " Profit per Customer");
     }
 
+    /**
+     * Menu system uses User Dialog to gather data on Stats Only mode, Speed multiplier for the program and virtual hours it wants to be run.
+     */
     public int[] menuSystem()
     {
         UserDialog myUD = new UserDialog();

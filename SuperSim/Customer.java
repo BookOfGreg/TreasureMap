@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.Math;
 /**
  * Write a description of class Customer here.
  * 
@@ -13,20 +14,21 @@ public class Customer
     private final int  MIN_ITEMS = 1; 
     private final int MAX_ITEMS;
     private final int ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
-    private int TIME_PER_ITEM = 5; //Change Thar Laterrrrrr
+    private int TIME_PER_ITEM = 5; //Arbitrary
     private final int TOTAL_ITEMS_AVAIL;
     private int shoppingTime; //The time the customer spends picking items
     private ArrayList<Item> trolley;
     private Random rand;
+    private Math math;
     private ArrayList<Item> productList;
     //private final String  LOYALTY_CARD_NUMBER = "Parrot";
     private int timeInStore;
-    private int timeInQueue; //Not sure that's customer domain
+    private int timeInQueue;
 
     /**
      * Constructor for objects of class Customer
      */
-    public Customer(ArrayList<Item> productList,int myId)
+    public Customer(ArrayList<Item> productList,int myId, int hour)
     {
         this.productList = productList;
         ID = myId;
@@ -38,6 +40,7 @@ public class Customer
          * Might have to change from switch to if and ifelse or have if and else if calculate the int for
          * switch based omc probabilities and distributions and then have a rand.nextInt() as last else.
          */
+        double multiplyer = math.abs(rand.nextGaussian()*2*14); //Probability * Mean * StdDev then absolute.
         switch(rand.nextInt(5)){
             case 0: MAX_ITEMS = 5; CUSTOMER_TYPE = "Business"; break;
             case 1: MAX_ITEMS = 15; CUSTOMER_TYPE = "Old"; break;
@@ -56,8 +59,12 @@ public class Customer
 
     public double addItem()
     {
+<<<<<<< HEAD
         double itemPrice = 0;
         if(shoppingTime % (rand.nextInt(shoppingTime)+1) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
+=======
+        if(shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
             if(trolley.size() < ITEMS_TO_PICK){
                 Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
                 trolley.add(itemSelect);
@@ -109,7 +116,7 @@ public class Customer
     {
         return trolley;
     }
-    
+
     public Item removeTrolleyItem()
     {
         return trolley.remove(0);
@@ -118,5 +125,17 @@ public class Customer
     public int getTimeInStore()
     {
         return timeInStore;
+    }
+
+    /**/
+
+    public void incWait()
+    {
+        timeInQueue++;
+    }
+
+    public int getTimeInQueue()
+    {
+        return timeInQueue;
     }
 }

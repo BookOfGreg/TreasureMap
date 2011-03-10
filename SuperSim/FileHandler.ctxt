@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.params=
-comment0.target=ItemHandler()
+comment0.target=FileHandler()
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ ItemHandler\r\n
 comment1.params=file
 comment1.target=void\ openReader(java.io.File)

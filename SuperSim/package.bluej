@@ -18,9 +18,9 @@ dependency5.from=Store
 dependency5.to=Item
 dependency5.type=UsesDependency
 dependency6.from=Store
-dependency6.to=ItemHandler
+dependency6.to=FileHandler
 dependency6.type=UsesDependency
-dependency7.from=ItemHandler
+dependency7.from=FileHandler
 dependency7.to=Item
 dependency7.type=UsesDependency
 dependency8.from=Controller
@@ -29,18 +29,32 @@ dependency8.type=UsesDependency
 dependency9.from=Controller
 dependency9.to=UserDialog
 dependency9.type=UsesDependency
+<<<<<<< HEAD
 package.editor.height=612
 package.editor.width=1186
 package.editor.x=54
 package.editor.y=-8
+=======
+package.editor.height=374
+package.editor.width=509
+package.editor.x=381
+package.editor.y=42
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
 package.numDependencies=10
 package.numTargets=7
 package.showExtends=true
 package.showUses=true
+<<<<<<< HEAD
 target1.editor.height=768
 target1.editor.width=652
 target1.editor.x=714
 target1.editor.y=0
+=======
+target1.editor.height=732
+target1.editor.width=976
+target1.editor.x=614
+target1.editor.y=118
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
 target1.height=50
 target1.name=Customer
 target1.naviview.expanded=false
@@ -49,10 +63,17 @@ target1.type=ClassTarget
 target1.width=90
 target1.x=230
 target1.y=200
+<<<<<<< HEAD
 target2.editor.height=768
 target2.editor.width=655
 target2.editor.x=59
 target2.editor.y=0
+=======
+target2.editor.height=1002
+target2.editor.width=1029
+target2.editor.x=269
+target2.editor.y=25
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
 target2.height=50
 target2.name=Checkout
 target2.naviview.expanded=false
@@ -85,10 +106,17 @@ target4.type=ClassTarget
 target4.width=80
 target4.x=90
 target4.y=260
+<<<<<<< HEAD
 target5.editor.height=768
 target5.editor.width=652
 target5.editor.x=714
 target5.editor.y=0
+=======
+target5.editor.height=732
+target5.editor.width=977
+target5.editor.x=419
+target5.editor.y=15
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
 target5.height=50
 target5.name=Store
 target5.naviview.expanded=false
@@ -109,15 +137,15 @@ target6.type=ClassTarget
 target6.width=90
 target6.x=10
 target6.y=80
-target7.editor.height=698
-target7.editor.width=690
-target7.editor.x=558
+target7.editor.height=1002
+target7.editor.width=1280
+target7.editor.x=0
 target7.editor.y=22
 target7.height=50
-target7.name=ItemHandler
+target7.name=FileHandler
 target7.naviview.expanded=false
 target7.showInterface=false
 target7.type=ClassTarget
-target7.width=100
+target7.width=90
 target7.x=10
 target7.y=140

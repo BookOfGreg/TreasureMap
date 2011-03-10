@@ -22,7 +22,7 @@ used above.*
 *Once in the store, a customer spends time selecting items to put in his/her trolley, so the total time spent in the
 shelves is given by the number of items selected multiplied by a constant time per item.*
 
-The number of items they select is distributed normally. 
+*The number of items they select is distributed normally. *
 
 The supermarket now operates an 'express' checkout for customers with fewer than 10 items; customers in this category will go
 to this checkout, otherwise they chose the shortest queue as above. On all checkouts, the

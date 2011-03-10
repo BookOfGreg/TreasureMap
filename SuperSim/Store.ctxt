@@ -2,14 +2,22 @@
 comment0.params=
 comment0.target=Store()
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Store\r\n
+<<<<<<< HEAD
 comment1.params=
 comment1.target=void\ Run()
 comment1.text=\ \r\n\ Set\ the\ timing\ for\ the\ program\r\n
 comment10.params=myCustomer\ express
 comment10.target=void\ addToSmallestQueue(Customer,\ boolean)
+=======
+comment1.params=hour
+comment1.target=void\ Run(int)
+comment1.text=\ \r\n\ Runs\ once\ per\ tick,\ controls\ customers\ on\ the\ shop\ floor\ in\ customerBrowsing\ and\ controls\ passing\ customers\ to\ the\ queue\ area.\r\n\ @param\ hour\ The\ current\ global\ hour\ the\ store\ is\ in.\r\n
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
 comment2.params=
 comment2.target=double\ currentAverageLength()
+comment2.text=\r\n\ Gets\ the\ current\ Average\ Queue\ length.\r\n\ @return\ average\ The\ average\ number\ of\ people\ in\ the\ queues\ as\ a\ double.\r\n
 comment3.params=
+<<<<<<< HEAD
 comment3.target=void\ updateCumulativeAverage()
 comment4.params=
 comment4.target=int\ getCustomerCounter()
@@ -24,3 +32,26 @@ comment8.target=void\ createCustomer()
 comment9.params=currentHour
 comment9.target=void\ calcCurrentProbability(int)
 numComments=11
+=======
+comment3.target=int\ getCustomerCounter()
+comment3.text=\r\n\ Passes\ statistic\ of\ the\ total\ number\ of\ customers\ to\ the\ controller.\r\n\ @return\ customerCounter\ The\ sum\ of\ customers.\r\n
+comment4.params=cust
+comment4.target=void\ calcAverageInStore(Customer)
+comment4.text=\r\n\ Totals\ up\ the\ time\ spent\ by\ all\ customers\ in\ store.\r\n
+comment5.params=
+comment5.target=double\ getAverageInStore()
+comment5.text=\r\n\ Returns\ the\ average\ time\ spent\ in\ store\ by\ all\ customers\r\n\ @return\ average\ Returns\ the\ average\ as\ a\ double.\r\n
+comment6.params=
+comment6.target=double\ getAverageQueue()
+comment6.text=\r\n\ Gets\ the\ average\ length\ of\ time\ customers\ have\ spent\ in\ queues.\r\n\ @return\ average\ The\ average\ length\ of\ time\ spent\ in\ queues\ as\ a\ dobule.\r\n
+comment7.params=hour
+comment7.target=void\ createCustomer(int)
+comment7.text=\r\n\ Method\ to\ decide\ if\ a\ customer\ will\ arrive\ on\ this\ tick\ and\ if\ so,\ create\ one\ and\ add\ to\ the\ shop\ floor.\r\n\ @param\ hour\ The\ global\ hour\ the\ customer\ is\ created\ in.\r\n
+comment8.params=currentHour
+comment8.target=void\ calcCurrentProbability(int)
+comment8.text=\r\n\ Calculates\ the\ probability\ that\ a\ customer\ will\ enter\ the\ store\ at\ the\ current\ hour.\r\n\ @param\ currentHour\ The\ current\ global\ hour.\r\n
+comment9.params=myCustomer\ express
+comment9.target=void\ addToSmallestQueue(Customer,\ boolean)
+comment9.text=\r\n\ Works\ out\ which\ checkout\ in\ checkoutList\ has\ the\ smallest\ queue\ length\ in\ terms\ of\ number\ of\ items\ in\ the\ queue\ and\ then\ adds\ that\ customer\ to\ the\ queue.\r\n\ @param\ myCustomer\ The\ customer\ to\ be\ added\ to\ the\ queue.\r\n\ @param\ express\ Toggles\ if\ the\ customer\ is\ eligable\ to\ join\ an\ express\ queue.\r\n
+numComments=10
+>>>>>>> d7294f87ea1acd4b3a8adff50b889a0c15995d33
