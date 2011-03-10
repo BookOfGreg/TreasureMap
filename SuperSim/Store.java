@@ -15,7 +15,9 @@ public class Store
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     private int customerCounter;
+    private double shopProfit;
     private double currentProbability;
+    private double cumulativeProbability;
     private final int DESIRED_AVERAGE_LENGTH = 4;
 
     /**
@@ -27,6 +29,8 @@ public class Store
         customerBrowsing = new ArrayList<Customer>();
         itemList = new ArrayList<Item>();
         rand = new Random();
+        customerCounter = 0;
+        shopProfit = 0;
         ItemHandler myItemHandler = new ItemHandler();
         itemList = myItemHandler.getItemList();
         Checkout newCheckoutExpress = new Checkout(true);
@@ -46,7 +50,7 @@ public class Store
             Customer currentCustomer = customerBrowsing.get(i);
             if (currentCustomer.getShoppingTime() > 0)
             {
-                currentCustomer.addItem();
+                shopProfit += currentCustomer.addItem();
             }
             else
             {
@@ -82,21 +86,27 @@ public class Store
         return sum / checkoutList.size();
     }
     
+    public void updateCumulativeAverage() {
+        cumulativeProbability += currentAverageLength();
+    }
+    
     public int getCustomerCounter()
     {
         return customerCounter;
     }
     
-    public double getAverageInStore()
+    public double getAverageInStore(int runTime)
     {
-        //
-        return 1.0; //arbitrary
+        return (double)customerCounter / (runTime / 3600);
     }
     
-    public double getAverageQueue()
+    public double getAverageQueue(int runTime)
     {
-        //
-        return 2.0; //arbitrary
+        return (double)cumulativeProbability / runTime;
+    }
+    
+    public double getShopProfit() {
+        return shopProfit;
     }
     
     public void createCustomer()

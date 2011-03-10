@@ -120,7 +120,7 @@ public class Checkout
     private void scanItems()
     {
         Item thisItem = currentCustomer.removeTrolleyItem();
-        itemReceipt.add(thisItem.getName());
+        itemReceipt.add(thisItem.getName()); //Seems to throw a NPE occassionally, no defined cause
         //add price?
     }
     

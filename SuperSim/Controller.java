@@ -40,17 +40,18 @@ public class Controller
         {
             if ((currentTick % 3600) == 0)
             {
-                System.out.println("CalculatingProbability");
+                //System.out.println("CalculatingProbability");
                 myStore.calcCurrentProbability((currentTick / 3600)%24);
             }
             myStore.Run();
+            myStore.updateCumulativeAverage();
             if (!(sleepTime == 0))
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime);
             }
         }
-        reportStatistics(myStore.getCustomerCounter(), myStore.getAverageInStore(), myStore.getAverageQueue()); 
+        reportStatistics(myStore.getCustomerCounter(), myStore.getAverageInStore(ticks), myStore.getAverageQueue(ticks), myStore.getShopProfit()); 
     }
 
     public void drawGraphics()
@@ -58,9 +59,13 @@ public class Controller
         //
     }
 
-    public void reportStatistics(int customerCounter, double averageInStore, double averageQueue)
+    public void reportStatistics(int customerCounter, double averageInStore, double averageQueue, double shopProfit)
     {
-        System.out.println(customerCounter+ "customer count" + averageInStore + "average store" + averageQueue + "average queue");
+        System.out.println(customerCounter+ " Customers in the Store");
+        System.out.println(averageInStore + " Average Customers per Hour");
+        System.out.println(averageQueue + " Average Customers in a Queue");
+        System.out.println("£" + shopProfit + " Total Profit");
+        System.out.println("£" + (shopProfit/customerCounter) + " Profit per Customer");
     }
 
     public int[] menuSystem()
