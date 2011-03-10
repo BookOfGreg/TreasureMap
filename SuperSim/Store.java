@@ -17,6 +17,7 @@ public class Store
     private int customerCounter;
     private double currentProbability;
     private final int DESIRED_AVERAGE_LENGTH = 4;
+    private int totalInStore = 0;
 
     /**
      * Constructor for objects of class Store
@@ -87,16 +88,26 @@ public class Store
         return customerCounter;
     }
     
+    public void calcAverageInStore(Customer cust)
+    {
+        totalInStore += cust.getTimeInStore();
+    }
+    
     public double getAverageInStore()
     {
-        //
-        return 1.0; //arbitrary
+        double average = totalInStore/customerCounter;
+        return average; //arbitrary
     }
     
     public double getAverageQueue()
     {
-        //
-        return 2.0; //arbitrary
+        double avgTotal = 0;
+        for (Checkout check:checkoutList)
+        {
+            avgTotal += check.getAverageQueue();
+        }
+        double average = avgTotal/checkoutList.size();
+        return average; //arbitrary
     }
     
     public void createCustomer()

@@ -14,6 +14,8 @@ public class Checkout
     private Customer currentCustomer;
     private final int ITEM_SCAN_SPEED;
     private int scanInterval;
+    private int customerCounter;
+    private int totalQueue;
     /**
      * Constructor for objects of class Checkout
      */
@@ -62,11 +64,23 @@ public class Checkout
         else if (queueHasCustomer())
         {
             currentCustomer = queue.remove(0);
+            customerCounter++;
         }
         else
         {
             //close queue //arbitrary
         }
+    }
+    
+    public void calcAverageQueue(Customer cust)
+    {
+        totalQueue += cust.getTimeInQueue();
+    }
+    
+    public double getAverageQueue()
+    {
+        double average = totalQueue/customerCounter;
+        return average;
     }
 
     private void makeReceipt()
