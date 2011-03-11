@@ -61,7 +61,7 @@ public class Checkout
                 makeReceipt();
                 currentCustomer.getTimeInQueue();
                 currentCustomer = null;
-                System.out.println("customer leaving store");
+                //System.out.println("customer leaving store");
             }
         }
         else if (queueHasCustomer())

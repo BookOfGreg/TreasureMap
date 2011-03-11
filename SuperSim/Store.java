@@ -162,7 +162,7 @@ public class Store
             //id number needs calculating.
             customerBrowsing.add(new Customer(itemList, 5, hour));//arbitrary
             customerCounter++;
-            System.out.println("Person entered store");
+            //System.out.println("Person entered store");
         }
     }
     
@@ -184,7 +184,7 @@ public class Store
      */
     public void addToSmallestQueue(Customer myCustomer, boolean express)
     {
-        System.out.println("Assigning customer to queue");
+        //System.out.println("Assigning customer to queue");
         Checkout minCheckout = null;// = new Checkout();
         int min = Integer.MAX_VALUE;
         if (express)
