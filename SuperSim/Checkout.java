@@ -167,6 +167,7 @@ public class Checkout
     {
         Item thisItem = currentCustomer.removeTrolleyItem();
         itemReceipt.add(thisItem.getName()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
+        //FileHandler.add(thisItem.toString());
         //add price?
     }
 

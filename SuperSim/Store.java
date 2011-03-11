@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.math.BigDecimal;
+
 /**
  * Write a description of class Store here.
  * 
@@ -14,7 +16,7 @@ public class Store
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     private int customerCounter;
-    private double shopProfit; //Limit decimal places to two
+    private double shopProfit; //BigDecimal
     private double currentProbability;
     private double cumulativeProbability;
     private final int DESIRED_AVERAGE_LENGTH = 4;
@@ -30,9 +32,8 @@ public class Store
         itemList = new ArrayList<Item>();
         rand = new Random();
         customerCounter = 0;
-        shopProfit = 0;
-        FileHandler myFileHandler = new FileHandler();
-        itemList = myFileHandler.getItemList();
+        shopProfit = 0;   
+        itemList = FileHandler.createAllItems();
         Checkout newCheckoutExpress = new Checkout(true);
         checkoutList.add(newCheckoutExpress);
         Checkout newCheckout = new Checkout(false);

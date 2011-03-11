@@ -31,4 +31,8 @@ public class Item
         return PRICE;
     }
     
+    public String toString() {
+        return NAME + " - " + PRICE; 
+    }
+    
 }

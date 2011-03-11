@@ -6,4 +6,6 @@ comment1.params=
 comment1.target=java.lang.String\ getName()
 comment2.params=
 comment2.target=double\ getPrice()
-numComments=3
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4
