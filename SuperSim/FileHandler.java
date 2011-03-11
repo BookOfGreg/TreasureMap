@@ -30,11 +30,19 @@ public class FileHandler
         while (currentLine != null)
         {
             Scanner s = new Scanner(currentLine).useDelimiter("\\s*,\\s*");
-            String name = s.next();
-            double price = Double.parseDouble(s.next());
-            Item myItem = new Item(name,price);
-            itemList.add(myItem);
-            currentLine = readLine();
+            try{
+                String name = s.next();
+                double price = Double.parseDouble(s.next());
+                Item myItem = new Item(name,price);
+                itemList.add(myItem);
+                currentLine = readLine();
+            }
+            catch(Exception e)
+            {
+                System.err.println("You either chose the wrong file, or your formatting is inconsistent.");
+                System.err.println("Please check that you have selected the correct file, and that it is CSV.");
+                return;
+            }
         }
     }
 
