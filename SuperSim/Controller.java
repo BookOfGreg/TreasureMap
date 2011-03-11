@@ -58,7 +58,7 @@ public class Controller
                 Thread.currentThread().sleep(sleepTime);
             }
         }
-        reportStatistics(myStore.getCustomerCounter(), myStore.getAverageInStore(ticks), myStore.getAverageQueue(ticks), myStore.getShopProfit()); 
+        reportStatistics(ticks, myStore.getCustomerCounter(), myStore.getAverageInStore(ticks), myStore.getAverageQueue(ticks), myStore.getShopProfit()); 
     }
 
     /**
@@ -74,13 +74,18 @@ public class Controller
         //
     }
 
-    public void reportStatistics(int customerCounter, double averageInStore, double averageQueue, double shopProfit)
+    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit)
     {
+        System.out.println("");
+        System.out.println("########################## Statistics: ##########################");
+        System.out.println((totalTicks / 3600) + " Hours total running time");
         System.out.println(customerCounter+ " Customers in the Store");
         System.out.println(averageInStore + " Average Customers per Hour");
         System.out.println(averageQueue + " Average Customers in a Queue");
         System.out.println("£" + shopProfit + " Total Profit");
         System.out.println("£" + (shopProfit/customerCounter) + " Profit per Customer");
+        System.out.println("#################################################################");
+        System.out.println("");
     }
 
     /**

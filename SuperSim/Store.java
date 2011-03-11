@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Random;
-
 /**
  * Write a description of class Store here.
  * 
@@ -15,7 +14,7 @@ public class Store
     private ArrayList<Customer> customerBrowsing;
     private ArrayList<Item> itemList;
     private int customerCounter;
-    private double shopProfit;
+    private double shopProfit; //Limit decimal places to two
     private double currentProbability;
     private double cumulativeProbability;
     private final int DESIRED_AVERAGE_LENGTH = 4;
