@@ -32,8 +32,8 @@ Alex: The file handler is throwing nasties at me when I try and use the items.tx
 To DO ASAP!!!
 
 1. Total time in store incl queue. ** Why does this need doing again? Averages for store + queue can be simple addition at end. ~G
-2. ticks start from 0 at midnight pass hour to customer from store ** Hour now passed from controller to customers constructor. Will leave to Alex to finish ~Greg
-3. Biased probability of customer type
+2. ticks start from 0 at midnight pass hour to customer from store ** Hour now passed from controller to customers constructor. Will leave to Alex to finish ~Greg ** Finished ~Alex
+3. Biased probability of customer type ** Finished, although probabilities are currently arbitrary pending research ~Alex
 4. Text file writing
 5. JavaDoc the lot
 6. Research
@@ -43,5 +43,4 @@ To DO ASAP!!!
 10. Loyalty card
 10a. Stats daisy chaining ** sort of done ~Greg
 
-Line 60, the addItem method in Customer needs debugging, they never return 0 shopping time and leave the store. I think they run into negative times when they pick up loads of items.
-@Everyone, now fixed, simulation is running (mostly).
+Line 60, the addItem method in Customer needs debugging, they never return 0 shopping time and leave the store. I think they run into negative times when they pick up loads of items. @Everyone, now fixed, simulation is running (mostly).
