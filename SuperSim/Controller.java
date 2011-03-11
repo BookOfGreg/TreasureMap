@@ -37,14 +37,13 @@ public class Controller
         //Initialization methods
         int[] myArray = new int[3];
         myArray = menuSystem(); //0 = ticks, 1 = sleepTime
-        int ticks = myArray[0];
+        int totalTicks = myArray[0];
         int sleepTime = myArray[1];
         int startHour = myArray[2];
         
         //Calculate tick related things
         int startingTick = startHour*3600;
-        ticks += startingTick;
-
+        int ticks = startingTick + totalTicks;
 
         //mainMethods
         myStore.calcCurrentProbability(currentTick / 3600);
@@ -64,7 +63,7 @@ public class Controller
                 Thread.currentThread().sleep(sleepTime);
             }
         }
-        reportStatistics(ticks, myStore.getCustomerCounter(), myStore.getAverageInStore(ticks), myStore.getAverageQueue(ticks), myStore.getShopProfit()); 
+        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getShopProfit()); 
     }
 
     /**
