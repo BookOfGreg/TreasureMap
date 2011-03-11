@@ -1,0 +1,120 @@
+11-03-2011 10:40AM
+
+########################## Statistics: ##########################
+1200 Hours total running time
+4320035 Customers in the Store
+3600.0291666666667 Average Customers per Hour
+0.037986574074074075 Average Customers in a Queue
+£1.7823907826097524E8 Total Profit
+£41.25871162177511 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+600 Hours total running time
+2160511 Customers in the Store
+3600.8516666666665 Average Customers per Hour
+0.03296574074074074 Average Customers in a Queue
+£8.905912376900393E7 Total Profit
+£41.22132392244424 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+300 Hours total running time
+1080133 Customers in the Store
+3600.443333333333 Average Customers per Hour
+0.05099537037037037 Average Customers in a Queue
+£4.458503560736339E7 Total Profit
+£41.27735714709521 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+150 Hours total running time
+539453 Customers in the Store
+3596.3533333333335 Average Customers per Hour
+0.11192037037037036 Average Customers in a Queue
+£2.2235843949460253E7 Total Profit
+£41.219242361170025 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+75 Hours total running time
+270204 Customers in the Store
+3602.72 Average Customers per Hour
+0.09482222222222222 Average Customers in a Queue
+£1.113245224004752E7 Total Profit
+£41.20017557122589 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+48 Hours total running time
+172636 Customers in the Store
+3596.5833333333335 Average Customers per Hour
+0.13424768518518518 Average Customers in a Queue
+£7097997.74001771 Total Profit
+£41.11539736797487 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+24 Hours total running time
+86529 Customers in the Store
+3605.375 Average Customers per Hour
+0.2775578703703704 Average Customers in a Queue
+£3583989.430015243 Total Profit
+£41.41951750297869 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+12 Hours total running time
+43202 Customers in the Store
+3600.1666666666665 Average Customers per Hour
+0.4985185185185185 Average Customers in a Queue
+£1802192.4899985776 Total Profit
+£41.715487477398675 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+6 Hours total running time
+21652 Customers in the Store
+3608.6666666666665 Average Customers per Hour
+0.8618055555555556 Average Customers in a Queue
+£871226.8999997634 Total Profit
+£40.23771014223921 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+3 Hours total running time
+10830 Customers in the Store
+3610.0 Average Customers per Hour
+0.804537037037037 Average Customers in a Queue
+£435014.8699998162 Total Profit
+£40.167578023990416 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+2 Hours total running time
+7220 Customers in the Store
+3610.0 Average Customers per Hour
+0.5469444444444445 Average Customers in a Queue
+£294551.5699999269 Total Profit
+£40.79661634348018 Profit per Customer
+#################################################################
+
+
+########################## Statistics: ##########################
+1 Hours total running time
+3604 Customers in the Store
+3604.0 Average Customers per Hour
+2.121111111111111 Average Customers in a Queue
+£145364.9599999893 Total Profit
+£40.334339622638545 Profit per Customer
+#################################################################
