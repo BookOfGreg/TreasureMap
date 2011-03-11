@@ -43,10 +43,9 @@ public class Customer
         //double multiplyer = math.abs(rand.nextGaussian()*2*14); //Probability * Mean * StdDev then absolute.
         switch(rand.nextInt(5)){
             case 0: MEAN_ITEMS = 5; CUSTOMER_TYPE = "Business"; break;
-            case 1: MEAN_ITEMS = 15; CUSTOMER_TYPE = "Old"; break;
-            case 2: MEAN_ITEMS = 90; CUSTOMER_TYPE = "Family"; break;
+            case 1: MEAN_ITEMS = 15; CUSTOMER_TYPE = "Old"; break;case 2: MEAN_ITEMS = 12; CUSTOMER_TYPE = "Family"; break;
             case 3: MEAN_ITEMS = 3; CUSTOMER_TYPE = "Children"; break;
-            case 4: MEAN_ITEMS = 25; CUSTOMER_TYPE = "Generic"; break;
+            case 4: MEAN_ITEMS = 18; CUSTOMER_TYPE = "Generic"; break;
             default: MEAN_ITEMS = MIN_ITEMS; CUSTOMER_TYPE = "Generic"; break;//Ensures the compiler knows that it can always set MEAN_ITEMS
         }
         long itemPickLimit;// = TOTAL_ITEMS_AVAIL;
@@ -60,22 +59,18 @@ public class Customer
     public double addItem()
     {
         double itemPrice = 0.0;
-        if((shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1)) == 0){ //If timeinstore % timeperitem == 0. Might do by ticks so shoppingTime % ticks == 0
+        if(shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1) == 0){ //If timeinstore % randomInt(timeperitem) == 0 to prevent synchronised shopping.
             if(trolley.size() < ITEMS_TO_PICK){
                 Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
                 trolley.add(itemSelect);
-                shoppingTime-= (TIME_PER_ITEM);
+                shoppingTime = shoppingTime - TIME_PER_ITEM;
                 itemPrice += itemSelect.getPrice();
-                System.out.println("Item pickup successful, \nshoppingTime = " + shoppingTime + "\nItems = " + trolley.size() + "\nItems to pick = " + ITEMS_TO_PICK);
             }
-            else
-            {
+            else{
                 //Customer has all required items
                 setShoppingTime(0);
             }
         }
-        timeInStore++;   
-        System.out.println("METHOD CALL");
         return itemPrice;
     }
 

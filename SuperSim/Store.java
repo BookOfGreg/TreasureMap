@@ -47,7 +47,7 @@ public class Store
     public void Run(int hour)
     {
         createCustomer(hour);
-        for(int i = (customerBrowsing.size()-1); i >= 0; i--)
+        for(int i = (customerBrowsing.size()-1); i >= 0; i--) //Was error in this loop, but my bad ~Alex
         {
             Customer currentCustomer = customerBrowsing.get(i);
             if (currentCustomer.getShoppingTime() > 0)
@@ -58,11 +58,11 @@ public class Store
             {
                 if (currentCustomer.getTrolleyCount() <= 10)
                 {
-                    addToSmallestQueue(customerBrowsing.remove(i),true);//join queue with lest items
+                    addToSmallestQueue(customerBrowsing.remove(i),true);//join queue with least items
                 }
                 else
                 {
-                    addToSmallestQueue(customerBrowsing.remove(i),false);//join queue with lest items exclude express
+                    addToSmallestQueue(customerBrowsing.remove(i),false);//join queue with least items exclude express
                 }
                 //addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <=10));
             }
