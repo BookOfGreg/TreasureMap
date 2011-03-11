@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+import java.awt.Graphics2D;
 
 /**
  * Write a description of class Controller here.
@@ -12,6 +14,10 @@ public class Controller
     private int runTime; //total running time
     private int currentTick; //current running time
     private Store myStore;
+    
+    private DecimalFormat statOutput = new DecimalFormat("#,##0");
+    private DecimalFormat currencyOutput = new DecimalFormat("#,##0.00");
+    private DecimalFormat avgOutput = new DecimalFormat("#,##0.0000");
     /**
      * Constructor for objects of class Controller
      */
@@ -71,19 +77,19 @@ public class Controller
 
     public void drawGraphics()
     {
-        //
+        //Graphics g = myJPanel
     }
 
     public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit)
     {
         System.out.println("");
         System.out.println("########################## Statistics: ##########################");
-        System.out.println((totalTicks / 3600) + " Hours total running time");
-        System.out.println(customerCounter+ " Customers in the Store");
-        System.out.println(averageInStore + " Average Customers per Hour");
-        System.out.println(averageQueue + " Average Customers in a Queue");
-        System.out.println("£" + shopProfit + " Total Profit");
-        System.out.println("£" + (shopProfit/customerCounter) + " Profit per Customer");
+        System.out.println(statOutput.format((totalTicks / 3600)) + " Hours total running time");
+        System.out.println(statOutput.format(customerCounter)+ " Customers in the Store");
+        System.out.println(avgOutput.format(averageInStore) + " Average Customers per Hour");
+        System.out.println(avgOutput.format(averageQueue) + " Average Customers in a Queue");
+        System.out.println("£" + currencyOutput.format(shopProfit) + " Total Profit");
+        System.out.println("£" + currencyOutput.format((shopProfit/customerCounter)) + " Profit per Customer");
         System.out.println("#################################################################");
         System.out.println("");
     }
