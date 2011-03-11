@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Write a description of class ItemHandler here.
  * 
  * @author AngryPirates, based on TestReader by Steve Townsend and Jim Hunter, and TextFileHandler by Jim Hunter.
- * @version 0.n
+ * @version 2011,03,11
  */
 public abstract class FileHandler
 {
@@ -46,6 +46,30 @@ public abstract class FileHandler
             }
         }
         return itemList;
+    }
+
+    /**
+     * returns true if worked.
+     */
+    public static boolean add(String theString, boolean delete)
+    {
+        //File file = getFile();
+       // if ( file != null){
+            try{
+                // Create file 
+                FileWriter myFileWriter = new FileWriter("LoyaltyItems.txt",!delete);
+                BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
+                myBufferedWriter.write(theString);
+                myBufferedWriter.newLine();
+                //Close the output stream
+                myBufferedWriter.close();
+                return true;
+            }
+            catch(/*FileNotFoundException*/Exception e){
+                /*System.err.println("TextReader: Problem opening file for reading: "+ file.getAbsolutePath());*/
+            }
+       // }
+        return false;
     }
 
     /**

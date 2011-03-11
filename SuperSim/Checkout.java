@@ -166,8 +166,8 @@ public class Checkout
     private void scanItems()
     {
         Item thisItem = currentCustomer.removeTrolleyItem();
-        itemReceipt.add(thisItem.getName()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
-        //FileHandler.add(thisItem.toString());
+        //itemReceipt.add(thisItem.getName()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
+        FileHandler.add(thisItem.toString(),false);
         //add price?
     }
 

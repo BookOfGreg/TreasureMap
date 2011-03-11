@@ -1,10 +1,13 @@
 #BlueJ class context
 comment0.params=
 comment0.target=java.util.ArrayList\ createAllItems()
-comment1.params=
-comment1.target=java.io.File\ getFile()
-comment1.text=\r\n\ This\ was\ taken\ from\ SimpleIO\r\n\ \r\n\ Use\ a\ file\ choser\ to\ allow\ the\ user\ to\ select\ a\ file\r\n\ @return\ file\ \ \ the\ selected\ file\ or\ null\ if\ user\ cancels\ out\r\n
-comment2.params=open\ reader
-comment2.target=java.lang.String\ readLine(boolean,\ java.io.BufferedReader)
-comment2.text=\r\n\ This\ was\ taken\ from\ SimpleIO.\r\n\ \r\n\ Reads\ a\ complete\ line\r\n\ @return\ \ the\ remainder\ of\ the\ line\ as\ a\ string,\r\n\ \ \ \ \ \ \ \ \ \ null\ if\ the\ end-of-file\ is\ reached\r\n\ \ \ \ \ \ \ \ \ \ null\ if\ an\ I/O\ exception\ is\ raised\r\n
-numComments=3
+comment1.params=theString\ delete
+comment1.target=boolean\ add(java.lang.String,\ boolean)
+comment1.text=\r\n\ returns\ true\ if\ worked.\r\n
+comment2.params=
+comment2.target=java.io.File\ getFile()
+comment2.text=\r\n\ This\ was\ taken\ from\ SimpleIO\r\n\ \r\n\ Use\ a\ file\ choser\ to\ allow\ the\ user\ to\ select\ a\ file\r\n\ @return\ file\ \ \ the\ selected\ file\ or\ null\ if\ user\ cancels\ out\r\n
+comment3.params=open\ reader
+comment3.target=java.lang.String\ readLine(boolean,\ java.io.BufferedReader)
+comment3.text=\r\n\ This\ was\ taken\ from\ SimpleIO.\r\n\ \r\n\ Reads\ a\ complete\ line\r\n\ @return\ \ the\ remainder\ of\ the\ line\ as\ a\ string,\r\n\ \ \ \ \ \ \ \ \ \ null\ if\ the\ end-of-file\ is\ reached\r\n\ \ \ \ \ \ \ \ \ \ null\ if\ an\ I/O\ exception\ is\ raised\r\n
+numComments=4
