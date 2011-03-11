@@ -160,7 +160,7 @@ public class Store
     {
         if (rand.nextFloat() <= currentProbability) {
             //id number needs calculating.
-            customerBrowsing.add(new Customer(itemList, 5, hour));//arbitrary
+            customerBrowsing.add(new Customer(itemList, hour));//arbitrary
             customerCounter++;
             //System.out.println("Person entered store");
         }

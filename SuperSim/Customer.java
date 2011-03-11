@@ -11,6 +11,7 @@ public class Customer
 {
     private final String CUSTOMER_TYPE; 
     private final int ID;
+    private static int nextID = 1;
     //private final int  MIN_ITEMS = 1; //going to change soon
     private final int MEAN_ITEMS;
     private final long ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
@@ -29,10 +30,11 @@ public class Customer
     /**
      * Constructor for objects of class Customer
      */
-    public Customer(ArrayList<Item> productList,int myId, int hour)
+    public Customer(ArrayList<Item> productList, int hour)
     {
         this.productList = productList;
-        ID = myId;
+        ID = nextID;
+        nextID++;
         timeInStore = 0;
         trolley = new ArrayList<Item>();
         rand = new Random();
