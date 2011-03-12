@@ -58,8 +58,11 @@ public class Checkout
             }
             else 
             {
-                makeReceipt();
-                currentCustomer.getTimeInQueue();
+                //make reciept
+                FileHandler.batchAdd(itemReceipt,currentCustomer.getID());
+                itemReceipt.clear();
+                
+                currentCustomer.getTimeInQueue();//arbitrary//does this do anything?
                 currentCustomer = null;
                 //System.out.println("customer leaving store");
             }
@@ -168,11 +171,6 @@ public class Checkout
         Item thisItem = currentCustomer.removeTrolleyItem();
 
         itemReceipt.add(thisItem.toString()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
-        if (itemReceipt.size() > 10000)
-        {
-            FileHandler.batchAdd(itemReceipt);
-            itemReceipt.clear();
-        }
     }
 
     /**

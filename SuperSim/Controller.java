@@ -100,17 +100,22 @@ public class Controller
     {
         UserDialog myUD = new UserDialog();
         int sleepTime = -1;
-        if(myUD.getBoolean("Do you want to run in Stats-Only mode?"))
-        {
+        if(myUD.getBoolean("Do you want to run in Stats-Only mode?")){
             sleepTime = 0;
         }
-        else
-        {
+        else{
             int speed = myUD.getInt("What speed multiplier do you want to run at? For real time put 1, maximum is 1000x real time");
             float f = (1/speed)*1000;
             sleepTime = (int)(f + 0.5f);
         }
-        int hours = myUD.getInt("How many hours do you want to run the program?");
+        int hours;
+        do{
+            hours = myUD.getInt("How many hours do you want to run the program? Maximum is 4 weeks (672 hours)");
+        }while (hours < 0);
+        if (hours > 672){
+            myUD.showTextMessage("Hours selected was " + hours + ", number defaulting to 672");
+            hours = 672;
+        }
         int ticks = (hours)*3600; //number of seconds in hour.
         int startHour = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
         int[] myArray = new int[3];
