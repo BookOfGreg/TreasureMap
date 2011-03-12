@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #BlueJ class context
 comment0.params=
 comment0.target=Store()
@@ -39,45 +38,3 @@ comment9.params=
 comment9.target=double\ getAverageInStore()
 comment9.text=\n\ Returns\ the\ average\ time\ spent\ in\ store\ by\ all\ customers\n\ @return\ average\ Returns\ the\ average\ as\ a\ double.\n
 numComments=14
-=======
-#BlueJ class context
-comment0.params=
-comment0.target=Store()
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Store\r\n
-comment1.params=hour
-comment1.target=void\ Run(int)
-comment1.text=\ \r\n\ Runs\ once\ per\ tick,\ controls\ customers\ on\ the\ shop\ floor\ in\ customerBrowsing\ and\ controls\ passing\ customers\ to\ the\ queue\ area.\r\n\ @param\ hour\ The\ current\ global\ hour\ the\ store\ is\ in.\r\n
-comment10.params=
-comment10.target=double\ getAverageQueue()
-comment10.text=\r\n\ Gets\ the\ average\ length\ of\ time\ customers\ have\ spent\ in\ queues.\r\n\ @return\ average\ The\ average\ length\ of\ time\ spent\ in\ queues\ as\ a\ dobule.\r\n
-comment11.params=hour
-comment11.target=void\ createCustomer(int)
-comment11.text=\r\n\ Method\ to\ decide\ if\ a\ customer\ will\ arrive\ on\ this\ tick\ and\ if\ so,\ create\ one\ and\ add\ to\ the\ shop\ floor.\r\n\ @param\ hour\ The\ global\ hour\ the\ customer\ is\ created\ in.\r\n
-comment12.params=currentHour
-comment12.target=void\ calcCurrentProbability(int)
-comment12.text=\r\n\ Calculates\ the\ probability\ that\ a\ customer\ will\ enter\ the\ store\ at\ the\ current\ hour.\r\n\ @param\ currentHour\ The\ current\ global\ hour.\r\n
-comment13.params=myCustomer\ express
-comment13.target=void\ addToSmallestQueue(Customer,\ boolean)
-comment13.text=\r\n\ Works\ out\ which\ checkout\ in\ checkoutList\ has\ the\ smallest\ queue\ length\ in\ terms\ of\ number\ of\ items\ in\ the\ queue\ and\ then\ adds\ that\ customer\ to\ the\ queue.\r\n\ @param\ myCustomer\ The\ customer\ to\ be\ added\ to\ the\ queue.\r\n\ @param\ express\ Toggles\ if\ the\ customer\ is\ eligable\ to\ join\ an\ express\ queue.\r\n
-comment2.params=
-comment2.target=double\ currentAverageLength()
-comment2.text=\r\n\ Gets\ the\ current\ Average\ Queue\ length.\r\n\ @return\ average\ The\ average\ number\ of\ people\ in\ the\ queues\ as\ a\ double.\r\n
-comment3.params=
-comment3.target=void\ updateCumulativeAverage()
-comment4.params=
-comment4.target=int\ getCustomerCounter()
-comment4.text=\r\n\ Passes\ statistic\ of\ the\ total\ number\ of\ customers\ to\ the\ controller.\r\n\ @return\ customerCounter\ The\ sum\ of\ customers.\r\n
-comment5.params=runTime
-comment5.target=double\ getAverageInStore(int)
-comment6.params=runTime
-comment6.target=double\ getAverageQueue(int)
-comment7.params=
-comment7.target=double\ getShopProfit()
-comment8.params=cust
-comment8.target=void\ calcAverageInStore(Customer)
-comment8.text=\r\n\ Totals\ up\ the\ time\ spent\ by\ all\ customers\ in\ store.\r\n
-comment9.params=
-comment9.target=double\ getAverageInStore()
-comment9.text=\r\n\ Returns\ the\ average\ time\ spent\ in\ store\ by\ all\ customers\r\n\ @return\ average\ Returns\ the\ average\ as\ a\ double.\r\n
-numComments=14
->>>>>>> dabfc7c0a55f0fdb4081e0dbba69d9a547d0bb69
