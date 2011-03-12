@@ -122,7 +122,7 @@ public class Customer
         }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0);
         ITEMS_TO_PICK = itemPickLimit;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
-        System.out.println(nextID);
+        //System.out.println(nextID);
     }    
 
     public double addItem()
