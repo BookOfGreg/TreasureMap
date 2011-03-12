@@ -128,6 +128,11 @@ public class Customer
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
         //System.out.println(nextID);
     }    
+    
+    public int getID()
+    {
+        return ID;
+    }
 
     public double addItem()
     {
