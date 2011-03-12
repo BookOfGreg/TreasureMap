@@ -72,14 +72,12 @@ public abstract class FileHandler
         return false;
     }
 
-    public static boolean batchAdd(ArrayList<String> items, int ID)
+    public static boolean batchAdd(ArrayList<String> items)
     {
         try{
             // Create file 
             FileWriter myFileWriter = new FileWriter("LoyaltyItems.txt",true);
             BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
-            myBufferedWriter.write("Customer: "+ID);
-            myBufferedWriter.newLine();
             for (String myItem:items){
                 myBufferedWriter.write(myItem);
                 myBufferedWriter.newLine();

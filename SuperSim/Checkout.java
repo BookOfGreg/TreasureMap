@@ -59,9 +59,7 @@ public class Checkout
             else 
             {
                 //make reciept
-                FileHandler.batchAdd(itemReceipt,currentCustomer.getID());
-                itemReceipt.clear();
-                
+                itemReceipt.add(Integer.toString(currentCustomer.getID()));
                 currentCustomer.getTimeInQueue();//arbitrary//does this do anything?
                 currentCustomer = null;
                 //System.out.println("customer leaving store");
@@ -77,7 +75,7 @@ public class Checkout
             //close queue //arbitrary
         }
     }
-    
+
     /**
      * Sums up all the time customers spend in the queue.
      */
@@ -85,7 +83,7 @@ public class Checkout
     {
         totalQueue += cust.getTimeInQueue();
     }
-    
+
     /**
      * Calculates the average time a customer spends in the queue.
      * @return Returns the average length as double.
@@ -132,7 +130,7 @@ public class Checkout
             return false;
         }
     }
-    
+
     /**
      * Returns the queue size
      * @return returns queue size as an integer.
@@ -169,8 +167,11 @@ public class Checkout
     private void scanItems()
     {
         Item thisItem = currentCustomer.removeTrolleyItem();
-
         itemReceipt.add(thisItem.toString()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
+        if (itemReceipt.size() > 10000){
+            FileHandler.batchAdd(itemReceipt);
+            itemReceipt.clear();
+        }
     }
 
     /**
