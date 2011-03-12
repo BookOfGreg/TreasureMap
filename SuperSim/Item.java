@@ -1,13 +1,12 @@
 
 /**
- * Write a description of class Item here.
+ *Creates an Item from Items.txt and assigns a name and price.
  * 
  * @author AngryPirates
  * @version 0.1
  */
 public class Item
 {
-    // instance variables - replace the example below with your own
     private final String NAME;
     private final double PRICE; 
 
@@ -16,22 +15,33 @@ public class Item
      */
     public Item(String itemName, double itemPrice)
     {
-        // initialise instance variables
         NAME = itemName;
         PRICE = itemPrice;
     }
     
-    public String getName()
+    /**
+     * @return The name of the item.
+     */
+    public String getName() 
     {
         return NAME;
     }
     
+    
+    /**
+     * @return The price if the item.
+     */
     public double getPrice()
     {
         return PRICE;
     }
     
-    public String toString() {
+    /**
+     *  Generic method to display name and price of an item.
+     * @return String value of name and price.
+     */
+    public String toString() 
+    {
         return NAME + " - " + PRICE; 
     }
     

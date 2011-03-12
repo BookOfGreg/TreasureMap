@@ -3,10 +3,10 @@ import java.io.*;
 import javax.swing.*;
 import java.util.Scanner;
 /**
- * Write a description of class ItemHandler here.
+ * Reads Items.txt then passes each line from the text file to the Item class.
  * 
  * @author AngryPirates, based on TestReader by Steve Townsend and Jim Hunter, and TextFileHandler by Jim Hunter.
- * @version 0.n
+ * @version 12/03/2011
  */
 public abstract class FileHandler
 {
