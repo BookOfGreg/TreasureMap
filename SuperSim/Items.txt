@@ -1,3 +1,54 @@
+<<<<<<< HEAD
+Grapes,2.47
+Strawberries,1.87
+Mixed Berries,2.97
+Bag of Apples,1.00
+Apricots,1.47
+Pirate Cutlass,8.52
+SuperSim Value Eye patch,0.54
+Sausages,1.40
+SuperSim Top quality Pizza,4.50
+Cadburys Milk Tray,4.25
+1 Pint of milk,0.64
+Peg leg,16.00
+Jolly Rodger,10.65
+Inception DVD,12.00
+Bread,0.86
+DIT Network,1.99
+WebCT,6000000.01
+ABDN Uni network,0.00
+Pack of 4 mugs,1.99
+Colouring Crayons,0.99
+Birthday Card,0.64
+Headphones,1.25
+Best Selling Book,5.99
+Batteries,9.99
+Sachet of Hot Chocolate,0.64
+Tin of Beans,0.59
+Peeled Tomatoes,0.89
+One Penny Sweet,0.02
+Dozen Eggs,2.34
+6 Softies,1.11
+2L Still Water,0.89
+2L Sparkling Water,0.90
+2L Iron Bru,0.99
+1KG Chedder Cheese,4.20
+Chilli Flakes,2.19
+Parmasan Cheese,5.98
+Calculator,4.56
+Pringles,1.20
+Computer mouse,7.90
+2 Pints of Milk,1.00
+Nutella,2.00
+Toy Story Boxers,7.99
+Bottle of Red Wine,5.00
+Pint of Guinness,2.30
+Digital Camera OFFER ,25.00
+Pain Killers,2.30
+Webcam,12.00
+Russell Howard Ticket,29.99
+1000 Teabags,6.80
+=======
 Grapes,2.47
 Strawberries,1.87
 Mixed Berries,2.97
@@ -16,3 +67,4 @@ Bread,0.86
 DIT Network,1.99
 WebCT,6.01
 ABDN Uni network,0.00
+>>>>>>> 57ccb9938640640a42cd0f140281595780d3b2e2
