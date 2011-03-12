@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Reads Items.txt then passes each line from the text file to the Item class.
  * 
  * @author AngryPirates, based on TestReader by Steve Townsend and Jim Hunter, and TextFileHandler by Jim Hunter.
- * @version 12/03/2011
+ * @version 2011,03,11
  */
 public abstract class FileHandler
 {
@@ -46,6 +46,50 @@ public abstract class FileHandler
             }
         }
         return itemList;
+    }
+
+    /**
+     * returns true if worked.
+     */
+    public static boolean add(String theString, boolean delete)
+    {
+        //File file = getFile();
+        // if ( file != null){
+        try{
+            // Create file 
+            FileWriter myFileWriter = new FileWriter("LoyaltyItems.txt",!delete);
+            BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
+            myBufferedWriter.write(theString);
+            myBufferedWriter.newLine();
+            //Close the output stream
+            myBufferedWriter.close();
+            return true;
+        }
+        catch(/*FileNotFoundException*/Exception e){
+            /*System.err.println("TextReader: Problem opening file for reading: "+ file.getAbsolutePath());*/
+        }
+        // }
+        return false;
+    }
+
+    public static boolean batchAdd(ArrayList<String> items)
+    {
+        try{
+            // Create file 
+            FileWriter myFileWriter = new FileWriter("LoyaltyItems.txt",true);
+            BufferedWriter myBufferedWriter = new BufferedWriter(myFileWriter);
+            for (String myItem:items){
+                myBufferedWriter.write(myItem);
+                myBufferedWriter.newLine();
+            }
+            //Close the output stream
+            myBufferedWriter.close();
+            return true;
+        }
+        catch(/*FileNotFoundException*/Exception e){
+            /*System.err.println("TextReader: Problem opening file for reading: "+ file.getAbsolutePath());*/
+        }
+        return false;
     }
 
     /**

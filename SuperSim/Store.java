@@ -34,6 +34,8 @@ public class Store
         customerCounter = 0;
         shopProfit = 0;   
         itemList = FileHandler.createAllItems();
+        UserDialog ud = new UserDialog();
+        FileHandler.add("Start Store",ud.getBoolean("Do you want to clear the loyalty file?"));
         Checkout newCheckoutExpress = new Checkout(true);
         checkoutList.add(newCheckoutExpress);
         Checkout newCheckout = new Checkout(false);

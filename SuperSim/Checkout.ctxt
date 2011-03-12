@@ -1,3 +1,50 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+#BlueJ class context
+comment0.params=isExpress
+comment0.target=Checkout(boolean)
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Checkout\n\ @param\ isExpress\ Toggles\ if\ checkout\ to\ be\ created\ is\ express\ or\ not.\n
+comment1.params=
+comment1.target=void\ run()
+comment1.text=\n\ Runs\ once\ per\ tick,\ controls\ one\ customer\ at\ the\ till\ and\ all\ customers\ in\ the\ queue.\n
+comment10.params=
+comment10.target=void\ scanItems()
+comment10.text=\n\ Scan\ items\ takes\ an\ item\ out\ of\ the\ trolley\ of\ the\ customer\ and\ adds\ the\ item\ name\ to\ the\ reciept\ list.\n
+comment11.params=
+comment11.target=int\ itemCount()
+comment11.text=\n\ Method\ to\ get\ the\ number\ of\ Items\ in\ all\ the\ trolleys\ in\ the\ queue.\n\ @return\ Number\ of\ items\ in\ the\ queue\ as\ an\ int.\n
+comment12.params=
+comment12.target=boolean\ isExpress()
+comment12.text=\n\ Returns\ if\ the\ checkout\ is\ an\ express\ checkout.\n
+comment13.params=newCustomer
+comment13.target=void\ add(Customer)
+comment13.text=\n\ Method\ to\ add\ a\ customer\ to\ the\ queue\ of\ the\ checkout.\n
+comment2.params=cust
+comment2.target=void\ calcAverageQueue(Customer)
+comment2.text=\n\ Sums\ up\ all\ the\ time\ customers\ spend\ in\ the\ queue.\n
+comment3.params=
+comment3.target=double\ getAverageQueue()
+comment3.text=\n\ Calculates\ the\ average\ time\ a\ customer\ spends\ in\ the\ queue.\n\ @return\ Returns\ the\ average\ length\ as\ double.\n
+comment4.params=
+comment4.target=void\ makeReceipt()
+comment5.params=
+comment5.target=boolean\ queueHasCustomer()
+comment5.text=\n\ Returns\ true\ if\ the\ queue\ is\ not\ empty.\n\ @return\ True\ if\ queue\ has\ at\ lest\ 1\ customer.\n
+comment6.params=
+comment6.target=boolean\ hasCustomer()
+comment6.text=\n\ Returns\ true\ if\ there\ is\ a\ customer\ at\ the\ till.\n\ @return\ True\ if\ the\ till\ has\ a\ customer.\ \n
+comment7.params=
+comment7.target=int\ getQueueLength()
+comment7.text=\n\ Returns\ the\ queue\ size\n\ @return\ returns\ queue\ size\ as\ an\ integer.\n
+comment8.params=
+comment8.target=boolean\ hasItems()
+comment8.text=\n\ Checks\ if\ the\ customer\ at\ the\ till\ has\ any\ more\ items\ in\ the\ trolley.\n\ @return\ True\ if\ the\ customer\ has\ items\ in\ the\ trolley.\n
+comment9.params=
+comment9.target=int\ randomDelay()
+numComments=14
+=======
+>>>>>>> PTW
 #BlueJ class context
 comment0.params=isExpress
 comment0.target=Checkout(boolean)
@@ -40,3 +87,7 @@ comment8.text=\r\n\ Checks\ if\ the\ customer\ at\ the\ till\ has\ any\ more\ it
 comment9.params=
 comment9.target=int\ randomDelay()
 numComments=14
+<<<<<<< HEAD
+=======
+>>>>>>> dabfc7c0a55f0fdb4081e0dbba69d9a547d0bb69
+>>>>>>> PTW

@@ -14,7 +14,7 @@ public class Controller
     private int runTime; //total running time
     private int currentTick; //current running time
     private Store myStore;
-    
+
     private DecimalFormat statOutput = new DecimalFormat("#,##0");
     private DecimalFormat currencyOutput = new DecimalFormat("#,##0.00");
     private DecimalFormat avgOutput = new DecimalFormat("#,##0.0000");
@@ -31,7 +31,7 @@ public class Controller
             e.printStackTrace();
         }
     }
-    
+
     public void runController() throws InterruptedException
     {
         //Initialization methods
@@ -40,7 +40,7 @@ public class Controller
         int totalTicks = myArray[0];
         int sleepTime = myArray[1];
         int startHour = myArray[2];
-        
+
         //Calculate tick related things
         int startingTick = startHour*3600;
         int ticks = startingTick + totalTicks;
@@ -100,19 +100,36 @@ public class Controller
     {
         UserDialog myUD = new UserDialog();
         int sleepTime = -1;
-        if(myUD.getBoolean("Do you want to run in Stats-Only mode?"))
-        {
-            sleepTime = 0;
+        do{
+            if(myUD.getBoolean("Do you want to run in Stats-Only mode?")){
+                sleepTime = 0;
+            }
+            else{
+                int speed;
+                do{
+                    speed = myUD.getInt("What speed multiplier do you want to run at? For real time put 1, maximum is 1000x real time");
+                }while (speed < 1);
+                if (speed > 1000){
+                    myUD.showMessage("Speed selected was " + speed + ", number defaulting to 1000");
+                    speed = 1000;
+                }
+                float f = (1/speed)*1000;
+                sleepTime = (int)(f + 0.5f);
+            }
+        }while (sleepTime == -1);
+        int hours;
+        do{
+            hours = myUD.getInt("How many hours do you want to run the program? Maximum is 4 weeks (672 hours)");
+        }while (hours < 1);
+        if (hours > 672){
+            myUD.showMessage("Hours selected was " + hours + ", number defaulting to 672");
+            hours = 672;
         }
-        else
-        {
-            int speed = myUD.getInt("What speed multiplier do you want to run at? For real time put 1, maximum is 1000x real time");
-            float f = (1/speed)*1000;
-            sleepTime = (int)(f + 0.5f);
-        }
-        int hours = myUD.getInt("How many hours do you want to run the program?");
         int ticks = (hours)*3600; //number of seconds in hour.
-        int startHour = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+        int startHour;
+        do{
+            startHour = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+        }while (startHour < 0 || startHour > 24);
         int[] myArray = new int[3];
         myArray[0] = ticks;
         myArray[1] = sleepTime;

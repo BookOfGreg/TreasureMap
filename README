@@ -43,4 +43,4 @@ To DO ASAP!!!
 10. Loyalty card
 10a. Stats daisy chaining ** sort of done ~Greg
 
-Line 60, the addItem method in Customer needs debugging, they never return 0 shopping time and leave the store. I think they run into negative times when they pick up loads of items. @Everyone, now fixed, simulation is running (mostly).
+11: PERFORMANCE!: Every 1000 hours, dump arraylist to txt file instead of writing every item.

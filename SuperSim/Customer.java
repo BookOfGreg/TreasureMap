@@ -2,17 +2,20 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.lang.Math;
 /**
- * Write a description of class Customer here.
+ * A class to model various types of Customer. All customers have an ID (sequentially increased static variable) as well as a type and assosciated properties.
+ * The items a particular customer picks is normally distributed according to the type of customer.
+ * The probability that a customer is of certain type is biased according to the hour of the day. At the moment, these values are completely arbitrary and are merely
+ * a projection.
+ * 
  * 
  * @author AngryPirates First Mate Alex
- * @version 0.1
+ * @version 12/3/11
  */
 public class Customer
 {
     private final String CUSTOMER_TYPE; 
     private final int ID;
     private static int nextID = 1;
-    //private final int  MIN_ITEMS = 1; //going to change soon
     private final int MEAN_ITEMS;
     private final long ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
     private int TIME_PER_ITEM = 5; //Arbitrary
@@ -28,7 +31,8 @@ public class Customer
     private int timeInQueue;
 
     /**
-     * Constructor for objects of class Customer
+     * Constructor for objects of class Customer.
+     * There 
      */
     public Customer(ArrayList<Item> productList, int hour)
     {
@@ -122,8 +126,13 @@ public class Customer
         }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0);
         ITEMS_TO_PICK = itemPickLimit;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
-        System.out.println(nextID);
+        //System.out.println(nextID);
     }    
+    
+    public int getID()
+    {
+        return ID;
+    }
 
     public double addItem()
     {
