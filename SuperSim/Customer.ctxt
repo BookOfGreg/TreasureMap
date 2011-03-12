@@ -1,6 +1,6 @@
 #BlueJ class context
-comment0.params=productList\ myId\ hour
-comment0.target=Customer(java.util.ArrayList,\ int,\ int)
+comment0.params=productList\ hour
+comment0.target=Customer(java.util.ArrayList,\ int)
 comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Customer\r\n
 comment1.params=
 comment1.target=double\ addItem()
