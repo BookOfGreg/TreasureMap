@@ -1,34 +1,34 @@
 import java.text.DecimalFormat;
 import java.awt.Graphics2D;
 import java.util.Calendar;
-import java.text.SimpleDateFormat;
 
 /**
  * Write a description of class Controller here.
  * 
- * @author AngryPirates Cabin Boy Greg 
- * @version 2011,03,10
+ * @author AngryPirates Cabin Boy Greg & Seaman Sam
+ * @version 2011,03,14
  */
 public class Controller
 {
     /* Average Execution Times (Sam):
-     * 10752 Hours = 1195 Seconds
-     * 5376 Hours = 711 Seconds
-     * 2688 Hours = 344 Seconds
-     * 1344 Hours = 160 Seconds
-     * 672 Hours = 78 Seconds
+     * 21504 Hours = 48 Minutes 17 Seconds (18.1 Gb) - Simulation of about 2.5 Years
+     * 10752 Hours = 19 Minutes 45 Seconds
+     * 5376 Hours = 11 Minutes 51 Seconds
+     * 2688 Hours = 5 Minutes 44 Seconds
+     * 1344 Hours = 2 Minutes 40 Seconds
+     * 672 Hours = 1 Minute 18 Seconds
      * 336 Hours = 38 Seconds
      * 168 Hours = 16 Seconds
      * 24 Hours = 2 Seconds
      */
-    private final int MAX_HOURS = 10752;
+    private final int MAX_HOURS = 86016;
     
-    // instance variables - replace the example below with your own
     private int startTime; //starting hour
     private int runTime; //total running time
     private int currentTick; //current running time
     private Store myStore;
 
+    //Number formating for statistics output
     private DecimalFormat statOutput = new DecimalFormat("#,##0");
     private DecimalFormat currencyOutput = new DecimalFormat("#,##0.00");
     private DecimalFormat avgOutput = new DecimalFormat("#,##0.0000");
@@ -47,6 +47,9 @@ public class Controller
         }
     }
 
+    /**
+     * Performs the main operations of the simulation, controlling timings and everything else
+     */
     public void runController() throws InterruptedException
     {
         //Initialization methods
@@ -60,6 +63,7 @@ public class Controller
         int startingTick = startHour*3600;
         int ticks = startingTick + totalTicks;
         
+        //Gets the time from the start of the simulation as a number of seconds
         Calendar calendarStart = Calendar.getInstance();
         int startTime = (calendarStart.get(calendarStart.HOUR_OF_DAY)*3600) + (calendarStart.get(calendarStart.MINUTE)*60) + calendarStart.get(calendarStart.SECOND);
 
@@ -82,6 +86,7 @@ public class Controller
             }
         }
         
+        //Gets the time from the end of the simulation as a number of seconds
         Calendar calendarEnd = Calendar.getInstance();
         int endTime = (calendarEnd.get(calendarEnd.HOUR_OF_DAY)*3600) + (calendarEnd.get(calendarEnd.MINUTE)*60) + calendarEnd.get(calendarEnd.SECOND);
         
@@ -96,11 +101,23 @@ public class Controller
         new Controller();
     }
 
+    /**
+     * Will at some point handle the visual aspect of the simulation
+     */
     public void drawGraphics()
     {
         //Graphics g = myJPanel
     }
 
+    /**
+     * Handles the output of statistics at the end of the simulation. Outputs to terminal
+     * @param totalTicks The total number of ticks the simulation was run for
+     * @param customerCounter The total number of customers that came through the store
+     * @param averageInStore The average number of customers in the store per hour
+     * @param averageQueue The average queue length in the store
+     * @param shopProfit The total cash earned from selling items
+     * @param executionTime The time the simulation took to run
+     */
     public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit, int executionTime)
     {
         System.out.println("");
