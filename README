@@ -31,16 +31,18 @@ Alex: The file handler is throwing nasties at me when I try and use the items.tx
 
 To DO ASAP!!!
 
-1. Total time in store incl queue. ** Why does this need doing again? Averages for store + queue can be simple addition at end. ~G
-2. ticks start from 0 at midnight pass hour to customer from store ** Hour now passed from controller to customers constructor. Will leave to Alex to finish ~Greg ** Finished ~Alex
-3. Biased probability of customer type ** Finished, although probabilities are currently arbitrary pending research ~Alex
-4. Text file writing
-5. JavaDoc the lot
-6. Research
+*1. Total time in store incl queue. ** Why does this need doing again? Averages for store + queue can be simple addition at end. ~G
+*2. ticks start from 0 at midnight pass hour to customer from store ** Hour now passed from controller to customers constructor. Will leave to Alex to finish ~Greg ** Finished ~Alex
+*3. Biased probability of customer type ** Finished, although probabilities are currently arbitrary pending research ~Alex
+*4. Text file writing ** Done
+*5. JavaDoc the lot ** Done
+*6. Research ** Fuck it
 7. Report & other doc
-8. Shiny shit
-9. Chris to finish item list. **Done ~Chris
-10. Loyalty card
-10a. Stats daisy chaining ** sort of done ~Greg
+8. Graphics.
+*9. Chris to finish item list. **Done ~Chris
+10. Loyalty card ** Doesn't track by customer
+*10a. Stats daisy chaining ** sort of done ~Greg
 
-11: PERFORMANCE!: Every 1000 hours, dump arraylist to txt file instead of writing every item.
+*11: PERFORMANCE!: Every 1000 hours, dump arraylist to txt file instead of writing every item.
+
+12. Checkout closing done.

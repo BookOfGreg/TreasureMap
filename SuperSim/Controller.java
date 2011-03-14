@@ -1,6 +1,5 @@
 import java.text.DecimalFormat;
 import java.awt.Graphics2D;
-import java.util.Calendar;
 
 /**
  * Write a description of class Controller here.
@@ -64,8 +63,8 @@ public class Controller
         int ticks = startingTick + totalTicks;
         
         //Gets the time from the start of the simulation as a number of seconds
-        Calendar calendarStart = Calendar.getInstance();
-        int startTime = (calendarStart.get(calendarStart.HOUR_OF_DAY)*3600) + (calendarStart.get(calendarStart.MINUTE)*60) + calendarStart.get(calendarStart.SECOND);
+
+        long startTime = System.currentTimeMillis();
 
         //mainMethods
         myStore.calcCurrentProbability(currentTick / 3600);
@@ -87,10 +86,10 @@ public class Controller
         }
         
         //Gets the time from the end of the simulation as a number of seconds
-        Calendar calendarEnd = Calendar.getInstance();
-        int endTime = (calendarEnd.get(calendarEnd.HOUR_OF_DAY)*3600) + (calendarEnd.get(calendarEnd.MINUTE)*60) + calendarEnd.get(calendarEnd.SECOND);
+
+        long endTime = System.currentTimeMillis();
         
-        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getShopProfit(), (endTime - startTime)); 
+        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getShopProfit(), (endTime - startTime)/1000); 
     }
 
     /**
@@ -118,7 +117,7 @@ public class Controller
      * @param shopProfit The total cash earned from selling items
      * @param executionTime The time the simulation took to run
      */
-    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit, int executionTime)
+    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit, long executionTime)
     {
         System.out.println("");
         System.out.println("########################## Statistics: ##########################");
