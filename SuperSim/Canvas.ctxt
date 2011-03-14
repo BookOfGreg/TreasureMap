@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Canvas()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Canvas\r\n
+comment1.params=g
+comment1.target=void\ paintComponent(java.awt.Graphics)
+comment2.params=
+comment2.target=void\ addCheckout()
+comment3.params=
+comment3.target=void\ addCustomer()
+comment4.params=
+comment4.target=void\ addShopFloor()
+numComments=5
