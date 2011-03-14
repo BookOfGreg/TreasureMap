@@ -1,5 +1,7 @@
 import java.text.DecimalFormat;
 import java.awt.Graphics2D;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 /**
  * Write a description of class Controller here.
@@ -9,6 +11,18 @@ import java.awt.Graphics2D;
  */
 public class Controller
 {
+    /* Average Execution Times (Sam):
+     * 10752 Hours = 1195 Seconds
+     * 5376 Hours = 711 Seconds
+     * 2688 Hours = 344 Seconds
+     * 1344 Hours = 160 Seconds
+     * 672 Hours = 78 Seconds
+     * 336 Hours = 38 Seconds
+     * 168 Hours = 16 Seconds
+     * 24 Hours = 2 Seconds
+     */
+    private final int MAX_HOURS = 10752;
+    
     // instance variables - replace the example below with your own
     private int startTime; //starting hour
     private int runTime; //total running time
@@ -18,6 +32,7 @@ public class Controller
     private DecimalFormat statOutput = new DecimalFormat("#,##0");
     private DecimalFormat currencyOutput = new DecimalFormat("#,##0.00");
     private DecimalFormat avgOutput = new DecimalFormat("#,##0.0000");
+
     /**
      * Constructor for objects of class Controller
      */
@@ -44,6 +59,9 @@ public class Controller
         //Calculate tick related things
         int startingTick = startHour*3600;
         int ticks = startingTick + totalTicks;
+        
+        Calendar calendarStart = Calendar.getInstance();
+        int startTime = (calendarStart.get(calendarStart.HOUR_OF_DAY)*3600) + (calendarStart.get(calendarStart.MINUTE)*60) + calendarStart.get(calendarStart.SECOND);
 
         //mainMethods
         myStore.calcCurrentProbability(currentTick / 3600);
@@ -63,7 +81,11 @@ public class Controller
                 Thread.currentThread().sleep(sleepTime);
             }
         }
-        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getShopProfit()); 
+        
+        Calendar calendarEnd = Calendar.getInstance();
+        int endTime = (calendarEnd.get(calendarEnd.HOUR_OF_DAY)*3600) + (calendarEnd.get(calendarEnd.MINUTE)*60) + calendarEnd.get(calendarEnd.SECOND);
+        
+        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getShopProfit(), (endTime - startTime)); 
     }
 
     /**
@@ -79,15 +101,26 @@ public class Controller
         //Graphics g = myJPanel
     }
 
-    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit)
+    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit, int executionTime)
     {
         System.out.println("");
         System.out.println("########################## Statistics: ##########################");
         System.out.println(statOutput.format((totalTicks / 3600)) + " Hours total running time");
+        System.out.print("Execution Time: ");
+        if (executionTime < 60) {
+            System.out.println(executionTime + " Seconds");
+        } else {
+            System.out.print((executionTime/60) + " Minutes ");
+            System.out.println((executionTime - ((executionTime/60)*60)) + " Seconds");
+        }
+        System.out.println("");
+        
         System.out.println(statOutput.format(customerCounter)+ " Customers in the Store");
         System.out.println(avgOutput.format(averageInStore) + " Average Customers per Hour");
         System.out.println(avgOutput.format(averageQueue) + " Average Customers in a Queue");
-        System.out.println("£" + currencyOutput.format(shopProfit) + " Total Profit");
+        System.out.println("");
+        
+        System.out.println("£" + currencyOutput.format(shopProfit) + " Total Profit"); //Need to let profigt be tracked as BigDecimal, value is being capped (I think) - Sam
         System.out.println("£" + currencyOutput.format((shopProfit/customerCounter)) + " Profit per Customer");
         System.out.println("#################################################################");
         System.out.println("");
@@ -119,11 +152,11 @@ public class Controller
         }while (sleepTime == -1);
         int hours;
         do{
-            hours = myUD.getInt("How many hours do you want to run the program? Maximum is 4 weeks (672 hours)");
+            hours = myUD.getInt("How many hours do you want to run the program? Maximum is " + ((MAX_HOURS/24)/7) + " weeks (" + MAX_HOURS + " hours)");
         }while (hours < 1);
-        if (hours > 672){
-            myUD.showMessage("Hours selected was " + hours + ", number defaulting to 672");
-            hours = 672;
+        if (hours > MAX_HOURS){
+            myUD.showMessage("Hours selected was " + hours + ", number defaulting to " + MAX_HOURS);
+            hours = MAX_HOURS;
         }
         int ticks = (hours)*3600; //number of seconds in hour.
         int startHour;

@@ -14,7 +14,7 @@ Jolly Rodger,10.65
 Inception DVD,12.00
 Bread,0.86
 DIT Network,1.99
-WebCT,6000000.01
+WebCT,60.01
 ABDN Uni network,0.00
 Pack of 4 mugs,1.99
 Colouring Crayons,0.99
