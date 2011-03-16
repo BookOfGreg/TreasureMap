@@ -10,6 +10,7 @@ public class Checkout
     private ArrayList<Customer> queue;
     private ArrayList<String> itemReceipt;
     private boolean express = false;
+    private boolean closing = false;
     private Customer currentCustomer;
     private final int ITEM_SCAN_SPEED;
     private int scanInterval;
@@ -202,5 +203,13 @@ public class Checkout
     public void add(Customer newCustomer)
     {
         queue.add(newCustomer);
+    }
+    
+    public void setClosing() {
+        closing = true;
+    }
+    
+    public boolean getClosing() {
+        return closing;
     }
 }

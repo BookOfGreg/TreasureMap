@@ -10,7 +10,7 @@ import java.awt.Graphics2D;
 public class Controller
 {
     /* Average Execution Times (Sam):
-     * 21504 Hours = 48 Minutes 17 Seconds (18.1 Gb) - Simulation of about 2.5 Years
+     * 21504 Hours = 48 Minutes 17 Seconds (18.1 Gb - Loyalty File) - Simulation of about 2.5 Years
      * 10752 Hours = 19 Minutes 45 Seconds
      * 5376 Hours = 11 Minutes 51 Seconds
      * 2688 Hours = 5 Minutes 44 Seconds

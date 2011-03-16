@@ -20,6 +20,7 @@ public class Store
     private double currentProbability;
     private double cumulativeProbability;
     private final int DESIRED_AVERAGE_LENGTH = 4;
+    private final int CLOSE_THRESHOLD = 1;
     private int totalInStore = 0;
 
     /**
@@ -69,14 +70,20 @@ public class Store
                 //addToSmallestQueue(customerBrowsing.remove(currentCustomerIndex), (currentCustomer.getTrolleyCount() <=10));
             }
         }
-        for (Checkout currentCheckout:checkoutList)
+        for (int i = (checkoutList.size()-1); i >= 0; i--)
         {
+            Checkout currentCheckout = checkoutList.get(i);
             currentCheckout.run();
+            if (currentCheckout.getQueueLength() == 0 && currentCheckout.getClosing() == true) {
+                checkoutList.remove(currentCheckout);
+            }
         }
         if (currentAverageLength() > DESIRED_AVERAGE_LENGTH)
         {
             Checkout newCheckout = new Checkout(false);
             checkoutList.add(newCheckout);
+        } else if (currentAverageLength() < CLOSE_THRESHOLD && checkoutList.size() > 1) {
+            checkoutList.get(0).setClosing();
         }
     }
     
@@ -193,7 +200,7 @@ public class Store
         {
             for (Checkout currentCheckout:checkoutList)
             {
-                if (currentCheckout.itemCount() < min)
+                if (currentCheckout.itemCount() < min && currentCheckout.getClosing() == false)
                 {
                     minCheckout = currentCheckout;
                     min = currentCheckout.itemCount();
@@ -205,7 +212,7 @@ public class Store
             for (Checkout currentCheckout:checkoutList)
             {
                 if (!currentCheckout.isExpress())
-                    if (currentCheckout.itemCount() < min)
+                    if (currentCheckout.itemCount() < min && currentCheckout.getClosing() == false)
                     {
                         minCheckout = currentCheckout;
                         min = currentCheckout.itemCount();
