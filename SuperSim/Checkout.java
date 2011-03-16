@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.awt.*;
 /**
  * Write a description of class Checkout here.
  * 
@@ -16,6 +17,7 @@ public class Checkout
     private int scanInterval;
     private int customerCounter;
     private int totalQueue;
+    private Point coordinates;
     /**
      * Constructor for objects of class Checkout
      * @param isExpress Toggles if checkout to be created is express or not.

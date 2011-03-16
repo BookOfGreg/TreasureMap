@@ -26,6 +26,7 @@ public class Controller
     private int runTime; //total running time
     private int currentTick; //current running time
     private Store myStore;
+    private Canvas myCanvas;
 
     //Number formating for statistics output
     private DecimalFormat statOutput = new DecimalFormat("#,##0");
@@ -68,6 +69,7 @@ public class Controller
 
         //mainMethods
         myStore.calcCurrentProbability(currentTick / 3600);
+        myCanvas = new Canvas();
         for (int currentTick = startingTick; currentTick <= ticks; currentTick++)
         {
             if ((currentTick % 3600) == 0)
@@ -105,7 +107,8 @@ public class Controller
      */
     public void drawGraphics()
     {
-        //Graphics g = myJPanel
+        myCanvas.erase();
+        //myCanvas.
     }
 
     /**

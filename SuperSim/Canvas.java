@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 /**
  * Write a description of class Canvas here.
  * 
@@ -8,12 +9,15 @@ import java.awt.*;
  */
 public class Canvas extends JPanel 
 {
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 1000;
+    private final int WIDTH = 640;
+    private final int HEIGHT = 480;
     private JPanel p;
     private JFrame f;
     private Image canvasImage;
     private Graphics g;
+    private final int CHECKOUT_WIDTH = 20;
+    private final int CUSTOMER_DIAMETER = 16;
+    private final int CHECKOUT_LENGTH = 160;
     /**
      * Constructor for objects of class Canvas
      */
@@ -40,20 +44,70 @@ public class Canvas extends JPanel
         //g.fillRect(0, 0, WIDTH/2,HEIGHT/2); //makes a full screen rectangle with color
     }
 
-    public void addCheckout()
+    private void addCheckout(int index, int Y)
     {
-        g.setColor(new Color(255,255,0));
-        g.drawLine(0,0,150,150);
+        g.setColor(new Color(0,0,0));
+        g.fillRect(index*CHECKOUT_WIDTH,Y,CHECKOUT_WIDTH-1,CHECKOUT_LENGTH);
+        g.setColor(new Color(255,0,0));
+        int[] x = {(index*CHECKOUT_WIDTH),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH/2),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH)};
+        int[] y = {Y+25,Y,Y+25};
+        g.fillPolygon(new Polygon(x,y,3));
         p.repaint();
     }
     
-    public void addCustomer()
+    private void addCustomer(Point coords)
     {
-        //
+        g.setColor(new Color(0,0,255));
+        g.fillOval((int)coords.getX(),(int)coords.getY(),CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
     }
     
-    public void addShopFloor()
+    private void addCustomer(int column, int row)
     {
-        //
+        g.setColor(new Color(0,0,255));
+        g.fillOval(row*CHECKOUT_WIDTH,column*CHECKOUT_WIDTH, CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);//arbitrary This WILL go wrong, incorrect calculateion on column
+    }
+    
+    /**
+     * adds a shop floor area, calls methods to add all other elements.
+     * @param size the size of teh shop floor
+     * @param aisles the location of impassable aisles on the shop floor
+     * @param checkoutArea the size of the checkout area
+     * @param checkouts contains the customers in the queues
+     */
+    public void addShopFloor(Dimension size, ArrayList<Point> aisles, Dimension checkoutArea, ArrayList<ArrayList<Point>> checkouts)
+    {
+        g.setColor(new Color(255,255,255));
+        g.fillRect(0,0,(int)size.getHeight(),(int)size.getWidth());
+        g.setColor(new Color(100,100,100));
+        for (Point aisle:aisles){
+            g.fillRect((int)aisle.getX(),(int)aisle.getY(),20,320);
+        }
+        addCheckoutArea(checkoutArea, (int)size.getHeight());
+        for (int i = 0; i<checkouts.size();i++){
+            addCheckout(i,(int)size.getHeight());
+            for (int j = 0; j<checkouts.get(i).size();j++){
+                addCustomer(i,j);
+            }
+        }
+        //for (Point customer:customers){
+        //    addCustomer(customer);
+        //}
+    }
+    
+    /**
+     * Draws the checkout area at the bottom of the shop area.
+     * @param X The position of the top of the checkout area.
+     */
+    private void addCheckoutArea(Dimension checkoutArea, int X)
+    {
+        g.setColor(new Color(50,50,0));
+        g.fillRect(X,0,(int)checkoutArea.getHeight()+X,(int)checkoutArea.getWidth());
+    }
+    
+    public void erase()
+    {
+        g.setColor(new Color(0,0,0));
+        g.fillRect(0,0,WIDTH,HEIGHT);
+        p.repaint();
     }
 }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.math.BigDecimal;
+import java.awt.*;
 
 /**
  * Write a description of class Store here.
@@ -23,6 +24,11 @@ public class Store
     private final int DESIRED_AVERAGE_LENGTH = 4;
     private final int CLOSE_THRESHOLD = 1;
     private int totalInStore = 0;
+    //graphics
+    private Dimension shopFloor;
+    private ArrayList<Point> aisles;
+    private Dimension checkoutArea;
+    private int checkoutCounter = 0;
 
     /**
      * Constructor for objects of class Store
@@ -39,7 +45,7 @@ public class Store
         UserDialog ud = new UserDialog();
         FileHandler.add("Start Store",ud.getBoolean("Do you want to clear the loyalty file?"));
         Checkout newCheckoutExpress = new Checkout(true);
-        checkoutList.add(newCheckoutExpress);
+        checkoutList.add(newCheckoutExpress); //arbitrary add checkout coords;
         Checkout newCheckout = new Checkout(false);
         checkoutList.add(newCheckout);
     }
@@ -79,17 +85,18 @@ public class Store
                 checkoutList.remove(currentCheckout);
             }
         }
-        if (currentAverageLength() > DESIRED_AVERAGE_LENGTH)
-        {
+        if (currentAverageLength() > DESIRED_AVERAGE_LENGTH) {
             Checkout newCheckout = new Checkout(false);
             checkoutList.add(newCheckout);
+            checkoutCounter++;
         } else if (currentAverageLength() < CLOSE_THRESHOLD && checkoutList.size() > 1) {
             int i = 0;
             boolean closed = false;
             while (i < checkoutList.size() && closed == false) {
                 Checkout checkout = checkoutList.get(i);
-                if (!checkout.isExpress()) {
+                if (!checkout.isExpress() && checkout.getClosing() == false && checkoutCounter >= 1) {
                     checkout.setClosing();
+                    checkoutCounter--;
                     closed = true;
                 }
                 i++;

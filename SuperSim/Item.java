@@ -9,7 +9,7 @@ public class Item
 {
     private final String NAME;
     private final double PRICE; 
-
+    private int ID; //not used yet
     /**
      * Constructor for objects of class Item
      */

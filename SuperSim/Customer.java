@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.lang.Math;
+import java.awt.*;
 /**
  * A class to model various types of Customer. All customers have an ID (sequentially increased static variable) as well as a type and assosciated properties.
  * The items a particular customer picks is normally distributed according to the type of customer.
@@ -29,6 +30,7 @@ public class Customer
     //private final String  LOYALTY_CARD_NUMBER = "Parrot";
     private int timeInStore;
     private int timeInQueue;
+    private Point coordinates;//not used
 
     /**
      * Constructor for objects of class Customer.
