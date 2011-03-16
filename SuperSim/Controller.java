@@ -20,7 +20,7 @@ public class Controller
      * 168 Hours = 16 Seconds
      * 24 Hours = 2 Seconds
      */
-    private final int MAX_HOURS = 86016;
+    private final int MAX_HOURS = 21504;
     
     private int startTime; //starting hour
     private int runTime; //total running time
@@ -89,7 +89,7 @@ public class Controller
 
         long endTime = System.currentTimeMillis();
         
-        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getShopProfit(), (endTime - startTime)/1000); 
+        reportStatistics(totalTicks, myStore.getCustomerCounter(), myStore.getAverageInStore(totalTicks), myStore.getAverageQueue(totalTicks), myStore.getAverageWait(totalTicks), myStore.getShopProfit(), (endTime - startTime)/1000); 
     }
 
     /**
@@ -117,7 +117,7 @@ public class Controller
      * @param shopProfit The total cash earned from selling items
      * @param executionTime The time the simulation took to run
      */
-    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double shopProfit, long executionTime)
+    public void reportStatistics(int totalTicks, int customerCounter, double averageInStore, double averageQueue, double averageWait, double shopProfit, long executionTime)
     {
         System.out.println("");
         System.out.println("########################## Statistics: ##########################");
@@ -134,6 +134,7 @@ public class Controller
         System.out.println(statOutput.format(customerCounter)+ " Customers in the Store");
         System.out.println(avgOutput.format(averageInStore) + " Average Customers per Hour");
         System.out.println(avgOutput.format(averageQueue) + " Average Customers in a Queue");
+        System.out.println(avgOutput.format(averageWait) + " Seconds - Average Waiting Time per Customer"); //Waiting time not yet implemented
         System.out.println("");
         
         System.out.println("£" + currencyOutput.format(shopProfit) + " Total Profit"); //Need to let profigt be tracked as BigDecimal, value is being capped (I think) - Sam

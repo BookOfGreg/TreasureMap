@@ -19,6 +19,7 @@ public class Store
     private double shopProfit; //BigDecimal
     private double currentProbability;
     private double cumulativeProbability;
+    private double cumulativeWait;
     private final int DESIRED_AVERAGE_LENGTH = 4;
     private final int CLOSE_THRESHOLD = 1;
     private int totalInStore = 0;
@@ -83,7 +84,16 @@ public class Store
             Checkout newCheckout = new Checkout(false);
             checkoutList.add(newCheckout);
         } else if (currentAverageLength() < CLOSE_THRESHOLD && checkoutList.size() > 1) {
-            checkoutList.get(0).setClosing();
+            int i = 0;
+            boolean closed = false;
+            while (i < checkoutList.size() && closed == false) {
+                Checkout checkout = checkoutList.get(i);
+                if (!checkout.isExpress()) {
+                    checkout.setClosing();
+                    closed = true;
+                }
+                i++;
+            }
         }
     }
     
@@ -136,29 +146,8 @@ public class Store
         totalInStore += cust.getTimeInStore();
     }
     
-    /**
-     * Returns the average time spent in store by all customers
-     * @return average Returns the average as a double.
-     */
-    public double getAverageInStore()
-    {
-        double average = totalInStore/customerCounter;
-        return average;
-    }
-    
-    /**
-     * Gets the average length of time customers have spent in queues.
-     * @return average The average length of time spent in queues as a dobule.
-     */
-    public double getAverageQueue()
-    {
-        double avgTotal = 0;
-        for (Checkout check:checkoutList)
-        {
-            avgTotal += check.getAverageQueue();
-        }
-        double average = avgTotal/checkoutList.size();
-        return average;
+    public double getAverageWait(int runTime) {        
+        return (double)cumulativeWait / runTime;
     }
     
     /**
