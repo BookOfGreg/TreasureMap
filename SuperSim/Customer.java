@@ -18,6 +18,7 @@ public class Customer
     private final int ID;
     private static int nextID = 1;
     private final int MEAN_ITEMS;
+    private final int STD_DEV;
     private final long ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
     private int TIME_PER_ITEM = 5; //Arbitrary
     private final int TOTAL_ITEMS_AVAIL;
@@ -105,26 +106,31 @@ public class Customer
         if(decider >= 0 && decider <=BUSINESS_PROB)
         {
             MEAN_ITEMS = 5;
+            STD_DEV = 1;
             CUSTOMER_TYPE = "Business";
         }
         else if(decider > BUSINESS_PROB && decider <= OLD_PROB)
         {
             MEAN_ITEMS = 15;
+            STD_DEV = 4;
             CUSTOMER_TYPE = "Old";
         }
         else if(decider > OLD_PROB && decider <= CHILD_PROB)
         {
             MEAN_ITEMS = 3;
+            STD_DEV = 1;
             CUSTOMER_TYPE = "Children";
         }
         else //assume generic
         {
             MEAN_ITEMS = 18;
+            STD_DEV = 6;
             CUSTOMER_TYPE = "Generic";
         }
-        long itemPickLimit;// = TOTAL_ITEMS_AVAIL;
-        do {//Makes sure the Customer can't choose more items than exist.
-            itemPickLimit = math.abs(math.round(rand.nextGaussian())+MEAN_ITEMS); //Finds range to pick items.
+        long itemPickLimit;
+        //Makes sure the Customer can't choose more items than exist.
+        do {
+            itemPickLimit = math.abs(math.round(rand.nextGaussian()*STD_DEV)+MEAN_ITEMS); //Finds range to pick items, with custom mean and standard deviation.
         }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0);
         ITEMS_TO_PICK = itemPickLimit;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
