@@ -50,6 +50,32 @@ public class Store
         checkoutList.add(newCheckout);
     }
     
+    public ArrayList<Integer> getQueues()
+    {
+        ArrayList<Integer> queues = new ArrayList<Integer>();
+        
+        for (Checkout check:checkoutList)
+        {
+            queues.add(new Integer(check.getQueueLength()));
+        }
+        return queues;
+    }
+    
+    public int getCheckoutListSize()
+    {
+        return checkoutList.size();
+    }
+    
+    public ArrayList<Point> getCustomerLocations()
+    {
+        ArrayList<Point> customers = new ArrayList<Point>();
+        for (Customer cust:customerBrowsing)
+        {
+            customers.add(cust.getLocation());
+        }
+        return customers;
+    }
+    
     /** 
      * Runs once per tick, controls customers on the shop floor in customerBrowsing and controls passing customers to the queue area.
      * @param hour The current global hour the store is in.

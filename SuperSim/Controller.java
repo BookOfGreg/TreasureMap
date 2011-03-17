@@ -1,5 +1,6 @@
 import java.text.DecimalFormat;
-import java.awt.Graphics2D;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Write a description of class Controller here.
@@ -77,7 +78,7 @@ public class Controller
                 //System.out.println("CalculatingProbability");
                 myStore.calcCurrentProbability((currentTick / 3600)%24);
             }
-            myStore.Run((currentTick % 3600));
+            //myStore.Run((currentTick % 3600));//What is this doing here? line below is also myStore.run()
             myStore.updateCumulativeAverage();
             myStore.Run((currentTick / 3600)%24);
             if (!(sleepTime == 0))
@@ -108,7 +109,21 @@ public class Controller
     public void drawGraphics()
     {
         myCanvas.erase();
-        //myCanvas.
+        Dimension shopSize = new Dimension(600,450); //arbitrary //
+        ArrayList<Point> aisles = new ArrayList<Point>();
+        int aislesCount = ((int)shopSize.getWidth() - 20) / 40;
+        for (int i = 0; i < aislesCount; i++)
+        {
+            aisles.add(new Point(20,20*(i+1)));
+        }
+        ArrayList<Integer> checkouts = myStore.getQueues();
+        Dimension checkoutArea = new Dimension(myCanvas.CHECKOUT_WIDTH*myStore.getCheckoutListSize(),myCanvas.CHECKOUT_LENGTH+4); //arbitrary//Should be myStore.MAX_CHECKOUTS but we don't have a max
+        ArrayList<Point> customers = myStore.getCustomerLocations();
+        myCanvas.addShopFloor(shopSize, 
+                                aisles, 
+                                checkoutArea,
+                                checkouts,
+                                customers);
     }
 
     /**
@@ -158,7 +173,7 @@ public class Controller
                 sleepTime = 0;
             }
             else{
-                int speed;
+                float speed;
                 do{
                     speed = myUD.getInt("What speed multiplier do you want to run at? For real time put 1, maximum is 1000x real time");
                 }while (speed < 1);

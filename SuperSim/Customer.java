@@ -31,7 +31,7 @@ public class Customer
     //private final String  LOYALTY_CARD_NUMBER = "Parrot";
     private int timeInStore;
     private int timeInQueue;
-    private Point coordinates;//not used
+    private Point coordinates = new Point(0,0);
 
     /**
      * Constructor for objects of class Customer.
@@ -136,6 +136,17 @@ public class Customer
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
         //System.out.println(nextID);
     }    
+    
+    public Point getLocation()
+    {
+        return coordinates;
+    }
+    
+    /*
+     * public void setLocation(Point) //given point moved to
+     * or
+     * public void changeLocation() //calculate own point moved to
+     */
     
     public int getID()
     {
