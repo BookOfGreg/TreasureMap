@@ -20,7 +20,7 @@ public class Store
     private double shopProfit; //BigDecimal
     private double currentProbability;
     private double cumulativeProbability;
-    private double cumulativeWait;
+    private int cumulativeWait;
     private final int DESIRED_AVERAGE_LENGTH = 4;
     private final int CLOSE_THRESHOLD = 1;
     private int totalInStore = 0;
@@ -106,7 +106,7 @@ public class Store
         for (int i = (checkoutList.size()-1); i >= 0; i--)
         {
             Checkout currentCheckout = checkoutList.get(i);
-            currentCheckout.run();
+            cumulativeWait += currentCheckout.run();
             if (currentCheckout.getQueueLength() == 0 && currentCheckout.getClosing() == true) {
                 checkoutList.remove(currentCheckout);
             }

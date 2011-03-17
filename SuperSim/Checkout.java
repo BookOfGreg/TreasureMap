@@ -35,8 +35,9 @@ public class Checkout
     /**
      * Runs once per tick, controls one customer at the till and all customers in the queue.
      */
-    public void run()
+    public int run()
     {
+        int timeTracking = 0;
         if(queueHasCustomer())
         {
             for(Customer cust : queue)
@@ -63,7 +64,7 @@ public class Checkout
             {
                 //make reciept
                 itemReceipt.add(Integer.toString(currentCustomer.getID()));
-                currentCustomer.getTimeInQueue();//arbitrary//does this do anything?
+                timeTracking += (currentCustomer.getTimeInStore() + currentCustomer.getTimeInQueue());
                 currentCustomer = null;
                 //System.out.println("customer leaving store");
             }
@@ -77,6 +78,8 @@ public class Checkout
         {
             //close queue //arbitrary
         }
+        
+        return timeTracking;
     }
 
     /**
