@@ -80,13 +80,13 @@ public class Canvas extends JPanel
         g.fillRect(0,0,(int)size.getHeight(),(int)size.getWidth());
         g.setColor(new Color(100,100,100));
         for (Point aisle:aisles){
-            g.fillRect((int)aisle.getX(),(int)aisle.getY(),20,320);
+            g.fillRect((int)aisle.getX(),(int)aisle.getY(),280,20);
         }
         addCheckoutArea(checkoutArea, (int)size.getHeight());
         for (int i = 0; i<checkouts.size();i++){
             addCheckout(i,(int)size.getHeight());
             for (int j = 0; j<checkouts.get(i);j++){
-                addCustomer(i,j);
+                addCustomer(j,i);//arbitraty // change is so they are plotted up from the bottom instead of down from the top.
             }
         }
         for (Point customer:customers){
