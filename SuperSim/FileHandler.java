@@ -30,7 +30,8 @@ public abstract class FileHandler
                     try{
                         String name = s.next();
                         double price = Double.parseDouble(s.next());
-                        Item myItem = new Item(name,price);
+                        int id = s.nextInt();
+                        Item myItem = new Item(name,price,id);
                         itemList.add(myItem);
                         currentLine = readLine(open,reader);
                     }
