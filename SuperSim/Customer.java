@@ -162,10 +162,14 @@ public class Customer
                 trolley.add(itemSelect);
                 shoppingTime = shoppingTime - TIME_PER_ITEM;
                 itemPrice += itemSelect.getPrice();
+                /*
+                 * Walk random number of paces.
+                 */
             }
             else{
                 //Customer has all required items
                 setShoppingTime(0);
+                // Walk to checkout area
             }
         }
         return itemPrice;
@@ -228,4 +232,17 @@ public class Customer
     {
         return timeInQueue;
     }
+    
+    private void walk()
+    {
+        coordinates.move(rand(), rand());
+    }
+    
+    /*
+     * Pseudocode for customer walking
+     *  
+     * 
+     * 
+     * 
+     */
 }
