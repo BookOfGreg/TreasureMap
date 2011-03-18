@@ -21,7 +21,7 @@ public class Controller
      * 168 Hours = 16 Seconds
      * 24 Hours = 2 Seconds
      */
-    private final int MAX_HOURS = 21504;
+    private final int MAX_EXECUTION = 21504 * 3600; //Converts into seconds;
     
     private int startTime; //starting hour
     private int runTime; //total running time
@@ -81,7 +81,7 @@ public class Controller
             //myStore.Run((currentTick % 3600));//What is this doing here? line below is also myStore.run()
             myStore.updateCumulativeAverage();
             myStore.Run((currentTick / 3600)%24);
-            if ((!(sleepTime == 0))&&(currentTick%1200==0))//arbitrary // do some maths with sleeptime to get the actual framerate.
+            if ((!(sleepTime == 0)) && (currentTick%((int)(Math.ceil(60.0/sleepTime))))==0)//arbitrary // do some maths with sleeptime to get the actual framerate. (currentTick%1200==0)
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime);
@@ -142,7 +142,7 @@ public class Controller
     {
         System.out.println("");
         System.out.println("########################## Statistics: ##########################");
-        System.out.println(statOutput.format((totalTicks / 3600)) + " Hours total running time");
+        System.out.println(statOutput.format(totalTicks) + " Seconds total running time");
         System.out.print("Execution Time: ");
         if (executionTime < 60) {
             System.out.println(executionTime + " Seconds");
@@ -184,19 +184,19 @@ public class Controller
                     myUD.showMessage("Speed selected was " + speed + ", number defaulting to 1000");
                     speed = 1000;
                 }
-                float f = (1/speed)*1000;
-                sleepTime = (int)(f + 0.5f);
+                float myFloat = (1/speed)*1000;
+                sleepTime = (int)(myFloat + 0.5f);//the f makes the 0.5 a float instead of double.
             }
         }while (sleepTime == -1);
-        int hours;
+        int seconds;
         do{
-            hours = myUD.getInt("How many hours do you want to run the program? Maximum is " + ((MAX_HOURS/24)/7) + " weeks (" + MAX_HOURS + " hours)");
-        }while (hours < 1);
-        if (hours > MAX_HOURS){
-            myUD.showMessage("Hours selected was " + hours + ", number defaulting to " + MAX_HOURS);
-            hours = MAX_HOURS;
+            seconds = myUD.getInt("How many seconds do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + MAX_EXECUTION + " seconds)");
+        }while (seconds < 1);
+        if (seconds > MAX_EXECUTION){
+            myUD.showMessage("Seconds selected was " + seconds + ", number defaulting to " + MAX_EXECUTION);
+            seconds = MAX_EXECUTION;
         }
-        int ticks = (hours)*3600; //number of seconds in hour.
+        int ticks = seconds;
         int startHour;
         do{
             startHour = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
