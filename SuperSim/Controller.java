@@ -58,10 +58,9 @@ public class Controller
         myArray = menuSystem(); //0 = ticks, 1 = sleepTime
         int totalTicks = myArray[0];
         int sleepTime = myArray[1];
-        int startHour = myArray[2];
+        int startingTick = myArray[2];
 
         //Calculate tick related things
-        int startingTick = startHour*3600;
         int ticks = startingTick + totalTicks;
         
         //Gets the time from the start of the simulation as a number of seconds
@@ -81,7 +80,7 @@ public class Controller
             //myStore.Run((currentTick % 3600));//What is this doing here? line below is also myStore.run()
             myStore.updateCumulativeAverage();
             myStore.Run((currentTick / 3600)%24);
-            if ((!(sleepTime == 0)) && (currentTick%((int)(Math.ceil(60.0/sleepTime))))==0)//arbitrary // do some maths with sleeptime to get the actual framerate. (currentTick%1200==0)
+            if ((!(sleepTime == 0)) && (currentTick%((int)(Math.ceil(1000.0/sleepTime))))==0)//arbitrary // do some maths with sleeptime to get the actual framerate. (currentTick%1200==0)
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime);
@@ -111,7 +110,7 @@ public class Controller
         //clear previous
         myCanvas.erase();
         //gather graphics
-        Dimension shopSize = new Dimension(600,450); //arbitrary //Params(y,x)
+        Dimension shopSize = new Dimension(600,450); //arbitrary
         ArrayList<Point> aisles = new ArrayList<Point>();
         int aislesCount = (int)((shopSize.getHeight() - 20) / 40);
         for (int i = 0; i < aislesCount; i++)
@@ -188,23 +187,41 @@ public class Controller
                 sleepTime = (int)(myFloat + 0.5f);//the f makes the 0.5 a float instead of double.
             }
         }while (sleepTime == -1);
-        int seconds;
-        do{
-            seconds = myUD.getInt("How many seconds do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + MAX_EXECUTION + " seconds)");
-        }while (seconds < 1);
-        if (seconds > MAX_EXECUTION){
-            myUD.showMessage("Seconds selected was " + seconds + ", number defaulting to " + MAX_EXECUTION);
-            seconds = MAX_EXECUTION;
+        boolean timeInput = myUD.getBoolean("Do you want to enter the time as seconds? (No for hours)");
+        int ticks = 0;
+        if (timeInput == true) {
+            int seconds;
+            do{
+              seconds = myUD.getInt("How many seconds do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + MAX_EXECUTION + " seconds)");
+            }while (seconds < 1);
+            if (seconds > MAX_EXECUTION){
+                myUD.showMessage("Seconds selected was " + seconds + ", number defaulting to " + MAX_EXECUTION);
+                seconds = MAX_EXECUTION;
+            }
+            ticks = seconds;
+            int startTime;
+            do{
+                startTime = myUD.getInt("Which second of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+            }while (startTime < 0 || startTime > 86400);
+        } else {
+            int hours;
+            do{
+              hours = myUD.getInt("How many hours do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + (MAX_EXECUTION/3600) + " hours)");
+            }while (hours < 1);
+            if (hours > (MAX_EXECUTION/3600)){
+                myUD.showMessage("Hours selected was " + hours + ", number defaulting to " + (MAX_EXECUTION/3600));
+                hours = (MAX_EXECUTION/3600);
+            }
+            ticks = hours*3600;
+            int startTime;
+            do{
+                startTime = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+            }while (startTime < 0 || startTime > 24);
         }
-        int ticks = seconds;
-        int startHour;
-        do{
-            startHour = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
-        }while (startHour < 0 || startHour > 24);
         int[] myArray = new int[3];
         myArray[0] = ticks;
         myArray[1] = sleepTime;
-        myArray[2] = startHour;
+        myArray[2] = startTime;
         return myArray;
     }
 }

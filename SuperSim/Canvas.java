@@ -33,6 +33,7 @@ public class Canvas extends JPanel
             } //overrides paintComponent to draw automatically
         }; //creates a panel
         p.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        p.setDoubleBuffered(true);
         f.setContentPane(p); //adds panel to frame
         f.pack(); //resizes frame
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Sets close behaviour
@@ -46,13 +47,13 @@ public class Canvas extends JPanel
 
     private void addCheckout(int index, int Y)
     {
-        g.setColor(new Color(0,0,0));
+        g.setColor(new Color(221,77,0));
         g.fillRect(index*CHECKOUT_WIDTH,Y,CHECKOUT_WIDTH-1,CHECKOUT_LENGTH);
         g.setColor(new Color(255,0,0));
         int[] x = {(index*CHECKOUT_WIDTH),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH/2),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH)};
         int[] y = {Y+25+CHECKOUT_LENGTH,Y+CHECKOUT_LENGTH,Y+25+CHECKOUT_LENGTH};
         g.fillPolygon(new Polygon(x,y,3));
-        p.repaint();
+        //p.repaint();
     }
 
     private void addCustomer(Point coords)
@@ -103,7 +104,7 @@ public class Canvas extends JPanel
      */
     private void addCheckoutArea(Dimension checkoutArea, int Y)
     {
-        g.setColor(new Color(50,50,0));
+        g.setColor(new Color(88,11,0));
         g.fillRect(0,Y,(int)checkoutArea.getWidth(),(int)checkoutArea.getHeight()+Y);
     }
 
@@ -111,6 +112,6 @@ public class Canvas extends JPanel
     {
         g.setColor(new Color(0,0,0));
         g.fillRect(0,0,WIDTH,HEIGHT);
-        p.repaint();
+        //p.repaint();
     }
 }
