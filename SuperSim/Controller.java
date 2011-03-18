@@ -81,7 +81,7 @@ public class Controller
             //myStore.Run((currentTick % 3600));//What is this doing here? line below is also myStore.run()
             myStore.updateCumulativeAverage();
             myStore.Run((currentTick / 3600)%24);
-            if (!(sleepTime == 0))
+            if ((!(sleepTime == 0))&&(currentTick%1200==0))//arbitrary // do some maths with sleeptime to get the actual framerate.
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime);
@@ -108,17 +108,20 @@ public class Controller
      */
     public void drawGraphics()
     {
+        //clear previous
         myCanvas.erase();
-        Dimension shopSize = new Dimension(600,450); //arbitrary //
+        //gather graphics
+        Dimension shopSize = new Dimension(600,450); //arbitrary //Params(y,x)
         ArrayList<Point> aisles = new ArrayList<Point>();
-        int aislesCount = ((int)shopSize.getWidth() - 20) / 40;
+        int aislesCount = (int)((shopSize.getHeight() - 20) / 40);
         for (int i = 0; i < aislesCount; i++)
         {
-            aisles.add(new Point(20,20*(i+1)));
+            aisles.add(new Point(20,(40*(i+1))-20));
         }
         ArrayList<Integer> checkouts = myStore.getQueues();
         Dimension checkoutArea = new Dimension(myCanvas.CHECKOUT_WIDTH*myStore.getCheckoutListSize(),myCanvas.CHECKOUT_LENGTH+4); //arbitrary//Should be myStore.MAX_CHECKOUTS but we don't have a max
         ArrayList<Point> customers = myStore.getCustomerLocations();
+        //pass all
         myCanvas.addShopFloor(shopSize, 
                                 aisles, 
                                 checkoutArea,

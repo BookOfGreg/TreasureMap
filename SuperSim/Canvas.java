@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class Canvas extends JPanel 
 {
-    private final int WIDTH = 640;
-    private final int HEIGHT = 480;
+    private final int WIDTH = 800;
+    private final int HEIGHT = 668;
     private JPanel p;
     private JFrame f;
     private Image canvasImage;
@@ -50,7 +50,7 @@ public class Canvas extends JPanel
         g.fillRect(index*CHECKOUT_WIDTH,Y,CHECKOUT_WIDTH-1,CHECKOUT_LENGTH);
         g.setColor(new Color(255,0,0));
         int[] x = {(index*CHECKOUT_WIDTH),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH/2),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH)};
-        int[] y = {Y+25,Y,Y+25};
+        int[] y = {Y+25+CHECKOUT_LENGTH,Y+CHECKOUT_LENGTH,Y+25+CHECKOUT_LENGTH};
         g.fillPolygon(new Polygon(x,y,3));
         p.repaint();
     }
@@ -64,7 +64,7 @@ public class Canvas extends JPanel
     private void addCustomer(int column, int row)
     {
         g.setColor(new Color(0,0,255));
-        g.fillOval(row*CHECKOUT_WIDTH,column*CHECKOUT_WIDTH, CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);//arbitrary This WILL go wrong, incorrect calculateion on column
+        g.fillOval(row*CHECKOUT_WIDTH,((HEIGHT - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);//arbitrary This WILL go wrong, incorrect calculateion on column
     }
 
     /**
@@ -76,11 +76,13 @@ public class Canvas extends JPanel
      */
     public void addShopFloor(Dimension size, ArrayList<Point> aisles, Dimension checkoutArea, ArrayList<Integer> checkouts, ArrayList<Point> customers)
     {
+        p.setPreferredSize(new Dimension((int)size.getWidth(),(int)(size.getHeight()+CHECKOUT_LENGTH+75)));
+        
         g.setColor(new Color(255,255,255));
-        g.fillRect(0,0,(int)size.getHeight(),(int)size.getWidth());
+        g.fillRect(0,0,(int)size.getWidth(),(int)size.getHeight());        //
         g.setColor(new Color(100,100,100));
         for (Point aisle:aisles){
-            g.fillRect((int)aisle.getX(),(int)aisle.getY(),280,20);
+            g.fillRect((int)aisle.getX(),(int)aisle.getY(),(int)size.getWidth()-40,20);
         }
         addCheckoutArea(checkoutArea, (int)size.getHeight());
         for (int i = 0; i<checkouts.size();i++){
