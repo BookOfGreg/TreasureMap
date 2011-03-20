@@ -32,6 +32,7 @@ public class Customer
     private int timeInStore;
     private int timeInQueue;
     private Point coordinates = new Point(0,0);
+    private Point newCoordinates = new Point(0,0);
 
     /**
      * Constructor for objects of class Customer.
@@ -136,18 +137,18 @@ public class Customer
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
         //System.out.println(nextID);
     }    
-    
+
     public Point getLocation()
     {
         return coordinates;
     }
-    
+
     /*
      * public void setLocation(Point) //given point moved to
      * or
      * public void changeLocation() //calculate own point moved to
      */
-    
+
     public int getID()
     {
         return ID;
@@ -158,6 +159,7 @@ public class Customer
         double itemPrice = 0.0;
         if(shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1) == 0){ //If timeinstore % randomInt(timeperitem) == 0 to prevent synchronised shopping.
             if(trolley.size() < ITEMS_TO_PICK){
+                walk();
                 Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
                 trolley.add(itemSelect);
                 shoppingTime = shoppingTime - TIME_PER_ITEM;
@@ -232,12 +234,42 @@ public class Customer
     {
         return timeInQueue;
     }
-    
+
     private void walk()
     {
-        coordinates.move(rand(), rand());
+        int newX, newY;
+        int currentX, currentY;
+        currentX = (int) math.round(coordinates.getX());
+        currentY = (int) math.round(coordinates.getY());
+        int aisles = 450/40;
+        newX = rand.nextInt(600-16);
+        newY = (rand.nextInt(aisles*40));
+        if(currentX <= 20 || currentX >= 580)// If customer is at the end of an aisle.
+        {
+            do{
+                newY = (1+rand.nextInt(aisles)*40);// Pick a new Y co-ordinate, i.e. change aisles
+            }
+            while(newY % 20 != 0);// Make sure we don't end up in the shelves.
+        }
+        newX = rand.nextInt(600-16);// Pick a new horizontal position.
+        newCoordinates.move(newX, newY);
+        
+        
+        if(currentY > newY){
+            currentY -= 10;
+        }
+        else if(currentY != newY){
+            currentY += 10;
+        }
+        if(currentX > newX && currentY == newY){
+            currentX -= 10;
+        }
+        else if(currentX != newX && currentY == newY){
+            currentX += 10;
+        }
+        coordinates.move(currentX,currentY);
     }
-    
+
     /*
      * Pseudocode for customer walking
      *  
