@@ -20,6 +20,7 @@ public class Store
     private double shopProfit; //BigDecimal
     private double currentProbability;
     private double cumulativeProbability;
+    private double cumulativeExpressProbability;
     private int cumulativeWait;
     private final int DESIRED_AVERAGE_LENGTH = 4;
     private final int CLOSE_THRESHOLD = 1;
@@ -139,13 +140,27 @@ public class Store
         int sum = 0;
         for (Checkout c:checkoutList)
         {
-            sum += c.getQueueLength();
+                sum += c.getQueueLength();
         }
         return sum / checkoutList.size();
     }
     
     public void updateCumulativeAverage() {
-        cumulativeProbability += currentAverageLength();
+        int sum = 0, expressSum = 0, expressCounter = 0;
+        for (Checkout c:checkoutList)
+        {
+            if (!c.isExpress()) {
+                sum += c.getQueueLength();
+            } else {
+                expressSum += c.getQueueLength();
+                expressCounter++;
+            }
+        }
+        int average = sum / (checkoutList.size() - expressCounter);
+        int expressAverage = expressSum / expressCounter;
+        
+        cumulativeProbability += average;
+        cumulativeExpressProbability += expressAverage;
     }
     
     /**
@@ -165,6 +180,10 @@ public class Store
     public double getAverageQueue(int runTime)
     {
         return (double)cumulativeProbability / runTime;
+    }
+    
+    public double getAverageExpressQueue(int runTime) {
+         return (double) cumulativeExpressProbability / runTime;
     }
     
     public double getShopProfit() {
