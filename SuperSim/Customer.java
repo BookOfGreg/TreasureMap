@@ -241,18 +241,18 @@ public class Customer
     private void walk()
     {
         if(currentY > newY){
-            currentY -= 15;
+            currentY -= 40;
         }
         else if(currentY < newY){
-            currentY += 15;
+            currentY += 40;
         }
         else if(currentY == newY)
         {
             if(currentX > newX){
-                currentX -= 15;
+                currentX -= 40;
             }
             else if(currentX < newX){
-                currentX += 15;
+                currentX += 40;
             }
             else if(currentX == newX)
             {
