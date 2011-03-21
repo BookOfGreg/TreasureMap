@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #BlueJ class context
 comment0.params=
 comment0.target=Controller()
@@ -12,32 +11,10 @@ comment2.text=\n\ Main\ method.\ Runs\ initialization\ menu\ and\ controlls\ the
 comment3.params=
 comment3.target=void\ drawGraphics()
 comment3.text=\n\ Will\ at\ some\ point\ handle\ the\ visual\ aspect\ of\ the\ simulation\n
-comment4.params=totalTicks\ customerCounter\ averageInStore\ averageQueue\ averageWait\ shopProfit\ executionTime
-comment4.target=void\ reportStatistics(int,\ int,\ double,\ double,\ double,\ double,\ long)
+comment4.params=totalTicks\ myStore\ executionTime
+comment4.target=void\ reportStatistics(int,\ Store,\ long)
 comment4.text=\n\ Handles\ the\ output\ of\ statistics\ at\ the\ end\ of\ the\ simulation.\ Outputs\ to\ terminal\n\ @param\ totalTicks\ The\ total\ number\ of\ ticks\ the\ simulation\ was\ run\ for\n\ @param\ customerCounter\ The\ total\ number\ of\ customers\ that\ came\ through\ the\ store\n\ @param\ averageInStore\ The\ average\ number\ of\ customers\ in\ the\ store\ per\ hour\n\ @param\ averageQueue\ The\ average\ queue\ length\ in\ the\ store\n\ @param\ shopProfit\ The\ total\ cash\ earned\ from\ selling\ items\n\ @param\ executionTime\ The\ time\ the\ simulation\ took\ to\ run\n
 comment5.params=
 comment5.target=int[]\ menuSystem()
 comment5.text=\n\ Menu\ system\ uses\ User\ Dialog\ to\ gather\ data\ on\ Stats\ Only\ mode,\ Speed\ multiplier\ for\ the\ program\ and\ virtual\ hours\ it\ wants\ to\ be\ run.\n
 numComments=6
-=======
-#BlueJ class context
-comment0.params=
-comment0.target=Controller()
-comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Controller\r\n
-comment1.params=
-comment1.target=void\ runController()
-comment1.text=\r\n\ Performs\ the\ main\ operations\ of\ the\ simulation,\ controlling\ timings\ and\ everything\ else\r\n
-comment2.params=args
-comment2.target=void\ main(java.lang.String[])
-comment2.text=\r\n\ Main\ method.\ Runs\ initialization\ menu\ and\ controlls\ the\ ticks\ through\ the\ program.\r\n
-comment3.params=
-comment3.target=void\ drawGraphics()
-comment3.text=\r\n\ Will\ at\ some\ point\ handle\ the\ visual\ aspect\ of\ the\ simulation\r\n
-comment4.params=totalTicks\ myStore\ executionTime
-comment4.target=void\ reportStatistics(int,\ Store,\ long)
-comment4.text=\r\n\ Handles\ the\ output\ of\ statistics\ at\ the\ end\ of\ the\ simulation.\ Outputs\ to\ terminal\r\n\ @param\ totalTicks\ The\ total\ number\ of\ ticks\ the\ simulation\ was\ run\ for\r\n\ @param\ customerCounter\ The\ total\ number\ of\ customers\ that\ came\ through\ the\ store\r\n\ @param\ averageInStore\ The\ average\ number\ of\ customers\ in\ the\ store\ per\ hour\r\n\ @param\ averageQueue\ The\ average\ queue\ length\ in\ the\ store\r\n\ @param\ shopProfit\ The\ total\ cash\ earned\ from\ selling\ items\r\n\ @param\ executionTime\ The\ time\ the\ simulation\ took\ to\ run\r\n
-comment5.params=
-comment5.target=int[]\ menuSystem()
-comment5.text=\r\n\ Menu\ system\ uses\ User\ Dialog\ to\ gather\ data\ on\ Stats\ Only\ mode,\ Speed\ multiplier\ for\ the\ program\ and\ virtual\ hours\ it\ wants\ to\ be\ run.\r\n
-numComments=6
->>>>>>> 8aca985b279c6b1940f9e3c6abe98b5fbaa2ead3

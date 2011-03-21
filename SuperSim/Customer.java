@@ -33,6 +33,9 @@ public class Customer
     private int timeInQueue;
     private Point coordinates = new Point(0,0);
     private Point newCoordinates = new Point(0,0);
+    int newX, newY;
+    int currentX, currentY;
+    int aisles = 450/40;
 
     /**
      * Constructor for objects of class Customer.
@@ -171,7 +174,7 @@ public class Customer
             else{
                 //Customer has all required items
                 setShoppingTime(0);
-                // Walk to checkout area
+                walkToCheckout();
             }
         }
         return itemPrice;
@@ -237,44 +240,54 @@ public class Customer
 
     private void walk()
     {
-        int newX, newY;
-        int currentX, currentY;
-        currentX = (int) math.round(coordinates.getX());
-        currentY = (int) math.round(coordinates.getY());
-        int aisles = 450/40;
-        newX = rand.nextInt(600-16);
-        newY = (rand.nextInt(aisles*40));
-        if(currentX <= 20 || currentX >= 580)// If customer is at the end of an aisle.
-        {
-            do{
-                newY = (1+rand.nextInt(aisles)*40);// Pick a new Y co-ordinate, i.e. change aisles
-            }
-            while(newY % 20 != 0);// Make sure we don't end up in the shelves.
-        }
-        newX = rand.nextInt(600-16);// Pick a new horizontal position.
-        newCoordinates.move(newX, newY);
-        
-        
         if(currentY > newY){
-            currentY -= 10;
+            currentY -= 15;
         }
-        else if(currentY != newY){
-            currentY += 10;
+        else if(currentY < newY){
+            currentY += 15;
         }
-        if(currentX > newX && currentY == newY){
-            currentX -= 10;
-        }
-        else if(currentX != newX && currentY == newY){
-            currentX += 10;
+        else if(currentY == newY)
+        {
+            if(currentX > newX){
+                currentX -= 15;
+            }
+            else if(currentX < newX){
+                currentX += 15;
+            }
+            else if(currentX == newX)
+            {
+                pickNewPosition();
+            }
         }
         coordinates.move(currentX,currentY);
     }
 
-    /*
-     * Pseudocode for customer walking
-     *  
-     * 
-     * 
-     * 
-     */
+    private void getPosition()
+    {
+        currentX = (int) math.round(coordinates.getX());
+        currentY = (int) math.round(coordinates.getY());
+    }
+
+    private void walkToCheckout()
+    {
+        newX = 8;
+        newY = 458;
+        walk();
+    }
+
+    private void pickNewPosition()
+    {
+        newX = rand.nextInt(600-16);
+        newY = (rand.nextInt(aisles*40));
+        if(currentX <= 20 || currentX >= 580)// If customer is at the end of an aisle.
+        {
+            do
+            {
+                newY = (rand.nextInt(aisles)*40);// Pick a new Y co-ordinate, i.e. change aisles
+            }
+            while(newY % 20 != 0);// Make sure we don't end up in the shelves.
+        }
+        newX = rand.nextInt(600-16);// Pick a new horizontal position.
+        //newCoordinates.move(newX, newY);
+    }
 }
