@@ -9,8 +9,8 @@ import java.util.ArrayList;
  */
 public class Canvas extends JPanel 
 {
-    private final int WIDTH = 800;
-    private final int HEIGHT = 668;
+    private final int WIDTH = 1280;
+    private final int HEIGHT = 720;
     private JPanel p;
     private JFrame f;
     private Image canvasImage;
@@ -62,10 +62,10 @@ public class Canvas extends JPanel
         g.fillOval((int)coords.getX(),(int)coords.getY(),CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
     }
 
-    private void addCustomer(int column, int row)
+    private void addCustomer(int column, int row, int shopHeight)
     {
         g.setColor(new Color(0,0,255));
-        g.fillOval(row*CHECKOUT_WIDTH,((HEIGHT - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);//arbitrary This WILL go wrong, incorrect calculateion on column
+        g.fillOval(row*CHECKOUT_WIDTH,((shopHeight + CHECKOUT_LENGTH - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);//arbitrary This WILL go wrong, incorrect calculateion on column
     }
 
     /**
@@ -89,7 +89,7 @@ public class Canvas extends JPanel
         for (int i = 0; i<checkouts.size();i++){
             addCheckout(i,(int)size.getHeight());
             for (int j = 0; j<checkouts.get(i);j++){
-                addCustomer(j,i);//arbitraty // change is so they are plotted up from the bottom instead of down from the top.
+                addCustomer(j,i,(int)size.getHeight());//arbitraty // change is so they are plotted up from the bottom instead of down from the top.
             }
         }
         for (Point customer:customers){
