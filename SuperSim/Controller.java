@@ -22,7 +22,7 @@ public class Controller
      * 24 Hours = 2 Seconds
      */
     private final int MAX_EXECUTION = 21504 * 3600; //Converts into seconds;
-    
+
     private int startTime; //starting hour
     private int runTime; //total running time
     private int currentTick; //current running time
@@ -62,14 +62,16 @@ public class Controller
 
         //Calculate tick related things
         int ticks = startingTick + totalTicks;
-        
+
         //Gets the time from the start of the simulation as a number of seconds
 
         long startTime = System.currentTimeMillis();
 
         //mainMethods
         myStore.calcCurrentProbability(currentTick / 3600);
-        myCanvas = new Canvas();
+        if (sleepTime != 0){
+            myCanvas = new Canvas();
+        }
         for (int currentTick = startingTick; currentTick <= ticks; currentTick++)
         {
             if ((currentTick % 3600) == 0)
@@ -86,11 +88,11 @@ public class Controller
                 Thread.currentThread().sleep(sleepTime);
             }
         }
-        
+
         //Gets the time from the end of the simulation as a number of seconds
 
         long endTime = System.currentTimeMillis();
-        
+
         reportStatistics(totalTicks, myStore, ((endTime - startTime)/1000)); 
     }
 
@@ -122,10 +124,10 @@ public class Controller
         ArrayList<Point> customers = myStore.getCustomerLocations();
         //pass all
         myCanvas.addShopFloor(shopSize, 
-                                aisles, 
-                                checkoutArea,
-                                checkouts,
-                                customers);
+            aisles, 
+            checkoutArea,
+            checkouts,
+            customers);
     }
 
     /**
@@ -139,31 +141,59 @@ public class Controller
      */
     public void reportStatistics(int totalTicks, Store myStore, long executionTime)
     {
+        //For .jar file, terminal-less output
+        UserDialog myUD = new UserDialog();
+        String statsOutput = statOutput.format(totalTicks) + " Seconds total running time";
+        statsOutput += "Execution Time: ";
+        if (executionTime < 60) {
+            statsOutput += executionTime + " Seconds \n";
+        } else {
+            statsOutput += (executionTime/60) + " Minutes ";
+            statsOutput += (executionTime - ((executionTime/60)*60)) + " Seconds \n";
+        }
+        statsOutput += " \n";
+
+        statsOutput += statOutput.format(myStore.getCustomerCounter())+ " Customers in the Store \n";
+        statsOutput += avgOutput.format(myStore.getAverageInStore(totalTicks)) + " Average Customers per Hour \n"; //If run for under an hour, displays infinity
+        statsOutput += avgOutput.format(myStore.getAverageWait(totalTicks)) + " Seconds - Average Waiting Time per Customer \n";
+        statsOutput += " \n";
+
+        statsOutput += avgOutput.format(myStore.getAverageQueue(totalTicks)) + " Average Customers in a Queue \n";
+        statsOutput += avgOutput.format(myStore.getAverageExpressQueue(totalTicks)) + " Average Customers in Express Queue \n";        
+        statsOutput += " \n";
+
+        statsOutput += "£" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit \n";
+        statsOutput += "£" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer \n";
+        myUD.showTextMessage(statsOutput, 20, 40);
+
+        //For BlueJ, terminal output
+        /*
         System.out.println("");
         System.out.println("########################## Statistics: ##########################");
         System.out.println(statOutput.format(totalTicks) + " Seconds total running time");
         System.out.print("Execution Time: ");
         if (executionTime < 60) {
-            System.out.println(executionTime + " Seconds");
+        System.out.println(executionTime + " Seconds");
         } else {
-            System.out.print((executionTime/60) + " Minutes ");
-            System.out.println((executionTime - ((executionTime/60)*60)) + " Seconds");
+        System.out.print((executionTime/60) + " Minutes ");
+        System.out.println((executionTime - ((executionTime/60)*60)) + " Seconds");
         }
         System.out.println("");
-        
+
         System.out.println(statOutput.format(myStore.getCustomerCounter())+ " Customers in the Store");
         System.out.println(avgOutput.format(myStore.getAverageInStore(totalTicks)) + " Average Customers per Hour");
         System.out.println(avgOutput.format(myStore.getAverageWait(totalTicks)) + " Seconds - Average Waiting Time per Customer");
         System.out.println("");
-        
+
         System.out.println(avgOutput.format(myStore.getAverageQueue(totalTicks)) + " Average Customers in a Queue");
         System.out.println(avgOutput.format(myStore.getAverageExpressQueue(totalTicks)) + " Average Customers in Express Queue");        
         System.out.println("");
-        
+
         System.out.println("£" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit"); //Need to let profigt be tracked as BigDecimal, value is being capped (I think) - Sam
         System.out.println("£" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer");
         System.out.println("#################################################################");
         System.out.println("");
+         */
     }
 
     /**
@@ -195,7 +225,7 @@ public class Controller
         if (timeInput == true) {
             int seconds;
             do{
-              seconds = myUD.getInt("How many seconds do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + MAX_EXECUTION + " seconds)");
+                seconds = myUD.getInt("How many seconds do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + MAX_EXECUTION + " seconds)");
             }while (seconds < 1);
             if (seconds > MAX_EXECUTION){
                 myUD.showMessage("Seconds selected was " + seconds + ", number defaulting to " + MAX_EXECUTION);
@@ -209,7 +239,7 @@ public class Controller
         } else {
             int hours;
             do{
-              hours = myUD.getInt("How many hours do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + (MAX_EXECUTION/3600) + " hours)");
+                hours = myUD.getInt("How many hours do you want to run the program? Maximum is " + (((MAX_EXECUTION/3600)/24)/7) + " weeks (" + (MAX_EXECUTION/3600) + " hours)");
             }while (hours < 1);
             if (hours > (MAX_EXECUTION/3600)){
                 myUD.showMessage("Hours selected was " + hours + ", number defaulting to " + (MAX_EXECUTION/3600));
