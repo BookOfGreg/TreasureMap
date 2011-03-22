@@ -270,8 +270,8 @@ public class Customer
 
     private void walkToCheckout()
     {
-        newX = 8;
-        newY = 458;
+        newX = 458;
+        newY = 8;
         walk();
     }
 
@@ -287,7 +287,5 @@ public class Customer
             }
             while(newY % 20 != 0);// Make sure we don't end up in the shelves.
         }
-        newX = rand.nextInt(600-16);// Pick a new horizontal position.
-        //newCoordinates.move(newX, newY);
     }
 }
