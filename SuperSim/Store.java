@@ -223,7 +223,7 @@ public class Store
     public void calcCurrentProbability(int currentHour)
     {
         //Assuming the the chances are going to vary to the nearest hour
-        double[] timeProbabilities =  {0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5};
+        double[] timeProbabilities =  {0.2, 0.2, 0.2, 0.3, 0.4, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.8, 0.8, 0.7, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.4, 0.3};
         currentProbability = timeProbabilities[currentHour];
     }
 

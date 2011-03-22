@@ -110,7 +110,7 @@ public class Controller
         //clear previous
         myCanvas.erase();
         //gather graphics
-        Dimension shopSize = new Dimension(600,450); //arbitrary
+        Dimension shopSize = new Dimension(620,450); //arbitrary
         ArrayList<Point> aisles = new ArrayList<Point>();
         int aislesCount = (int)((shopSize.getHeight() - 20) / 40);
         for (int i = 0; i < aislesCount; i++)

@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.awt.*;
 /**
  * Write a description of class Checkout here.
  * 
  * @author AngryPirates 
- * @version 0.1
+ * @version 21-03-11
  */
 public class Checkout
 {
@@ -18,6 +19,7 @@ public class Checkout
     private int customerCounter;
     private int totalQueue;
     private Point coordinates;
+    private Random rand = new Random();
     /**
      * Constructor for objects of class Checkout
      * @param isExpress Toggles if checkout to be created is express or not.
@@ -164,7 +166,10 @@ public class Checkout
 
     private int randomDelay()
     {
-        return 0; //arbitrary//do something with a really small chance of delay, and the delay can be between a small range.
+        if (rand.nextInt(50) > 45) {
+            return rand.nextInt(10);
+        }
+        return 0;//rand.nextInt(5); //arbitrary//do something with a really small chance of delay, and the delay can be between a small range.
     }
 
     /**
