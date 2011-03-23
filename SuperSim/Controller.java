@@ -82,7 +82,7 @@ public class Controller
             //myStore.Run((currentTick % 3600));//What is this doing here? line below is also myStore.run()
             myStore.updateCumulativeAverage();
             myStore.Run((currentTick / 3600)%24);
-            if ((!(sleepTime == 0)) && (currentTick%((int)(Math.ceil(1000.0/sleepTime))))==0)//arbitrary // do some maths with sleeptime to get the actual framerate. (currentTick%1200==0)
+            if ((!(sleepTime == 0)) && (currentTick%((int)(Math.ceil(1000.0/sleepTime))))==0)// do some maths with sleeptime to get the actual framerate. (currentTick%1200==0)
             {
                 drawGraphics();
                 Thread.currentThread().sleep(sleepTime);
@@ -112,7 +112,7 @@ public class Controller
         //clear previous
         myCanvas.erase();
         //gather graphics
-        Dimension shopSize = new Dimension(620,450); //arbitrary
+        Dimension shopSize = new Dimension(620,450); // Picked because it fits on screen.
         ArrayList<Point> aisles = new ArrayList<Point>();
         int aislesCount = (int)((shopSize.getHeight() - 20) / 40);
         for (int i = 0; i < aislesCount; i++)
@@ -120,7 +120,8 @@ public class Controller
             aisles.add(new Point(20,(40*(i+1))-20));
         }
         ArrayList<Integer> checkouts = myStore.getQueues();
-        Dimension checkoutArea = new Dimension(myCanvas.CHECKOUT_WIDTH*myStore.getCheckoutListSize(),myCanvas.CHECKOUT_LENGTH+4); //arbitrary//Should be myStore.MAX_CHECKOUTS but we don't have a max
+        //Should be myStore.MAX_CHECKOUTS but we don't have a max number of checkouts, so the area resizes as necessary.
+        Dimension checkoutArea = new Dimension(myCanvas.CHECKOUT_WIDTH*myStore.getCheckoutListSize(),myCanvas.CHECKOUT_LENGTH+4); 
         ArrayList<Point> customers = myStore.getCustomerLocations();
         //pass all
         myCanvas.addShopFloor(shopSize, 
@@ -143,7 +144,7 @@ public class Controller
     {
         //For .jar file, terminal-less output
         UserDialog myUD = new UserDialog();
-        String statsOutput = statOutput.format(totalTicks) + " Seconds total running time";
+        String statsOutput = statOutput.format(totalTicks) + " Seconds total running time\n";
         statsOutput += "Execution Time: ";
         if (executionTime < 60) {
             statsOutput += executionTime + " Seconds \n";
@@ -234,7 +235,7 @@ public class Controller
             ticks = seconds;
             int startTime;
             do{
-                startTime = myUD.getInt("Which second of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+                startTime = myUD.getInt("Which second of the day do you want to start the program in? (24h clock)");
             }while (startTime < 0 || startTime > 86400);
         } else {
             int hours;
@@ -248,7 +249,7 @@ public class Controller
             ticks = hours*3600;
             int startTime;
             do{
-                startTime = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)"); //arbitrary // Needs parsing for minutes and if we put in 00:00
+                startTime = myUD.getInt("Which hour of the day do you want to start the program in? (24h clock)");
             }while (startTime < 0 || startTime > 24);
         }
         int[] myArray = new int[3];

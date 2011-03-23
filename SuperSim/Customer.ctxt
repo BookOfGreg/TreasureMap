@@ -22,7 +22,6 @@ comment17.params=
 comment17.target=void\ pickNewPosition()
 comment2.params=
 comment2.target=int\ getID()
-comment2.text=\ public\ void\ setLocation(Point)\ //given\ point\ moved\ to\n\ or\n\ public\ void\ changeLocation()\ //calculate\ own\ point\ moved\ to\n
 comment3.params=
 comment3.target=double\ addItem()
 comment4.params=

@@ -46,7 +46,7 @@ public class Store
         UserDialog ud = new UserDialog();
         FileHandler.add("Start Store",ud.getBoolean("Do you want to clear the loyalty file?"));
         Checkout newCheckoutExpress = new Checkout(true);
-        checkoutList.add(newCheckoutExpress); //arbitrary add checkout coords;
+        checkoutList.add(newCheckoutExpress);
         Checkout newCheckout = new Checkout(false);
         checkoutList.add(newCheckout);
     }
@@ -209,10 +209,8 @@ public class Store
     public void createCustomer(int hour)
     {
         if (rand.nextFloat() <= currentProbability) {
-            //id number needs calculating.
-            customerBrowsing.add(new Customer(itemList, hour));//arbitrary
+            customerBrowsing.add(new Customer(itemList, hour));
             customerCounter++;
-            //System.out.println("Person entered store");
         }
     }
     

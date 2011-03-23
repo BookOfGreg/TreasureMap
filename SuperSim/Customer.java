@@ -20,7 +20,7 @@ public class Customer
     private final int MEAN_ITEMS;
     private final int STD_DEV;
     private final long ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
-    private int TIME_PER_ITEM = 5; //Arbitrary
+    private int TIME_PER_ITEM = 5; //This value is assumed.
     private final int TOTAL_ITEMS_AVAIL;
     private final double BUSINESS_PROB, OLD_PROB, CHILD_PROB, GENERIC_PROB;
     private long shoppingTime; //The time the customer spends picking items
@@ -28,7 +28,6 @@ public class Customer
     private Random rand;
     private Math math;
     private ArrayList<Item> productList;
-    //private final String  LOYALTY_CARD_NUMBER = "Parrot";
     private int timeInStore;
     private int timeInQueue;
     private Point coordinates = new Point(0,0);
@@ -149,12 +148,6 @@ public class Customer
         }
         return coordinates;
     }
-
-    /*
-     * public void setLocation(Point) //given point moved to
-     * or
-     * public void changeLocation() //calculate own point moved to
-     */
 
     public int getID()
     {

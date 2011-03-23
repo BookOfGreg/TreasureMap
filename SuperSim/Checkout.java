@@ -64,23 +64,16 @@ public class Checkout
             }
             else 
             {
-                //make reciept
                 itemReceipt.add(Integer.toString(currentCustomer.getID()));
                 timeTracking += (currentCustomer.getTimeInStore() + currentCustomer.getTimeInQueue());
                 currentCustomer = null;
-                //System.out.println("customer leaving store");
             }
         }
         else if (queueHasCustomer())
         {
             currentCustomer = queue.remove(0);
             customerCounter++;
-        }
-        else
-        {
-            //close queue //arbitrary
-        }
-        
+        }        
         return timeTracking;
     }
 
@@ -169,7 +162,7 @@ public class Checkout
         if (rand.nextInt(50) > 45) {
             return rand.nextInt(10);
         }
-        return 0;//rand.nextInt(5); //arbitrary//do something with a really small chance of delay, and the delay can be between a small range.
+        return 0;
     }
 
     /**

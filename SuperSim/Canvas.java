@@ -65,7 +65,7 @@ public class Canvas extends JPanel
     private void addCustomer(int column, int row, int shopHeight)
     {
         g.setColor(new Color(0,0,255));
-        g.fillOval(row*CHECKOUT_WIDTH,((shopHeight + CHECKOUT_LENGTH - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);//arbitrary This WILL go wrong, incorrect calculateion on column
+        g.fillOval(row*CHECKOUT_WIDTH,((shopHeight + CHECKOUT_LENGTH - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
     }
 
     /**
@@ -89,7 +89,7 @@ public class Canvas extends JPanel
         for (int i = 0; i<checkouts.size();i++){
             addCheckout(i,(int)size.getHeight());
             for (int j = 0; j<checkouts.get(i);j++){
-                addCustomer(j,i,(int)size.getHeight());//arbitraty // change is so they are plotted up from the bottom instead of down from the top.
+                addCustomer(j,i,(int)size.getHeight());
             }
         }
         for (Point customer:customers){
