@@ -9,46 +9,61 @@ import java.awt.*;
  * a projection.
  * 
  * 
- * @author AngryPirates First Mate Alex
- * @version 12/3/11
+ * @author Alex Stuart-Kregor, 51010371
+ * @version 23/3/11
  */
 public class Customer
 {
-    private final String CUSTOMER_TYPE; 
-    private final int ID;
-    private static int nextID = 1;
-    private final int MEAN_ITEMS;
-    private final int STD_DEV;
-    private final long ITEMS_TO_PICK; //Range of items to pick dependent on type of Customer.
-    private int TIME_PER_ITEM = 5; //This value is assumed.
-    private final int TOTAL_ITEMS_AVAIL;
-    private final double BUSINESS_PROB, OLD_PROB, CHILD_PROB, GENERIC_PROB;
-    private long shoppingTime; //The time the customer spends picking items
-    private ArrayList<Item> trolley;
+    // Instance variables for use later on.
     private Random rand;
     private Math math;
-    private ArrayList<Item> productList;
+    private static ArrayList<Item> productList;    
+    private static int nextID = 1;    
+
+    // Instance specific variables
+    private final String CUSTOMER_TYPE; 
+    private final int ID;
+    private final int MEAN_ITEMS;
+    private final int STD_DEV; // Standard deviation.
+    private final long ITEMS_TO_PICK; // The total items this instance of customer has to pick up.
+    private final int TIME_PER_ITEM = 5; //This value is assumed.
+    private ArrayList<Item> trolley;
+
+    // Store specific variables
+    private final int TOTAL_ITEMS_AVAIL; // The number of different item types.
+    private final double BUSINESS_PROB, OLD_PROB, CHILD_PROB, GENERIC_PROB;
+    private long shoppingTime; // The time the customer spends picking items, constant x number of items.
+
+    //Statistics collection variables.
     private int timeInStore;
     private int timeInQueue;
+
+    // Graphics
     private Point coordinates = new Point(0,0);
-    private Point newCoordinates = new Point(0,0);
-    int newX, newY;
+    int newX, newY; // Position to move to.
     int currentX, currentY;
-    int aisles = 450/40;
+    int aisles = 450/40; // Number of aisles to ensure the customer doesn't end up in the middle of the shelves.
 
     /**
      * Constructor for objects of class Customer.
-     * There 
+     * When the customer is created, the probability of their type (see below) is biased according to the hour of the day.
+     * The number of items a customer chooses is normally distributed with a varied mean and standard deviation according to the type. Assistance for using the
+     * nextGaussian() functionality was found on http://en.wikipedia.org/wiki/Normal_distribution and http://answers.yahoo.com/question/index?qid=20080417012416AAB0BJw
+     * More detail can be found in the comments within the code itself.
+     * @param productList An ArrayList of Item passed in from Store.
+     * @param hour The hour of the day.
      */
     public Customer(ArrayList<Item> productList, int hour)
     {
-        this.productList = productList;
-        ID = nextID;
-        nextID++;
-        timeInStore = 0;
-        trolley = new ArrayList<Item>();
         rand = new Random();
         TOTAL_ITEMS_AVAIL = productList.size();
+
+        ID = nextID;
+        nextID++;
+        this.productList = productList;
+        timeInStore = 0;
+        trolley = new ArrayList<Item>();
+        // The probabilities of a customer being of certain type are cumulative otherwise, they'd be useless.
         if(hour >= 0 && hour < 8) //Midnight to 8am i.e. slow time
         {
             BUSINESS_PROB = 0.2;
@@ -105,20 +120,22 @@ public class Customer
             CHILD_PROB = 0.6;
             GENERIC_PROB = 1.0;
         }
-        double decider = rand.nextDouble();
-        if(decider >= 0 && decider <=BUSINESS_PROB)
+
+        double typeChooser = rand.nextDouble();
+        // The standard deviation and mean number of items is varied according to the type of customer.
+        if(typeChooser >= 0 && typeChooser <=BUSINESS_PROB)
         {
             MEAN_ITEMS = 5;
             STD_DEV = 1;
             CUSTOMER_TYPE = "Business";
         }
-        else if(decider > BUSINESS_PROB && decider <= OLD_PROB)
+        else if(typeChooser > BUSINESS_PROB && typeChooser <= OLD_PROB)
         {
             MEAN_ITEMS = 15;
             STD_DEV = 4;
             CUSTOMER_TYPE = "Old";
         }
-        else if(decider > OLD_PROB && decider <= CHILD_PROB)
+        else if(typeChooser > OLD_PROB && typeChooser <= CHILD_PROB)
         {
             MEAN_ITEMS = 3;
             STD_DEV = 1;
@@ -130,14 +147,22 @@ public class Customer
             STD_DEV = 6;
             CUSTOMER_TYPE = "Generic";
         }
+
         long itemPickLimit;
         //Makes sure the Customer can't choose more items than exist.
         do {
-            itemPickLimit = math.abs(math.round(rand.nextGaussian()*STD_DEV)+MEAN_ITEMS); //Finds range to pick items, with custom mean and standard deviation.
-        }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0);
+            /*
+             * As nextGaussian() returns the 'Z number', we can rearrange the formula for finding the number of required standard deviations for a given value
+             * with a certain mean. So where Z = (X - mean)/standard deviation, to find X we arrive at the formula (Z x standard deviation) + mean.
+             * Also with the formula below, since items and their counts are integers, the desired number of items must also be an integer and positive to avoid
+             * any strange errors. 
+             * All the multiplication and addition is done before the result is rounded and made positive regardless of original sign.
+             */
+            itemPickLimit = math.abs(math.round((rand.nextGaussian()*STD_DEV)+MEAN_ITEMS));
+        }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0); // Ensures the number of items to choose is less than or equal to the total available.
+        // ITEMS_TO_PICK is final so a local variable must be used.
         ITEMS_TO_PICK = itemPickLimit;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
-        //System.out.println(nextID);
     }    
 
     public Point getLocation()

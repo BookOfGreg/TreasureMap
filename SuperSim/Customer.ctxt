@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.params=productList\ hour
 comment0.target=Customer(java.util.ArrayList,\ int)
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Customer.\n\ There\ \n
+comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Customer.\n\ When\ the\ customer\ is\ created,\ the\ probability\ of\ their\ type\ (see\ below)\ is\ biased\ according\ to\ the\ hour\ of\ the\ day.\n\ The\ number\ of\ items\ a\ customer\ chooses\ is\ normally\ distributed\ with\ a\ varied\ mean\ and\ standard\ deviation\ according\ to\ the\ type.\ Assistance\ for\ using\ the\n\ nextGaussian()\ functionality\ was\ found\ on\ http\://en.wikipedia.org/wiki/Normal_distribution\ and\ http\://answers.yahoo.com/question/index?qid\=20080417012416AAB0BJw\n\ More\ detail\ can\ be\ found\ in\ the\ comments\ within\ the\ code\ itself.\n\ @param\ productList\ An\ ArrayList\ of\ Item\ passed\ in\ from\ Store.\n\ @param\ hour\ The\ hour\ of\ the\ day.\n
 comment1.params=
 comment1.target=java.awt.Point\ getLocation()
 comment10.params=
