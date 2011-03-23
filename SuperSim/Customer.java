@@ -143,6 +143,10 @@ public class Customer
 
     public Point getLocation()
     {
+        if(shoppingTime == 0)
+        {
+            walkToCheckout();
+        }
         return coordinates;
     }
 
@@ -240,26 +244,39 @@ public class Customer
 
     private void walk()
     {
-        if(currentY > newY){
-            currentY -= 40;
-        }
-        else if(currentY < newY){
-            currentY += 40;
+        if(currentY != newY)
+        {
+            moveY();
         }
         else if(currentY == newY)
         {
-            if(currentX > newX){
-                currentX -= 40;
-            }
-            else if(currentX < newX){
-                currentX += 40;
-            }
-            else if(currentX == newX)
+            moveX();
+            if(currentX == newX)
             {
                 pickNewPosition();
             }
         }
         coordinates.move(currentX,currentY);
+    }
+
+    private void moveY()
+    {
+        if(currentY > newY){
+            currentY -= 20;
+        }
+        else if(currentY < newY){
+            currentY += 20;
+        }
+    }
+
+    private void moveX()
+    {
+        if(currentX > newX){
+            currentX -= 20;
+        }
+        else if(currentX < newX){
+            currentX += 20;
+        } 
     }
 
     private void getPosition()
@@ -268,11 +285,25 @@ public class Customer
         currentY = (int) math.round(coordinates.getY());
     }
 
-    private void walkToCheckout()
+    public void walkToCheckout()
     {
-        newX = 458;
-        newY = 8;
-        walk();
+        if(currentX <= 300)
+        {
+            newX = 8;
+        }
+        else
+        {
+            newX = 592;
+        }
+        newY = 440;
+        if(currentX <= 20 || currentX >= 584)
+        {
+            moveY();
+        }
+        else
+        {
+            moveX();
+        }
     }
 
     private void pickNewPosition()
