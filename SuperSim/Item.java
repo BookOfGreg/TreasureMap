@@ -9,16 +9,17 @@ public class Item
 {
     private final String NAME;
     private final double PRICE; 
-    private int ID; //not used yet
+    private int ID;
     /**
      * Constructor for objects of class Item
      */
-    public Item(String itemName, double itemPrice)
+    public Item(String itemName, double itemPrice, int itemId)
     {
         NAME = itemName;
         PRICE = itemPrice;
+        ID = itemId;
     }
-    
+
     /**
      * @return The name of the item.
      */
@@ -26,8 +27,7 @@ public class Item
     {
         return NAME;
     }
-    
-    
+
     /**
      * @return The price if the item.
      */
@@ -35,7 +35,15 @@ public class Item
     {
         return PRICE;
     }
-    
+
+    /**
+     * @return The Id of the item.
+     */
+    public int getId()
+    {
+        return ID;    
+    }
+
     /**
      *  Generic method to display name and price of an item.
      * @return String value of name and price.
@@ -44,5 +52,5 @@ public class Item
     {
         return NAME + " - " + PRICE; 
     }
-    
+
 }
