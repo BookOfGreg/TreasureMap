@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.io.*;
+import javax.imageio.*;
 /**
  * Canvas is used to draw all predefined store components given to it.
  * The canvas does not calculate the location of components other than relative to each other in special cases, only draws then outputs to screen.
@@ -55,25 +57,54 @@ public class Canvas extends JPanel
 
     private void addCheckout(int index, int Y)
     {
-        g.setColor(new Color(221,77,0));
-        g.fillRect(index*CHECKOUT_WIDTH,Y,CHECKOUT_WIDTH-1,CHECKOUT_LENGTH);
-        g.setColor(new Color(255,0,0));
-        int[] x = {(index*CHECKOUT_WIDTH),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH/2),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH)};
-        int[] y = {Y+25+CHECKOUT_LENGTH,Y+CHECKOUT_LENGTH,Y+25+CHECKOUT_LENGTH};
-        g.fillPolygon(new Polygon(x,y,3));
+        //g.setColor(new Color(221,77,0));
+        //g.fillRect(index*CHECKOUT_WIDTH,Y,CHECKOUT_WIDTH-1,CHECKOUT_LENGTH);
+        try{
+            File sourceimage = new File("checkout.png");
+            Image image = ImageIO.read(sourceimage);
+            int x = CHECKOUT_LENGTH/image.getHeight(this);
+            for (int y = 0; y < x; y++)
+            {
+                g.drawImage(image,index*CHECKOUT_WIDTH,(Y+y*image.getHeight(this)),CHECKOUT_WIDTH-1,image.getHeight(this), this);
+            }
+        } catch (IOException e) {
+        }
+
+        //g.setColor(new Color(255,0,0));
+        //int[] x = {(index*CHECKOUT_WIDTH),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH/2),(index*CHECKOUT_WIDTH)+(CHECKOUT_WIDTH)};
+        //int[] y = {Y+25+CHECKOUT_LENGTH,Y+CHECKOUT_LENGTH,Y+25+CHECKOUT_LENGTH};
+        //g.fillPolygon(new Polygon(x,y,3));
+        try{
+            File sourceimage = new File("till.png");
+            Image image = ImageIO.read(sourceimage);
+            g.drawImage(image,(index*CHECKOUT_WIDTH),(Y+CHECKOUT_LENGTH),(CHECKOUT_WIDTH),(CHECKOUT_WIDTH)/2, this);
+        } catch (IOException e) {
+        }
         //p.repaint();
     }
 
     private void addCustomer(Point coords)
     {
-        g.setColor(new Color(0,0,255));
-        g.fillOval((int)coords.getX(),(int)coords.getY(),CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
+        try{
+            File sourceimage = new File("customer.png");
+            Image image = ImageIO.read(sourceimage);
+            g.drawImage(image,(int)coords.getX(),(int)coords.getY(),CUSTOMER_DIAMETER,CUSTOMER_DIAMETER, this);
+        } catch (IOException e) {
+        }
+        //g.setColor(new Color(0,0,255));
+        //g.fillOval((int)coords.getX(),(int)coords.getY(),CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
     }
 
     private void addCustomer(int column, int row, int shopHeight)
     {
-        g.setColor(new Color(0,0,255));
-        g.fillOval(row*CHECKOUT_WIDTH,((shopHeight + CHECKOUT_LENGTH - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
+        //g.setColor(new Color(0,0,255));
+        //g.fillOval(row*CHECKOUT_WIDTH,((shopHeight + CHECKOUT_LENGTH - 20 )-column*CHECKOUT_WIDTH), CUSTOMER_DIAMETER,CUSTOMER_DIAMETER);
+        try{
+            File sourceimage = new File("customer.png");
+            Image image = ImageIO.read(sourceimage);
+            g.drawImage(image, row*CHECKOUT_WIDTH,((shopHeight + CHECKOUT_LENGTH - 20 )-column*CHECKOUT_WIDTH),CUSTOMER_DIAMETER,CUSTOMER_DIAMETER, this);
+        } catch (IOException e) {
+        }
     }
 
     /**
@@ -87,14 +118,40 @@ public class Canvas extends JPanel
     public void addShopFloor(Dimension size, ArrayList<Point> aisles, Dimension checkoutArea, ArrayList<Integer> checkouts, ArrayList<Point> customers)
     {
         p.setPreferredSize(new Dimension((int)size.getWidth(),(int)(size.getHeight()+CHECKOUT_LENGTH+75)));
-        
-        g.setColor(new Color(255,255,255));
-        g.fillRect(0,0,(int)size.getWidth(),(int)size.getHeight());        //
-        g.setColor(new Color(100,100,100));
-        for (Point aisle:aisles){
-            g.fillRect((int)aisle.getX(),(int)aisle.getY(),(int)size.getWidth()-40,20);
+
+        //g.setColor(new Color(255,255,255));
+        //g.fillRect(0,0,(int)size.getWidth(),(int)size.getHeight());        //
+        try{
+            File sourceimage = new File("floor.png");
+            Image image = ImageIO.read(sourceimage);
+            int x = (int)size.getWidth()/image.getWidth(this);
+            int y = (int)size.getHeight()/image.getHeight(this);
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    g.drawImage(image,i*image.getWidth(this),j*image.getHeight(this),image.getWidth(this),image.getHeight(this), this);
+                }
+            }
+            //g.drawImage(image, 0,0,(int)size.getWidth(),(int)size.getHeight(), this);
+        } catch (IOException e) {
         }
-        addCheckoutArea(checkoutArea, (int)size.getHeight());
+
+        //g.setColor(new Color(100,100,100));
+        for (Point aisle:aisles){
+            //g.fillRect((int)aisle.getX(),(int)aisle.getY(),(int)size.getWidth()-40,20);
+            try{
+                File sourceimage = new File("aisles.png");
+                Image image = ImageIO.read(sourceimage);
+                int x = ((int)size.getWidth()-(40+image.getWidth(this)))/image.getWidth(this);
+                for (int i=0; i<x; i++)
+                {
+                    g.drawImage(image,(i*image.getWidth(this))+(int)aisle.getX(),(int)aisle.getY(),image.getWidth(this),20, this);
+                }
+            } catch (IOException e) {
+            }
+        }
+        //addCheckoutArea(checkoutArea, (int)size.getHeight());
         for (int i = 0; i<checkouts.size();i++){
             addCheckout(i,(int)size.getHeight());
             for (int j = 0; j<checkouts.get(i);j++){
@@ -111,11 +168,11 @@ public class Canvas extends JPanel
      * Draws the checkout area at the bottom of the shop area.
      * @param X The position of the top of the checkout area.
      */
-    private void addCheckoutArea(Dimension checkoutArea, int Y)
-    {
-        g.setColor(new Color(88,11,0));
-        g.fillRect(0,Y,(int)checkoutArea.getWidth(),(int)checkoutArea.getHeight()+Y);
-    }
+    //private void addCheckoutArea(Dimension checkoutArea, int Y)
+    //{
+    //    g.setColor(new Color(88,11,0));
+    //    g.fillRect(0,Y,(int)checkoutArea.getWidth(),(int)checkoutArea.getHeight()+Y);
+    //}
 
     /**
      * Fills the default image size with black. Will not respond to resizing the window. Will take effect on the next panel repaint to minimize flickering.
