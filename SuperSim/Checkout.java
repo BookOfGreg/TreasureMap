@@ -64,7 +64,7 @@ public class Checkout
             }
             else 
             {
-                itemReceipt.add(Integer.toString(currentCustomer.getID()));
+                itemReceipt.add(currentCustomer.getID());
                 timeTracking += (currentCustomer.getTimeInStore() + currentCustomer.getTimeInQueue());
                 currentCustomer = null;
             }
@@ -187,7 +187,7 @@ public class Checkout
         int items=0;
         for (Customer c:queue)
         {
-            items += c.getTrolleyCount();
+            items += c.getTrolley().size();
         }
         return items;
     }

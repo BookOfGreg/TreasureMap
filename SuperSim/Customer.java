@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * A class to model various types of Customer. All customers have an ID (sequentially increased static variable) as well as a type and assosciated properties.
  * The items a particular customer picks is normally distributed according to the type of customer.
- * The probability that a customer is of certain type is biased according to the hour of the day. At the moment, these values are completely arbitrary and are merely
+ * The probability that a customer is of certain type is biased according to the hour of the day. These values are completely arbitrary and are merely
  * a projection.
  * 
  * 
@@ -22,7 +22,7 @@ public class Customer
 
     // Instance specific variables
     private final String CUSTOMER_TYPE; 
-    private final int ID;
+    private final String ID;
     private final int MEAN_ITEMS;
     private final int STD_DEV; // Standard deviation.
     private final long ITEMS_TO_PICK; // The total items this instance of customer has to pick up.
@@ -40,9 +40,9 @@ public class Customer
 
     // Graphics
     private Point coordinates = new Point(0,0);
-    int newX, newY; // Position to move to.
-    int currentX, currentY;
-    int aisles = 450/40; // Number of aisles to ensure the customer doesn't end up in the middle of the shelves.
+    private int newX, newY; // Position to move to.
+    private int currentX, currentY;
+    private int aisles = 450/40; // Number of aisles to ensure the customer doesn't end up in the middle of the shelves.
 
     /**
      * Constructor for objects of class Customer.
@@ -55,15 +55,21 @@ public class Customer
      */
     public Customer(ArrayList<Item> productList, int hour)
     {
+        // Instantiate variables needed later on.
         rand = new Random();
         TOTAL_ITEMS_AVAIL = productList.size();
 
-        ID = nextID;
+        ID = "#" + nextID;
         nextID++;
         this.productList = productList;
         timeInStore = 0;
         trolley = new ArrayList<Item>();
-        // The probabilities of a customer being of certain type are cumulative otherwise, they'd be useless.
+
+        /*
+         * The following block of code sets the probability of a customer being a certain type based on the hour of the day.
+         * The probabilities are cumulative so as to be of more use later on. These would be in a seperate method, but they must be initialized within the
+         * constructor, since they are of type final.
+         */
         if(hour >= 0 && hour < 8) //Midnight to 8am i.e. slow time
         {
             BUSINESS_PROB = 0.2;
@@ -148,8 +154,8 @@ public class Customer
             CUSTOMER_TYPE = "Generic";
         }
 
+        //Make sure the Customer can't choose more items than exist.
         long itemPickLimit;
-        //Makes sure the Customer can't choose more items than exist.
         do {
             /*
              * As nextGaussian() returns the 'Z number', we can rearrange the formula for finding the number of required standard deviations for a given value
@@ -159,26 +165,94 @@ public class Customer
              * All the multiplication and addition is done before the result is rounded and made positive regardless of original sign.
              */
             itemPickLimit = math.abs(math.round((rand.nextGaussian()*STD_DEV)+MEAN_ITEMS));
-        }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0); // Ensures the number of items to choose is less than or equal to the total available.
-        // ITEMS_TO_PICK is final so a local variable must be used.
-        ITEMS_TO_PICK = itemPickLimit;
-        setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
-    }    
-
-    public Point getLocation()
-    {
-        if(shoppingTime == 0)
-        {
-            walkToCheckout();
         }
-        return coordinates;
+        // Ensures the number of items to choose is less than or equal to the total available.
+        while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0); 
+
+        ITEMS_TO_PICK = itemPickLimit;// ITEMS_TO_PICK is final so a local variable must be used.
+        setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM); // Calculate the time the customer spends picking items.
+    } 
+
+    /**
+     * An accessor method for use in the Store class to tell when a customer has finished shopping.
+     * @return The amount of time the customer should spend picking items.
+     */
+    public long getShoppingTime()
+    {
+        return shoppingTime;
     }
 
-    public int getID()
+    /**
+     * Again, for statistical collection, this method will return the total time spent in the store from arrival to leaving the checkout.
+     * @return The time spent in the store.
+     */
+    public int getTimeInStore()
+    {
+        return timeInStore;
+    }
+
+    /**
+     * A method very similar to getTimeInStore(), in that it returns the timeInQueue for statistical processing.
+     * @return The time the customer has spent in the queue.
+     */
+    public int getTimeInQueue()
+    {
+        return timeInQueue;
+    }
+
+    /**
+     * An accessor method, used as part of Checkout, when a customer's trolley has been scanned, the ID is written out to a file.
+     * @return A string of the customer's ID.
+     */
+    public String getID()
     {
         return ID;
     }
 
+    /**
+     * An accessor method to make use of the 'trolley' in the Checkout and Store classes for statistic collection.
+     * @return trolley An ArrayList of Item containing what the customer has 'chosen'.
+     */
+    public ArrayList<Item> getTrolley()
+    {
+        return trolley;
+    }
+
+    /**
+     * A method called from Checkout when scanning items in a customer's trolley.
+     * @return The item object that was removed from the trolley.
+     */
+    public Item removeTrolleyItem()
+    {
+        return trolley.remove(0);
+    }
+
+    /**
+     * A method to change the shoppingTime used only within this class.
+     * @param newTime The new shoppingTime
+     */
+    private void setShoppingTime(long newTime)
+    {
+        shoppingTime = newTime;
+    }
+
+    /**
+     * A method to increment the time the customer has spent in the queue. Since all queue processing is handled as part of Checkout, this is called for every tick that
+     * the customer is in the queue, for more details, see the Checkout class.
+     */
+    public void incWait()
+    {
+        timeInQueue++;
+    }
+
+    /**
+     * This method is called every tick in the Controlling classes.
+     * To start with, and to prevent 'synchronised shopping', a randomly generated number is used to determine if a customer should pick up an item and walk on this tick.
+     * The amount of time they have left in the store is then decreased by the time per item, or per tick. Not a huge amount of difference occurs in the simulation
+     * results for either.
+     * Once the customer has all their items, the shoppingTime is set to 0, which the Store class picks up on and further customer processing is done.k
+     * @return The price of the item for statistic collection.
+     */
     public double addItem()
     {
         double itemPrice = 0.0;
@@ -188,10 +262,8 @@ public class Customer
                 Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
                 trolley.add(itemSelect);
                 shoppingTime = shoppingTime - TIME_PER_ITEM;
+
                 itemPrice += itemSelect.getPrice();
-                /*
-                 * Walk random number of paces.
-                 */
             }
             else{
                 //Customer has all required items
@@ -199,94 +271,44 @@ public class Customer
                 walkToCheckout();
             }
         }
+        //shoppingTime--;
         return itemPrice;
     }
 
     /**
-     * An accessor method for use in the Store class
-     * @return trolley.size() The number of items in the Customer's 'trolley'
+     * An accessor method for use by Store and other control classes.
+     * @return A Point object.
      */
-    public int getTrolleyCount()
+    public Point getLocation()
     {
-        return trolley.size();   
-    }
-
-    /**
-     * An accessor method for use in the Store class
-     * @return SHOPPING_TIME
-     */
-    public long getShoppingTime()
-    {
-        return shoppingTime;
-    }
-
-    /**
-     * A mutator method to decrement the time remaining to pick items based on the global time from the Store class
-     * @param newTime the new global time
-     */
-    public void setShoppingTime(long newTime)
-    {
-        shoppingTime = newTime;
-    }
-
-    /**
-     * An accessor method to make use of the 'trolley' in the Checkout and Store classes
-     * @return trolley An ArrayList of Item containing what the customer has 'chosen'
-     */
-    public ArrayList<Item> getTrolley()
-    {
-        return trolley;
-    }
-
-    public Item removeTrolleyItem()
-    {
-        return trolley.remove(0);
-    }
-
-    public int getTimeInStore()
-    {
-        return timeInStore;
-    }
-
-    /**/
-
-    public void incWait()
-    {
-        timeInQueue++;
-    }
-
-    public int getTimeInQueue()
-    {
-        return timeInQueue;
-    }
-
-    private void walk()
-    {
-        if(currentY != newY)
+        if(shoppingTime == 0)
         {
-            moveY();
+            walkToCheckout();
         }
-        else if(currentY == newY)
-        {
-            moveX();
-            if(currentX == newX)
-            {
-                pickNewPosition();
-            }
-        }
-        coordinates.move(currentX,currentY);
+        return coordinates;
     }
 
-    private void moveY()
+    /**
+     * A method to update the current position of the customer to ensure accurate positioning.
+     */
+    private void getPosition()
     {
-        if(currentY > newY){
-            currentY -= 20;
-        }
-        else if(currentY < newY){
-            currentY += 20;
-        }
+        currentX = (int) math.round(coordinates.getX());
+        currentY = (int) math.round(coordinates.getY());
     }
 
+    /**
+     * A method to test whether the customer is in an aisle.
+     * @return A boolean which is true if the customer is in an aisle.
+     */
+    private Boolean inAisle()
+    {
+        return(currentX <= 20 || currentX >= 580);
+    }
+
+    /**
+     * Adjusts the X co-ordinate in the same way as moveY().
+     */
     private void moveX()
     {
         if(currentX > newX){
@@ -297,44 +319,85 @@ public class Customer
         } 
     }
 
-    private void getPosition()
+    /**
+     * Adjusts the Y co-ordinate according to the new value and the current position. The co-ordinates are updated every time the walk() method is called.
+     */
+    private void moveY()
     {
-        currentX = (int) math.round(coordinates.getX());
-        currentY = (int) math.round(coordinates.getY());
-    }
-
-    public void walkToCheckout()
-    {
-        if(currentX <= 300)
-        {
-            newX = 8;
+        if(currentY > newY){
+            currentY -= 20;
         }
-        else
-        {
-            newX = 592;
-        }
-        newY = 440;
-        if(currentX <= 20 || currentX >= 584)
-        {
-            moveY();
-        }
-        else
-        {
-            moveX();
+        else if(currentY < newY){
+            currentY += 20;
         }
     }
 
+    /**
+     * A method to pick a random new position in an aisle in the store.
+     */
     private void pickNewPosition()
     {
         newX = rand.nextInt(600-16);
+        // Make sure that we only choose a new position within the number of aisles we have.
         newY = (rand.nextInt(aisles*40));
-        if(currentX <= 20 || currentX >= 580)// If customer is at the end of an aisle.
+        if(inAisle())// If customer is at the end of an aisle.
         {
             do
             {
                 newY = (rand.nextInt(aisles)*40);// Pick a new Y co-ordinate, i.e. change aisles
             }
-            while(newY % 20 != 0);// Make sure we don't end up in the shelves.
+            while(newY % 20 != 0);
+            // Make sure we don't end up in the shelves.
+        }
+    }
+
+    /**
+     * A method to move the customer around the canvas. This method is called every time an item is added. The Controller class calls getLocation() every tick to reposition
+     * the customer on the canvas. Based on the nature of the graphics, the orientation of the aisles should not be changed. The graphics are based purely on co-ordinates.
+     * More detail can be found in the pickNewPosition() method.
+     */
+    private void walk()
+    {
+        getPosition(); // Make sure we're working from a correct current position.
+        if(currentY != newY)
+        {
+            moveY();
+        }
+        else if(currentY == newY)
+        {
+            moveX();
+            if(currentX == newX) // We're at the new position.
+            {
+                pickNewPosition();
+            }
+        }
+        coordinates.move(currentX,currentY);
+    }
+
+    /**
+     * A method to avoid the customer teleporting straight from the aisles to the checkouts.
+     */
+    public void walkToCheckout()
+    {
+        if(currentX <= 300)
+        {
+            newX = 8;
+            // The customer is on the left hand-side of the aisle and will walk to the left.
+        }
+        else
+        {
+            newX = 592;
+            // The customer is on the right.
+        }
+        newY = 440;
+        if(currentX <= 20 || currentX >= 580)
+        {
+            // We are in an aisle, so we can move Y.
+            moveY();
+        }
+        else
+        {
+            moveX();
         }
     }
 }
