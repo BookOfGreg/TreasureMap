@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=itemName\ itemPrice\ itemId
+comment0.target=Item(java.lang.String,\ java.lang.String,\ java.lang.String)
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Item\r\n
+comment1.params=
+comment1.target=java.lang.String\ getID()
+comment2.params=
+comment2.target=java.lang.String\ toString()
+comment2.text=\r\n\ \ Generic\ method\ to\ display\ name\ and\ price\ of\ an\ item.\r\n\ @return\ String\ value\ of\ name\ and\ price.\r\n
+numComments=3
