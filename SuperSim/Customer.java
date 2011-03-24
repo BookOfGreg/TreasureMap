@@ -43,7 +43,6 @@ public class Customer
     int newX, newY; // Position to move to.
     int currentX, currentY;
     int aisles = 450/40; // Number of aisles to ensure the customer doesn't end up in the middle of the shelves.
-    private boolean inAisle;
 
     /**
      * Constructor for objects of class Customer.
@@ -160,11 +159,11 @@ public class Customer
              * All the multiplication and addition is done before the result is rounded and made positive regardless of original sign.
              */
             itemPickLimit = math.abs(math.round((rand.nextGaussian()*STD_DEV)+MEAN_ITEMS));
-        }while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0); // Ensures the number of items to choose is less than or equal to the total available.
+        }
+        while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0); // Ensures the number of items to choose is less than or equal to the total available.
         // ITEMS_TO_PICK is final so a local variable must be used.
         ITEMS_TO_PICK = itemPickLimit;
         setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM);
-        inAisle = false;
     }    
 
     /**
