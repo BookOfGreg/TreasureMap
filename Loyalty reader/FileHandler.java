@@ -16,6 +16,7 @@ public class FileHandler
     private BufferedReader reader;
     private String currentLine;
     private File file;
+    private final int JUMP_VALUE = 200;
 
     public static void main(String [ ] args)
     {
@@ -46,13 +47,13 @@ public class FileHandler
         for (int x = 0; x < i; x++){
             currentLine = readLine(open,reader);
         }
-        currentLine = null;
-        for (int x = 0; x < 50; x++){
+        currentLine = "";
+        for (int x = 0; x < JUMP_VALUE; x++){
             String line = readLine(open,reader);
             System.out.println(line);
             if (line!=null){
                 if (!line.equals("Start Store")){
-                    currentLine += matchedId(line);
+                    currentLine += matchedId(line) + "\n";
                 }
             }
         }
@@ -63,21 +64,33 @@ public class FileHandler
     {
         for (Item i: items)
         {
-            if (i.getID().equals(s)){
+            if (s.charAt(0) == "#".charAt(0))
+            {
+                return "customer " + s;
+            }
+            else if (i.getID().equals(s)){
                 return i.toString();
             }
         }
-        return null;
+        return "Unmatched Item" + s;
     }
 
     private boolean next(int i)
     {
         try{
+            //skip over these lines
             for (int x = 0; x < i; x++){
                 currentLine = readLine(open,reader);
             }
-            for (int x = 0; x < 50; x++){
+            //use these lines.
+            for (int x = 0; x < JUMP_VALUE; x++){
                 currentLine += readLine(open,reader);
+            }
+            try{
+                reader = new BufferedReader(new FileReader(file));
+            }
+            catch(Exception e){
+                //
             }
             return true;
         }
@@ -99,34 +112,34 @@ public class FileHandler
     {
         UserDialog ud = new UserDialog();
         current = 0;
-        getCurrent(current);
+        //getCurrent(current);
         String strings = null;
 
-        String choice = ud.getStringText("Options","What do you want to do? Show current 50 ('current'), Show next 50 ('next') or show previous 50 ('prev')");
+        String choice = ud.getStringText("Options","What do you want to do? Show current "+Integer.toString(JUMP_VALUE)+" ('current'), Show next "+Integer.toString(JUMP_VALUE)+" ('next') or show previous "+Integer.toString(JUMP_VALUE)+" ('prev')");
         while (!choice.equals("quit")){
             if ((choice.equals("next")) && (next(current))){
-                current += 50;
+                current += JUMP_VALUE;
                 strings = getCurrent(current);
                 ud.showTextMessage(strings);
             }
             else if (choice.equals("next")){
                 ud.showMessage("End of file");
-                current += 50;
+                current += JUMP_VALUE;
                 strings = getCurrent(current);
                 if (strings != null){
                     ud.showTextMessage(strings);
                 }
             }
             else if ((choice.equals("prev")) && (prev(current))){
-                current -= 50;
-                getCurrent(current);
+                current -= JUMP_VALUE;
+                strings = getCurrent(current);
                 ud.showTextMessage(strings);
             }
             else if (choice == "prev"){
                 ud.showMessage("Already at beginning of file");
             }
             else if (choice.equals("current")) {
-                getCurrent(current);
+                strings = getCurrent(current);
                 ud.showTextMessage(strings);
             }
             else{
@@ -138,7 +151,7 @@ public class FileHandler
             catch(Exception e){
                 //
             }
-            choice = ud.getStringText("Options","What do you want to do? Show current 50 ('current'), Show next 50 ('next') or show previous 50 ('prev')");
+            choice = ud.getStringText("Options","What do you want to do? Show current "+Integer.toString(JUMP_VALUE)+" ('current'), Show next "+Integer.toString(JUMP_VALUE)+" ('next') or show previous "+Integer.toString(JUMP_VALUE)+" ('prev')");
         }
     }
 
