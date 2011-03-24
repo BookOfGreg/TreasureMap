@@ -1,4 +1,3 @@
-
 /**
  *Creates an Item from Items.txt and assigns a name and price.
  * 
@@ -46,11 +45,11 @@ public class Item
 
     /**
      *  Generic method to display name and price of an item.
-     * @return String value of name and price.
+     * @return String value ID.
      */
     public String toString() 
     {
-        return NAME + " - " + PRICE; 
+        return Integer.toString(ID); 
     }
 
 }
