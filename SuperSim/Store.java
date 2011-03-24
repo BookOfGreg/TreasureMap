@@ -53,6 +53,14 @@ public class Store
         checkoutList.add(newCheckout);
     }
     
+    public void dumpCheckoutItems()
+    {
+        for (Checkout c:checkoutList)
+        {
+            c.dumpItems();
+        }
+    }
+    
     /**
      * Loops through the queue's and returns the number of customers in each as an array.
      * @return Customers in queue as array of ints.

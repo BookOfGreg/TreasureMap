@@ -33,6 +33,12 @@ public class Checkout
         scanInterval = 3;
         customerCounter = 0;
     }
+    
+    public void dumpItems()
+    {
+        FileHandler.batchAdd(itemReceipt);
+        itemReceipt.clear();
+    }
 
     /**
      * Runs once per tick, controls one customer at the till and all customers in the queue.
@@ -93,11 +99,6 @@ public class Checkout
     {
         double average = totalQueue/customerCounter;
         return average;
-    }
-
-    private void makeReceipt()
-    {
-        //what does this entail?
     }
 
     /**
@@ -173,8 +174,7 @@ public class Checkout
         Item thisItem = currentCustomer.removeTrolleyItem();
         itemReceipt.add(thisItem.toString()); //Seems to throw a NPE occassionally, no defined cause //Fixed ~Alex
         if (itemReceipt.size() > 10000){
-            FileHandler.batchAdd(itemReceipt);
-            itemReceipt.clear();
+            dumpItems();
         }
     }
 

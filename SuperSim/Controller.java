@@ -89,6 +89,7 @@ public class Controller
                 Thread.currentThread().sleep(sleepTime);
             }
         }
+        myStore.dumpCheckoutItems();
 
         //Gets the time from the end of the simulation as a number of seconds
 
@@ -161,8 +162,8 @@ public class Controller
         statsOutput += avgOutput.format(myStore.getAverageExpressQueue(totalTicks)) + " Average Customers in Express Queue \n";        
         statsOutput += " \n";
 
-        statsOutput += "ï¿½" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit \n";
-        statsOutput += "ï¿½" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer \n";
+        statsOutput += "£" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit \n";
+        statsOutput += "£" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer \n";
         myUD.showTextMessage(statsOutput, 20, 40);
 
         //For BlueJ, terminal output
