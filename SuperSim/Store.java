@@ -93,7 +93,7 @@ public class Store
             }
             else
             {
-                if (currentCustomer.getTrolleyCount() <= 10)
+                if (currentCustomer.getTrolley().size() <= 10)
                 {
                     addToSmallestQueue(customerBrowsing.remove(i),true);//join queue with least items
                 }
