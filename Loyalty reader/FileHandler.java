@@ -17,6 +17,7 @@ public class FileHandler
     private String currentLine;
     private File file;
     private final int JUMP_VALUE = 200;
+    private UserDialog ud = new UserDialog();
 
     public static void main(String [ ] args)
     {
@@ -32,14 +33,20 @@ public class FileHandler
 
     private void accessLoyaltyFile()
     {
-        file = getFile();
+        ud.showMessage("Select Loyalty File.");
         try{
-            reader = new BufferedReader(new FileReader(file));
+            file = getFile();
+            try{
+                reader = new BufferedReader(new FileReader(file));
+            }
+            catch(Exception e){
+                //
+            }
+            open = true;
         }
         catch(Exception e){
             //
         }
-        open = true;
     }
 
     private String getCurrent(int i)
@@ -110,7 +117,6 @@ public class FileHandler
 
     private void showFile()
     {
-        UserDialog ud = new UserDialog();
         current = 0;
         //getCurrent(current);
         String strings = null;
@@ -162,7 +168,7 @@ public class FileHandler
         String currentLine;
         itemList = new ArrayList<Item>();
         BufferedReader reader;
-
+        ud.showMessage("Select Items List.");
         File file = getFile();
         if (file != null){
             try {
