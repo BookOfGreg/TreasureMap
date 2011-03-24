@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.awt.*;
 
 /**
- * Write a description of class Store here.
+ * Store is the representation of the shop floor, container of the item list, 
+ * currently browsing customers and the running checkouts. Controls the decision to toggle checkouts on and off 
+ * as well as the creation of customers and passing them to checkouts when they have completed shopping.
  * 
  * @author AngryPirates, Cabin boy Greg and Seaman Sam
  * @version 2011,03,10
@@ -19,8 +21,8 @@ public class Store
     private int customerCounter;
     private double shopProfit; //BigDecimal
     private double currentProbability;
-    private double cumulativeProbability;
-    private double cumulativeExpressProbability;
+    private double cumulativeQueueTime;
+    private double cumulativeExpressQueueTime;
     private int cumulativeWait;
     private final int DESIRED_AVERAGE_LENGTH = 4;
     private final int CLOSE_THRESHOLD = 1;
@@ -51,6 +53,10 @@ public class Store
         checkoutList.add(newCheckout);
     }
     
+    /**
+     * Loops through the queue's and returns the number of customers in each as an array.
+     * @return Customers in queue as array of ints.
+     */
     public ArrayList<Integer> getQueues()
     {
         ArrayList<Integer> queues = new ArrayList<Integer>();
@@ -62,11 +68,19 @@ public class Store
         return queues;
     }
     
+    /**
+     * Returns the number of checkouts.
+     * @return Returns the number of checkouts as int.
+     */
     public int getCheckoutListSize()
     {
         return checkoutList.size();
     }
     
+    /**
+     * Loops through customers to get all customer locations in the shop floor.
+     * @return returns customer location as array of points.
+     */
     public ArrayList<Point> getCustomerLocations()
     {
         ArrayList<Point> customers = new ArrayList<Point>();
@@ -145,6 +159,9 @@ public class Store
         return sum / checkoutList.size();
     }
     
+    /**
+     * Updates the chance of a customer appearing according to the given hour.
+     */
     public void updateCumulativeAverage() {
         int sum = 0, expressSum = 0, expressCounter = 0;
         for (Checkout c:checkoutList)
@@ -159,8 +176,8 @@ public class Store
         int average = sum / (checkoutList.size() - expressCounter);
         int expressAverage = expressSum / expressCounter;
         
-        cumulativeProbability += average;
-        cumulativeExpressProbability += expressAverage;
+        cumulativeQueueTime += average;
+        cumulativeExpressQueueTime += expressAverage;
     }
     
     /**
@@ -172,20 +189,36 @@ public class Store
         return customerCounter;
     }
     
+    /**
+     * Calculates and returns the average customers in the store.
+     * @return The average number of customers in the store.
+     */
     public double getAverageInStore(int runTime)
     {
         return (double)customerCounter / (runTime / 3600);
     }
     
+    /**
+     * Calculates and returns the average customers in the queue.
+     * @reutrn average queue size not including express.
+     */
     public double getAverageQueue(int runTime)
     {
-        return (double)cumulativeProbability / runTime;
+        return (double)cumulativeQueueTime / runTime;
     }
     
+    /**
+     * Calculates and returns the average customers in the express queue.
+     * @return average express queue size.
+     */
     public double getAverageExpressQueue(int runTime) {
-         return (double) cumulativeExpressProbability / runTime;
+         return (double) cumulativeExpressQueueTime / runTime;
     }
     
+    /**
+     * Returns the shop profit.
+     * @return Shops profit.
+     */
     public double getShopProfit() {
         return shopProfit;
     }
@@ -198,6 +231,11 @@ public class Store
         totalInStore += cust.getTimeInStore();
     }
     
+    /**
+     * Uses the total waiting time of all customers and returns the average waiting time as a double.
+     * @param runTime The number of seconds (ticks) the whole program has been running.
+     * @return the average wait in seconds (ticks) as double.
+     */
     public double getAverageWait(int runTime) {        
         return (double)cumulativeWait / runTime;
     }
@@ -206,7 +244,7 @@ public class Store
      * Method to decide if a customer will arrive on this tick and if so, create one and add to the shop floor.
      * @param hour The global hour the customer is created in.
      */
-    public void createCustomer(int hour)
+    private void createCustomer(int hour)
     {
         if (rand.nextFloat() <= currentProbability) {
             customerBrowsing.add(new Customer(itemList, hour));
@@ -230,7 +268,7 @@ public class Store
      * @param myCustomer The customer to be added to the queue.
      * @param express Toggles if the customer is eligable to join an express queue.
      */
-    public void addToSmallestQueue(Customer myCustomer, boolean express)
+    private void addToSmallestQueue(Customer myCustomer, boolean express)
     {
         //System.out.println("Assigning customer to queue");
         Checkout minCheckout = null;// = new Checkout();

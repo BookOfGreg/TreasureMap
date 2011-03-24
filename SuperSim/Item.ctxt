@@ -1,17 +1,17 @@
 #BlueJ class context
 comment0.params=itemName\ itemPrice\ itemId
 comment0.target=Item(java.lang.String,\ double,\ int)
-comment0.text=\n\ Constructor\ for\ objects\ of\ class\ Item\n
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Item\r\n
 comment1.params=
 comment1.target=java.lang.String\ getName()
-comment1.text=\n\ @return\ The\ name\ of\ the\ item.\n
+comment1.text=\r\n\ @return\ The\ name\ of\ the\ item.\r\n
 comment2.params=
 comment2.target=double\ getPrice()
-comment2.text=\n\ @return\ The\ price\ if\ the\ item.\n
+comment2.text=\r\n\ @return\ The\ price\ if\ the\ item.\r\n
 comment3.params=
 comment3.target=int\ getId()
-comment3.text=\n\ @return\ The\ Id\ of\ the\ item.\n
+comment3.text=\r\n\ @return\ The\ Id\ of\ the\ item.\r\n
 comment4.params=
 comment4.target=java.lang.String\ toString()
-comment4.text=\n\ \ Generic\ method\ to\ display\ name\ and\ price\ of\ an\ item.\n\ @return\ String\ value\ of\ name\ and\ price.\n
+comment4.text=\r\n\ \ Generic\ method\ to\ display\ name\ and\ price\ of\ an\ item.\r\n\ @return\ String\ value\ of\ name\ and\ price.\r\n
 numComments=5

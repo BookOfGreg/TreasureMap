@@ -3,10 +3,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * Write a description of class Controller here.
+ * Controller class holds the menu for intial setting up of a store and also controls the global time that all components 
+ * run on so that no other component ever needs to know what tick it is on. Also gathers all the final statistics from other classes when the simulation has completed.
  * 
  * @author AngryPirates Cabin Boy Greg & Seaman Sam
- * @version 2011,03,14
+ * @version 2011,03,18
  */
 public class Controller
 {
