@@ -135,10 +135,7 @@ public class Controller
     /**
      * Handles the output of statistics at the end of the simulation. Outputs to terminal
      * @param totalTicks The total number of ticks the simulation was run for
-     * @param customerCounter The total number of customers that came through the store
-     * @param averageInStore The average number of customers in the store per hour
-     * @param averageQueue The average queue length in the store
-     * @param shopProfit The total cash earned from selling items
+     * @param myStore passes the store into the statistics to grab stats out of.
      * @param executionTime The time the simulation took to run
      */
     public void reportStatistics(int totalTicks, Store myStore, long executionTime)
@@ -164,8 +161,8 @@ public class Controller
         statsOutput += avgOutput.format(myStore.getAverageExpressQueue(totalTicks)) + " Average Customers in Express Queue \n";        
         statsOutput += " \n";
 
-        statsOutput += "£" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit \n";
-        statsOutput += "£" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer \n";
+        statsOutput += "ï¿½" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit \n";
+        statsOutput += "ï¿½" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer \n";
         myUD.showTextMessage(statsOutput, 20, 40);
 
         //For BlueJ, terminal output
@@ -191,8 +188,8 @@ public class Controller
         System.out.println(avgOutput.format(myStore.getAverageExpressQueue(totalTicks)) + " Average Customers in Express Queue");        
         System.out.println("");
 
-        System.out.println("£" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit"); //Need to let profigt be tracked as BigDecimal, value is being capped (I think) - Sam
-        System.out.println("£" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer");
+        System.out.println("ï¿½" + currencyOutput.format(myStore.getShopProfit()) + " Total Profit"); //Need to let profigt be tracked as BigDecimal, value is being capped (I think) - Sam
+        System.out.println("ï¿½" + currencyOutput.format((myStore.getShopProfit()/myStore.getCustomerCounter())) + " Profit per Customer");
         System.out.println("#################################################################");
         System.out.println("");
          */
