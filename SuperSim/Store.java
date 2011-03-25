@@ -210,7 +210,7 @@ public class Store
      * Calculates and returns the average customers in the queue.
      * @reutrn average queue size not including express.
      */
-    public double getAverageQueue(int runTime)
+public double getAverageQueue(int runTime)
     {
         return (double)cumulativeQueueTime / runTime;
     }
