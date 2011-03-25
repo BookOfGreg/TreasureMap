@@ -71,7 +71,7 @@ public class Checkout
             else 
             {
                 itemReceipt.add(currentCustomer.getID());
-                timeTracking += (currentCustomer.getTimeInStore() + currentCustomer.getTimeInQueue());
+                timeTracking += currentCustomer.getShoppingTime() + currentCustomer.getTimeInQueue();
                 currentCustomer = null;
             }
         }

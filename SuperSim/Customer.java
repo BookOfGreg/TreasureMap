@@ -26,23 +26,22 @@ public class Customer
     private final int MEAN_ITEMS;
     private final int STD_DEV; // Standard deviation.
     private final long ITEMS_TO_PICK; // The total items this instance of customer has to pick up.
-    private final int TIME_PER_ITEM = 5; //This value is assumed.
+    private final int TIME_PER_ITEM = 10; //This value is assumed.
     private ArrayList<Item> trolley;
 
     // Store specific variables
     private final int TOTAL_ITEMS_AVAIL; // The number of different item types.
     private final double BUSINESS_PROB, OLD_PROB, CHILD_PROB, GENERIC_PROB;
     private long shoppingTime; // The time the customer spends picking items, constant x number of items.
+    private int nextItemTime; //time till next item.
 
     //Statistics collection variables.
-    private int timeInStore;
     private int timeInQueue;
 
     // Graphics
     private Point coordinates = new Point(0,0);
-    private int newX, newY; // Position to move to.
-    private int currentX, currentY;
-    private int aisles = 450/40; // Number of aisles to ensure the customer doesn't end up in the middle of the shelves.
+    private Point target = new Point(0,0);
+    private final int WALK_DISTANCE = 5;
 
     /**
      * Constructor for objects of class Customer.
@@ -62,7 +61,6 @@ public class Customer
         ID = "#" + nextID;
         nextID++;
         this.productList = productList;
-        timeInStore = 0;
         trolley = new ArrayList<Item>();
 
         /*
@@ -170,7 +168,7 @@ public class Customer
         while(itemPickLimit >= TOTAL_ITEMS_AVAIL || itemPickLimit <= 0); 
 
         ITEMS_TO_PICK = itemPickLimit;// ITEMS_TO_PICK is final so a local variable must be used.
-        setShoppingTime(ITEMS_TO_PICK * TIME_PER_ITEM); // Calculate the time the customer spends picking items.
+        nextItemTime=TIME_PER_ITEM+rand.nextInt(TIME_PER_ITEM/2); // Calculate the time the customer spends picking items.
     } 
 
     /**
@@ -183,16 +181,7 @@ public class Customer
     }
 
     /**
-     * Again, for statistical collection, this method will return the total time spent in the store from arrival to leaving the checkout.
-     * @return The time spent in the store.
-     */
-    public int getTimeInStore()
-    {
-        return timeInStore;
-    }
-
-    /**
-     * A method very similar to getTimeInStore(), in that it returns the timeInQueue for statistical processing.
+     * A method that returns the timeInQueue for statistical processing.
      * @return The time the customer has spent in the queue.
      */
     public int getTimeInQueue()
@@ -256,148 +245,153 @@ public class Customer
     public double addItem()
     {
         double itemPrice = 0.0;
-        if(shoppingTime % (rand.nextInt(TIME_PER_ITEM)+1) == 0){ //If timeinstore % randomInt(timeperitem) == 0 to prevent synchronised shopping.
-            if(trolley.size() < ITEMS_TO_PICK){
-                walk();
+        //if(shoppingTime /* % (rand.nextInt(TIME_PER_ITEM)+1)*/ == 0){ //If timeinstore % randomInt(timeperitem) == 0 to prevent synchronised shopping.
+        if(trolley.size() < ITEMS_TO_PICK){
+            walk();
+            nextItemTime--;
+            if (nextItemTime == 0)
+            {
                 Item itemSelect = productList.get(rand.nextInt(TOTAL_ITEMS_AVAIL));
                 trolley.add(itemSelect);
-                shoppingTime = shoppingTime - TIME_PER_ITEM;
-
+                nextItemTime=TIME_PER_ITEM+rand.nextInt(TIME_PER_ITEM/2);
                 itemPrice += itemSelect.getPrice();
             }
-            else{
-                //Customer has all required items
-                setShoppingTime(0);
-                walkToCheckout();
-            }
+            //shoppingTime = shoppingTime - //TIME_PER_ITEM;
+            
         }
-        //shoppingTime--;
+        else{
+            //Customer has all required items
+            //setShoppingTime(0);
+            walkToCheckout();
+            walk();
+        }
+        //}
+        shoppingTime++;
         return itemPrice;
     }
 
-    /**
-     * An accessor method for use by Store and other control classes.
-     * @return A Point object.
-     */
+    //coords for graphics
+
     public Point getLocation()
     {
-        if(shoppingTime == 0)
-        {
-            walkToCheckout();
-        }
         return coordinates;
     }
 
-    /**
-     * A method to update the current position of the customer to ensure accurate positioning.
-     */
-    private void getPosition()
-    {
-        currentX = (int) math.round(coordinates.getX());
-        currentY = (int) math.round(coordinates.getY());
-    }
-
-    /**
-     * A method to test whether the customer is in an aisle.
-     * @return A boolean which is true if the customer is in an aisle.
-     */
-    private Boolean inAisle()
-    {
-        return(currentX <= 20 || currentX >= 580);
-    }
-
-    /**
-     * Adjusts the X co-ordinate in the same way as moveY().
-     */
-    private void moveX()
-    {
-        if(currentX > newX){
-            currentX -= 20;
-        }
-        else if(currentX < newX){
-            currentX += 20;
-        } 
-    }
-
-    /**
-     * Adjusts the Y co-ordinate according to the new value and the current position. The co-ordinates are updated every time the walk() method is called.
-     */
-    private void moveY()
-    {
-        if(currentY > newY){
-            currentY -= 20;
-        }
-        else if(currentY < newY){
-            currentY += 20;
-        }
-    }
-
-    /**
-     * A method to pick a random new position in an aisle in the store.
-     */
-    private void pickNewPosition()
-    {
-        newX = rand.nextInt(600-16);
-        // Make sure that we only choose a new position within the number of aisles we have.
-        newY = (rand.nextInt(aisles*40));
-        if(inAisle())// If customer is at the end of an aisle.
-        {
-            do
-            {
-                newY = (rand.nextInt(aisles)*40);// Pick a new Y co-ordinate, i.e. change aisles
-            }
-            while(newY % 20 != 0);
-            // Make sure we don't end up in the shelves.
-        }
-    }
-
-    /**
-     * A method to move the customer around the canvas. This method is called every time an item is added. The Controller class calls getLocation() every tick to reposition
-     * the customer on the canvas. Based on the nature of the graphics, the orientation of the aisles should not be changed. The graphics are based purely on co-ordinates.
-     * More detail can be found in the pickNewPosition() method.
-     */
     private void walk()
     {
-        getPosition(); // Make sure we're working from a correct current position.
-        if(currentY != newY)
+        if ((coordinateDifference() <= WALK_DISTANCE) &&(trolley.size() != ITEMS_TO_PICK))
         {
-            moveY();
+            int i = rand.nextInt(450);
+            target.move(rand.nextInt(620-20),i-i%40);
         }
-        else if(currentY == newY)
+        if (wrongAisle())
         {
-            moveX();
-            if(currentX == newX) // We're at the new position.
+            if (coordinates.getY() < target.getY())
             {
-                pickNewPosition();
+                aboveAisle();
+            }
+            else
+            {
+                belowAisle();
             }
         }
-        coordinates.move(currentX,currentY);
+        else
+        {
+            if (coordinates.getX() < target.getX())
+            {
+                coordinates.move((int)coordinates.getX()+WALK_DISTANCE,(int)coordinates.getY());
+            }
+            else
+            {
+                coordinates.move((int)coordinates.getX()-WALK_DISTANCE,(int)coordinates.getY());
+            }
+        }
     }
 
-    /**
-     * A method to avoid the customer teleporting straight from the aisles to the checkouts.
-     */
-    public void walkToCheckout()
+    private void aboveAisle()
     {
-        if(currentX <= 300)
+        if (inAisleEnd())
         {
-            newX = 8;
-            // The customer is on the left hand-side of the aisle and will walk to the left.
+            coordinates.move((int)coordinates.getX(),(int)coordinates.getY()+WALK_DISTANCE);
         }
         else
         {
-            newX = 592;
-            // The customer is on the right.
+            moveToAisleEnd();
         }
-        newY = 440;
-        if(currentX <= 20 || currentX >= 580)
+    }
+
+    private void belowAisle()
+    {
+        if (inAisleEnd())
         {
-            // We are in an aisle, so we can move Y.
-            moveY();
+            coordinates.move((int)coordinates.getX(), (int)coordinates.getY()-WALK_DISTANCE);
         }
         else
         {
-            moveX();
+            moveToAisleEnd();
         }
+    }
+
+    private void moveToAisleEnd()
+    {
+        if (coordinates.getX() < 600/2)
+        {
+            coordinates.move((int)coordinates.getX()-WALK_DISTANCE,(int)coordinates.getY());
+        }
+        else if (coordinates.getX() >= 600/2)
+        {
+            coordinates.move((int)coordinates.getX()+WALK_DISTANCE,(int)coordinates.getY());
+        }
+    }
+
+    private boolean wrongAisle()
+    {
+        if(coordinates.getY() != target.getY())
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean inAisleEnd()
+    {
+        if((coordinates.getX() == 0 )||(coordinates.getX() == 600))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private int coordinateDifference()
+    {
+        if (coordinates.getY() == target.getY())
+        {
+            if (coordinates.getX() > target.getX())
+            {
+                return (int)coordinates.getX() - (int)target.getX();
+            }
+            else
+            {
+                return (int)target.getX() - (int)coordinates.getX();
+            }
+        }
+        else
+        {
+            return Integer.MAX_VALUE;
+        }
+    }
+
+    private void walkToCheckout()
+    {
+        target.move(600,440);
+    }
+
+    public boolean done()
+    {
+        if ((trolley.size() == ITEMS_TO_PICK)&&(coordinateDifference() <= WALK_DISTANCE))
+        {
+            return true;
+        }
+        return false;
     }
 }

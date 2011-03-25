@@ -24,9 +24,9 @@ public class Store
     private double cumulativeQueueTime;
     private double cumulativeExpressQueueTime;
     private int cumulativeWait;
+    private int cumulativeQueueWait;
     private final int DESIRED_AVERAGE_LENGTH = 4;
     private final int CLOSE_THRESHOLD = 1;
-    private int totalInStore = 0;
     //graphics
     private Dimension shopFloor;
     private ArrayList<Point> aisles;
@@ -52,7 +52,7 @@ public class Store
         Checkout newCheckout = new Checkout(false);
         checkoutList.add(newCheckout);
     }
-    
+
     public void dumpCheckoutItems()
     {
         for (Checkout c:checkoutList)
@@ -60,7 +60,7 @@ public class Store
             c.dumpItems();
         }
     }
-    
+
     /**
      * Loops through the queue's and returns the number of customers in each as an array.
      * @return Customers in queue as array of ints.
@@ -68,14 +68,14 @@ public class Store
     public ArrayList<Integer> getQueues()
     {
         ArrayList<Integer> queues = new ArrayList<Integer>();
-        
+
         for (Checkout check:checkoutList)
         {
             queues.add(new Integer(check.getQueueLength()));
         }
         return queues;
     }
-    
+
     /**
      * Returns the number of checkouts.
      * @return Returns the number of checkouts as int.
@@ -84,7 +84,7 @@ public class Store
     {
         return checkoutList.size();
     }
-    
+
     /**
      * Loops through customers to get all customer locations in the shop floor.
      * @return returns customer location as array of points.
@@ -98,7 +98,7 @@ public class Store
         }
         return customers;
     }
-    
+
     /** 
      * Runs once per tick, controls customers on the shop floor in customerBrowsing and controls passing customers to the queue area.
      * @param hour The current global hour the store is in.
@@ -109,7 +109,7 @@ public class Store
         for(int i = (customerBrowsing.size()-1); i >= 0; i--) //Was error in this loop, but my bad ~Alex
         {
             Customer currentCustomer = customerBrowsing.get(i);
-            if (currentCustomer.getShoppingTime() > 0)
+            if (!currentCustomer.done())
             {
                 shopProfit += currentCustomer.addItem();
             }
@@ -152,7 +152,7 @@ public class Store
             }
         }
     }
-    
+
     /**
      * Gets the current Average Queue length.
      * @return average The average number of people in the queues as a double.
@@ -162,11 +162,11 @@ public class Store
         int sum = 0;
         for (Checkout c:checkoutList)
         {
-                sum += c.getQueueLength();
+            sum += c.getQueueLength();
         }
         return sum / checkoutList.size();
     }
-    
+
     /**
      * Updates the chance of a customer appearing according to the given hour.
      */
@@ -183,11 +183,11 @@ public class Store
         }
         int average = sum / (checkoutList.size() - expressCounter);
         int expressAverage = expressSum / expressCounter;
-        
+
         cumulativeQueueTime += average;
         cumulativeExpressQueueTime += expressAverage;
     }
-    
+
     /**
      * Passes statistic of the total number of customers to the controller.
      * @return customerCounter The sum of customers.
@@ -196,7 +196,7 @@ public class Store
     {
         return customerCounter;
     }
-    
+
     /**
      * Calculates and returns the average customers in the store.
      * @return The average number of customers in the store.
@@ -205,7 +205,7 @@ public class Store
     {
         return (double)customerCounter / (runTime / 3600);
     }
-    
+
     /**
      * Calculates and returns the average customers in the queue.
      * @reutrn average queue size not including express.
@@ -214,15 +214,15 @@ public class Store
     {
         return (double)cumulativeQueueTime / runTime;
     }
-    
+
     /**
      * Calculates and returns the average customers in the express queue.
      * @return average express queue size.
      */
     public double getAverageExpressQueue(int runTime) {
-         return (double) cumulativeExpressQueueTime / runTime;
+        return (double) cumulativeExpressQueueTime / runTime;
     }
-    
+
     /**
      * Returns the shop profit.
      * @return Shops profit.
@@ -230,15 +230,7 @@ public class Store
     public double getShopProfit() {
         return shopProfit;
     }
-    
-    /**
-     * Totals up the time spent by all customers in store.
-     */
-    private void calcAverageInStore(Customer cust)
-    {
-        totalInStore += cust.getTimeInStore();
-    }
-    
+
     /**
      * Uses the total waiting time of all customers and returns the average waiting time as a double.
      * @param runTime The number of seconds (ticks) the whole program has been running.
@@ -247,7 +239,11 @@ public class Store
     public double getAverageWait(int runTime) {        
         return (double)cumulativeWait / runTime;
     }
-    
+
+    public double getAverageQueueWait(int runTime) {
+        return (double)cumulativeQueueWait / runTime;
+    }
+
     /**
      * Method to decide if a customer will arrive on this tick and if so, create one and add to the shop floor.
      * @param hour The global hour the customer is created in.
@@ -259,7 +255,7 @@ public class Store
             customerCounter++;
         }
     }
-    
+
     /**
      * Calculates the probability that a customer will enter the store at the current hour.
      * @param currentHour The current global hour.

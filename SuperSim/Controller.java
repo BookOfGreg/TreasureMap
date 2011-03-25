@@ -155,7 +155,7 @@ public class Controller
 
         statsOutput += statOutput.format(myStore.getCustomerCounter())+ " Customers in the Store \n";
         statsOutput += avgOutput.format(myStore.getAverageInStore(totalTicks)) + " Average Customers per Hour \n"; //If run for under an hour, displays infinity
-        statsOutput += avgOutput.format(myStore.getAverageWait(totalTicks)) + " Seconds - Average Waiting Time per Customer \n";
+        statsOutput += avgOutput.format(myStore.getAverageWait(totalTicks)) + " Seconds - Average Total Time in Store per Customer \n";
         statsOutput += " \n";
 
         statsOutput += avgOutput.format(myStore.getAverageQueue(totalTicks)) + " Average Customers in a Queue \n";
